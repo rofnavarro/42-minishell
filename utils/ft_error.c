@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check.c                                         :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 16:22:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/18 17:11:54 by rferrero         ###   ########.fr       */
+/*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
+/*   Updated: 2023/02/18 19:36:38 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h" 
+#include "../minishell.h"
 
-void	ft_arg_check(int argc, char **argv)
+void	ft_error(char *msg)
 {
-	if (argc != 1)
-		return(1);
+	perror(msg);
+	exit(EXIT_FAILURE);
 }

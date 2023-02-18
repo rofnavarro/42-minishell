@@ -6,14 +6,30 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/18 17:12:37 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:57:31 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "./minishell.h"
 
-int	main (int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	ft_arg_check(argc, argv);
-	return (0);
+	t_program data;
+
+	if (argc != 1)
+		ft_error("Error. You don't need any arguments to start minishell.");
+	while (1)
+	{
+		printf("rshell> ");
+		fflush(stdout);
+
+		fgets(data.cmd, 100, stdin);
+		data.cmd[ft_strlen(data.cmd) - 1] = '\0';
+
+		if(ft_strncmp(data.cmd, "exit", ft_strlen(data.cmd) - 1) == 0)
+			break;
+	}
+
+	printf("SUCESSO!\n");
+	return (EXIT_SUCCESS);
 }

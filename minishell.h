@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/18 17:37:17 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:56:01 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,18 @@
 // tgetent()  tgetflag()  tgetnum()  tgetstr()  tgoto()  tputs()
 # include <curses.h>
 # include <term.h>
+
+//  libft.a
+# include "./libft/libft.h"
+
+typedef struct s_program
+{
+	char	cmd[100];
+	char	*args[50 + 1];
+	int		status;
+} t_program;
+
+// utils/
+void	ft_error(char *msg);
 
 #endif
