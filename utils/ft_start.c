@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/22 16:06:59 by rferrero         ###   ########.fr       */
+/*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
+/*   Updated: 2023/02/22 17:30:21 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_error(char *msg, int arg)
+char	**ft_start(char **envp)
 {
-	printf("%s\n", msg);
-	strerror(arg);
-	exit(EXIT_FAILURE);
+	int		i;
+	int		size;
+	char	**ret;
+
+	i = 0;
+	size = 0;
+	while (envp[i])
+	{
+		if (envp[i][ft_strlen(envp[i])] == '\0')
+			size++;
+		i++;
+	}
+	ret = (char **)malloc(sizeof(size));
+	i = 0;
+	while (envp[i])
+	{
+		ret[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	return (ret);
 }

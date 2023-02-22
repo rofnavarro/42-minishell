@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/18 22:51:42 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:22:45 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,23 @@
 //  libft.a
 # include "./libft/libft.h"
 
+typedef struct s_tokens
+{
+	int		num_of_tokens;
+	char	**tokens;
+}	t_tokens;
+
 typedef struct s_program
 {
 	char	cmd[100];
 	char	*args[50 + 1];
+	char	**env;
 	int		status;
 	int		stop;
-} t_program;
+}	t_program;
 
 // utils/
-void	ft_error(char *msg);
+void	ft_error(char *msg, int arg);
+char	**ft_start(char **env);
 
 #endif

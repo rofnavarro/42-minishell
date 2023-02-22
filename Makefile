@@ -6,7 +6,7 @@
 #    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/02/18 19:32:19 by rferrero         ###   ########.fr        #
+#    Updated: 2023/02/22 16:45:36 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ LIBFT						=			$(LIBFT_PATH)/libft.a
 
 SRC							=			minishell.c \
 										$(addprefix utils/, ft_error.c \
+															ft_start.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)
