@@ -6,13 +6,11 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/22 17:25:05 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:10:19 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
-
-t_program	g_data;
 
 int	main(int argc, char **argv, char **envp)
 {
