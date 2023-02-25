@@ -6,18 +6,20 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/22 18:10:19 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:43:00 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_program g_data;
+	
 	g_data.stop = 0;
 	if (argc != 1)
 		ft_error("Error. Don't need arguments to start minishell.", EINVAL);
-	g_data.env = ft_start(envp);
+	ft_start(envp, &g_data);
 	while (g_data.stop == 0)
 	{
 		printf("hell:$ ");

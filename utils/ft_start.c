@@ -6,13 +6,13 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/22 17:30:21 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:43:05 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**ft_start(char **envp)
+char	**get_envp(char **envp)
 {
 	int		i;
 	int		size;
@@ -34,4 +34,9 @@ char	**ft_start(char **envp)
 		i++;
 	}
 	return (ret);
+}
+
+void	ft_start(char **envp, t_program *g_data)
+{
+	g_data->env = get_envp(envp);
 }
