@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/25 15:43:00 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:25:16 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_program g_data;
-	
+	t_program	g_data;
+
 	g_data.stop = 0;
 	if (argc != 1)
 		ft_error("Error. Don't need arguments to start minishell.", EINVAL);

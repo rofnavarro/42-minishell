@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/25 15:46:07 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:53:56 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,8 @@
 //  libft.a
 # include "./libft/libft.h"
 
-//  structs
-typedef struct s_tokens
-{
-	int		num_of_tokens;
-	char	**tokens;
-}	t_tokens;
+//  token
+# include "./token.h"
 
 typedef struct s_program
 {
