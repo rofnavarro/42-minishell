@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/27 21:08:32 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:55:32 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@
 
 typedef struct s_program
 {
-	char	cmd[100];
-	char	*args[50 + 1];
-
+	char	*cmd;
 	char	**env;
 	char	**path;
 	int		status;
@@ -77,8 +75,9 @@ typedef struct s_program
 
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
+void		ft_exit(t_program *g_data);
+
 //  utils/ft_start.c
 void		ft_start(char **env, t_program *g_data);
-static char	**get_envp(char **envp);
 
 #endif

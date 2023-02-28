@@ -6,7 +6,7 @@
 #    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/02/22 16:45:36 by rferrero         ###   ########.fr        #
+#    Updated: 2023/02/28 17:04:03 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ all:						$(NAME)
 
 $(NAME):					$(OBJ)
 							$(MAKE) -C $(LIBFT_PATH)
-							$(CC) $(CCFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+							$(CC) $(CCFLAGS) $(OBJ) -lreadline $(LIBFT) -o $(NAME)
 
 clean:
 							$(MAKE) -C $(LIBFT_PATH) clean
