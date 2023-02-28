@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/28 15:56:44 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:35:47 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 static char	**get_path(char **envp)
 {
-	char	**ret;
-	char	*tmp;
-	int		i;
+	int	i;
 
-	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
+	i = 0;
+	while (ft_strnstr(envp[i], "PATH=", 5) == 0)
 		i++;
-	tmp = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
-	printf("%s\n", tmp);
+	return (ft_split(envp[i] + 5, ':'));
 }
 
 static char	**get_envp(char **envp)
