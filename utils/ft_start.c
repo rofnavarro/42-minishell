@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/02/28 20:35:47 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:12:52 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	**get_envp(char **envp)
 			size++;
 		i++;
 	}
-	ret = (char **)malloc(sizeof(size));
+	ret = (char **)malloc(sizeof(char *) * size + 1);
 	i = 0;
 	while (envp[i])
 	{

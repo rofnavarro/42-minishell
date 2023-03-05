@@ -6,7 +6,7 @@
 #    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/02/28 20:45:53 by rferrero         ###   ########.fr        #
+#    Updated: 2023/03/05 01:52:01 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC							=			minishell.c \
 										$(addprefix utils/, ft_error.c \
 															ft_loop.c \
 															ft_start.c \
+															ft_strtok.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)
