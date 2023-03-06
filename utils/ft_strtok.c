@@ -6,13 +6,14 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/05 20:00:29 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/06 12:31:47 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 char	*ft_strtok(char *str, const char *delim)
+
 {
 	static char	*last_str = 0;
 	int			index = 0;
@@ -38,11 +39,11 @@ char	*ft_strtok(char *str, const char *delim)
 		last_str = 0;
 		return (str);
 	}
-	// if (str[0] == delim[0])
-	// {
-	// 	last_str = (str + 1);
-	// 	return ((char *)delim);
-	// }
+	if (str[0] == delim[0])
+	{
+		last_str = (str + 1);
+		return ((char *)delim);
+	}
 	str[index] = '\0';
 	if ((str + index + 1) != 0)
 		last_str = (str + index + 1);
