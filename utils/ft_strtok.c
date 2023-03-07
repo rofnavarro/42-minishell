@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/07 15:58:04 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:11:10 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ char	*ft_strtok(char *str, const char *delim)
 	while (TRUE)
 	{
 		if (is_delim(*str, delim))
-		{
 			str++;
-			continue ;
-		}
 		if (*str == '\0')
 			return (NULL);
 		break ;
