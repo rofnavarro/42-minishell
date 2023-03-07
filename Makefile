@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/03/05 01:52:01 by rferrero         ###   ########.fr        #
+#    Updated: 2023/03/07 14:24:36 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME						=			minishell
 CC							=			cc
 CCFLAGS						=			-Wall -Wextra -Werror
 
-RL							=			-l readline
+RL							=			-lreadline
 
 RM							=			rm -rf
 
@@ -24,6 +24,7 @@ LIBFT						=			$(LIBFT_PATH)/libft.a
 
 SRC							=			minishell.c \
 										$(addprefix utils/, ft_error.c \
+															ft_init.c \
 															ft_loop.c \
 															ft_start.c \
 															ft_strtok.c \

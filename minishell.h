@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/06 16:31:30 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:10:38 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ typedef struct s_program
 void		ft_error(char *msg, int arg);
 void		ft_free_matrix(char **matrix);
 void		ft_exit(t_program *g_data);
+
+//  utils/ft_init.c
+void		ft_init(t_program *g_data);
 
 //  utils/ft_loop.c
 void		ft_loop(t_program *g_data);
