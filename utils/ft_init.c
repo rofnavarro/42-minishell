@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:07:07 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/07 14:28:12 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:38:38 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void    ft_init(t_program *g_data)
 {
     g_data->cmd = ft_strdup("");
     g_data->cmd_token =  ft_strdup("");
-    g_data->env =  NULL;
-    g_data->path =  NULL;
+    // g_data->env =  NULL;
+    // g_data->path =  NULL;
     g_data->status = 0;
     g_data->stop = 0;
 }
