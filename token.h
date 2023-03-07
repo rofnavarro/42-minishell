@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 22:22:22 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/07 16:08:54 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:35:27 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,16 @@ typedef enum e_type
 	LESS_LESS,
 	GREATER,
 	GREATER_GREATER,
+	EOC,
 }	t_type;
 
-// //  structs
-// typedef struct s_token
-// {
-// 	char			*cmd;
-// 	int				index;
-// 	struct s_token	*next;
-// 	struct s_token	*prev;
-// }	t_token;
-
-// typedef struct s_lexer
-// {
-// 	char		*str;
-// 	t_token		type;
-// 	size_t		line_number;
-// }	t_lexer;
-
+//  structs
+typedef struct s_token
+{
+	char			*cmd;
+	t_type			type;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
 
 #endif
