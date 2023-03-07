@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/07 15:28:34 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:45:05 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_program
 {
 	char	*cmd;
 	char	*cmd_token;
-	char	**env;
+	t_env	env;
 	char	**path;
 	int		status;
 	int		stop;

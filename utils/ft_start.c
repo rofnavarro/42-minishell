@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/07 14:06:40 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:45:07 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ static char	**get_envp(char **envp)
 
 void	ft_start(char **envp, t_program *g_data)
 {
-	g_data->env = get_envp(envp);
 	g_data->path = get_path(envp);
 }
