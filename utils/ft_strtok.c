@@ -6,20 +6,21 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/06 12:31:47 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:31:26 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 char	*ft_strtok(char *str, const char *delim)
-
 {
-	static char	*last_str = 0;
-	int			index = 0;
+	static char	*last_str = NULL;
+	int			index;
 	int			str_len;
-	int			found = 0;
+	int			found;
 
+	index = 0;
+	found = 0;
 	if (delim == 0 || (str == 0 && last_str == 0))
 		return (0);
 	if (str == 0)
