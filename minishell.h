@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/08 14:36:09 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/08 03:27:36 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_program
 	char	**path;
 	int		status;
 	int		stop;
+	t_token	*token_start;
 }	t_program;
 
 //  utils/ft_error.c
@@ -97,5 +98,10 @@ void		ft_start(char **env, t_program *g_data);
 
 //  utils/ft_strtok.c
 char		*ft_strtok(char *str, const char *delim);
+
+//utils/token_list.c
+void	ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
+void	ft_print_token_list(t_program *g_data);
+void	ft_free_token_list(t_program *g_data, t_token *token, int start);
 
 #endif
