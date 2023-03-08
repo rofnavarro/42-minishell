@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/03/08 14:36:09 by rferrero         ###   ########.fr       */
-=======
-/*   Updated: 2023/03/08 03:27:36 by rinacio          ###   ########.fr       */
->>>>>>> f5ac4ed2ec59481ec4f8294651da3710154aa7bd
+/*   Updated: 2023/03/08 18:00:38 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +68,6 @@ typedef struct s_env
 {
 	char			*env_line;
 	struct s_env	*next;
-	struct s_env	*prev;
 }	t_env;
 
 typedef struct s_program
@@ -104,8 +99,8 @@ void		ft_start(char **env, t_program *g_data);
 char		*ft_strtok(char *str, const char *delim);
 
 //utils/token_list.c
-void	ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
-void	ft_print_token_list(t_program *g_data);
-void	ft_free_token_list(t_program *g_data, t_token *token, int start);
+void		ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
+void		ft_print_token_list(t_program *g_data);
+void		ft_free_token_list(t_program *g_data, t_token *token, int start);
 
 #endif
