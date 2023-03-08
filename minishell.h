@@ -75,7 +75,7 @@ typedef struct s_program
 {
 	char	*cmd;
 	char	*cmd_token;
-	t_env	env;
+	t_env	*env_start;
 	char	**path;
 	int		status;
 	int		stop;
