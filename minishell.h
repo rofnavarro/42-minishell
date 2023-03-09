@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/09 16:23:03 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:42:02 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ typedef struct s_program
 	t_token	*token_start;
 }	t_program;
 
+//  utils/ft_builtin_pwd.c
+void		ft_pwd(char *str, char **envp);
+
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
 void		ft_free_matrix(char **matrix);
@@ -93,7 +96,7 @@ void		ft_free_env_list(t_env *env);
 void		ft_init(t_program *g_data);
 
 //  utils/ft_loop.c
-void		ft_loop(t_program *g_data);
+void		ft_loop(t_program *g_data, char **envp);
 
 //  utils/ft_start.c
 void		ft_start(char **env, t_program *g_data);

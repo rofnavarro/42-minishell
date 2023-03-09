@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_builtin_pwd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/09 19:41:37 by rferrero         ###   ########.fr       */
+/*   Created: 2023/03/09 19:20:25 by rferrero          #+#    #+#             */
+/*   Updated: 2023/03/09 19:39:06 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_pwd(char *str, char **envp)
 {
-	t_program	g_data;
+	int	i;
 
-	if (argc != 1)
-		ft_error("Error. Don't need arguments to start minishell.", EINVAL);
-	ft_init(&g_data);
-	ft_start(envp, &g_data);
-	ft_loop(&g_data, envp);
-	printf("Minishell closed!\n");
-	return (EXIT_SUCCESS);
+	i = 0;
+	if (ft_strncmp(str, "pwd", ft_strlen(str) - 1) == 0)
+	{
+		while (ft_strnstr(envp[i], "PWD=", 4) == 0)
+			i++;
+		printf("%s\n", envp[i] + 4);
+	}
 }
