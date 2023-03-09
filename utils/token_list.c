@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/08 03:29:40 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/09 19:44:44 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type)
 {
 	t_token	*new_token;
 	t_token	*aux;
-	
-	new_token = (t_token*)malloc(sizeof(t_token));
+
+	new_token = (t_token *)malloc(sizeof(t_token));
 	new_token->cmd = cmd_token;
 	new_token->type = cmd_type;
 	new_token->prev = NULL;
@@ -39,7 +39,7 @@ void	ft_print_token_list(t_program *g_data)
 {
 	t_token	*aux;
 
-	if(!g_data->token_start)
+	if (!g_data->token_start)
 		return ;
 	aux = g_data->token_start;
 	while (aux)
@@ -55,7 +55,7 @@ void	ft_free_token_list(t_program *g_data, t_token *token, int start)
 		return ;
 	if (token->next)
 		ft_free_token_list(g_data, token->next, 0);
-	else if(token->prev)
+	else if (token->prev)
 		token->prev->next = NULL;
 	token->prev = NULL;
 	token->next = NULL;
