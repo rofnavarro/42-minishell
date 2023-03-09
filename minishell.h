@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/08 18:00:38 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:17:56 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ typedef struct s_program
 void		ft_error(char *msg, int arg);
 void		ft_free_matrix(char **matrix);
 void		ft_exit(t_program *g_data);
+
+//  utils/ft_free.c
+void		ft_free_env_list(t_env *env);
 
 //  utils/ft_init.c
 void		ft_init(t_program *g_data);
