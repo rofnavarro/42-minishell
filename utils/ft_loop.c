@@ -6,13 +6,13 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/09 19:41:08 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:40:09 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_loop(t_program *g_data, char **envp)
+void	ft_loop(t_program *g_data)
 {
 	while (g_data->stop == 0)
 	{
@@ -20,7 +20,8 @@ void	ft_loop(t_program *g_data, char **envp)
 		//if (!g_data->cmd) 		// verificar ctr+d (EOF - free all - exit)
 		//	break ;
 		add_history(g_data->cmd);
-		ft_pwd(g_data->cmd, envp);
+		ft_pwd(g_data->cmd, g_data);
+		ft_cd(g_data->cmd, g_data);
 		g_data->cmd_token = ft_strtok(g_data->cmd, " ");
 		while (g_data->cmd_token != NULL)
 		{
