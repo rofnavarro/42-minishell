@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/09 19:42:02 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:39:48 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ typedef struct s_program
 	t_token	*token_start;
 }	t_program;
 
+//  utils/ft_builtin_cd.c
+void		ft_cd(char *str, t_program *g_data);
 //  utils/ft_builtin_pwd.c
-void		ft_pwd(char *str, char **envp);
+void		ft_pwd(char *str, t_program *g_data);
 
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
@@ -96,7 +98,7 @@ void		ft_free_env_list(t_env *env);
 void		ft_init(t_program *g_data);
 
 //  utils/ft_loop.c
-void		ft_loop(t_program *g_data, char **envp);
+void		ft_loop(t_program *g_data);
 
 //  utils/ft_start.c
 void		ft_start(char **env, t_program *g_data);
@@ -104,7 +106,7 @@ void		ft_start(char **env, t_program *g_data);
 //  utils/ft_strtok.c
 char		*ft_strtok(char *str, const char *delim);
 
-//utils/token_list.c
+//  utils/token_list.c
 void		ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
 void		ft_print_token_list(t_program *g_data);
 void		ft_free_token_list(t_program *g_data, t_token *token, int start);

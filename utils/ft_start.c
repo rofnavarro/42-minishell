@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/09 19:46:49 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:09:03 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,6 @@ static void	get_env(t_program *g_data, char **envp)
 		add_env_line(g_data, envp[i]);
 }
 
-// static void	print_env(t_program *g_data)
-// {
-// 	t_env	*tmp;
-// 	tmp = g_data->env_start;
-// 	while (tmp->next != NULL)
-// 	{
-// 		printf("%s\n", tmp->env_line);
-// 		tmp = tmp->next;
-// 	}
-// }
-
 void	ft_start(char **envp, t_program *g_data)
 {
 	g_data->env_start = NULL;
@@ -69,3 +58,14 @@ void	ft_start(char **envp, t_program *g_data)
 	get_path(g_data, envp);
 	get_env(g_data, envp);
 }
+
+// static void	print_env(t_program *g_data)
+// {
+	// t_env	*tmp;
+	// tmp = g_data->env_start;
+	// while (tmp->next != NULL)
+	// {
+		// printf("%s\n", tmp->env_line);
+		// tmp = tmp->next;
+	// }
+// }
