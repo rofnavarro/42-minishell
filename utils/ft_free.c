@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/10 20:10:42 by rferrero         ###   ########.fr       */
+/*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
+/*   Updated: 2023/03/09 19:45:18 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_free_env_list(t_env *env)
 {
-	t_program	g_data;
+	t_env	*tmp;
 
-	if (argc != 1)
-		ft_error("Error. Don't need arguments to start minishell.", EINVAL);
-	ft_init(&g_data);
-	ft_start(envp, &g_data);
-	ft_loop(&g_data);
-	printf("Minishell closed!\n");
-	return (EXIT_SUCCESS);
+	while (env != NULL)
+	{
+		tmp = env->next;
+		free(env);
+		env = tmp;
+	}
 }
