@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/10 20:39:48 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:19:47 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		ft_loop(t_program *g_data);
 
 //  utils/ft_start.c
 void		ft_start(char **env, t_program *g_data);
+void		print_env(t_program *g_data);
 
 //  utils/ft_strtok.c
 char		*ft_strtok(char *str, const char *delim);
