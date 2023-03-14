@@ -3,57 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/08 17:59:40 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:52:03 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	is_delim(char c, const char *delim)
+static int	is_delim(char c, const char *delim, t_program *g_data)
 {
-	while (*delim != '\0')
+	int	i;
+
+	i = 0;
+	if (c == ' ')
+		return (TRUE);
+	while (delim[i] != '\0')
 	{
-		if (c == *delim)
+		if (c == delim[i])
+		{
+			if(g_data->cmd_type == 5)
+				g_data->cmd_type = i;
+			else if ((g_data->cmd_type == 1 && c == '<')|| (g_data->cmd_type == 3 && c == '>'))
+				g_data->cmd_type++;
+			else
+				ft_error("Error: unknown operator\n", 1);
 			return (TRUE);
-		delim++;
+		}
+		i++;
 	}
 	return (FALSE);
 }
 
-char	*ft_strtok(char *str, const char *delim)
+char	*ft_strtok(char *str, const char *delim, t_program *g_data)
 {
 	static char	*backup_string;
 	char		*ret;
+	int			i;
 
+	i = 0;
+	g_data->cmd_type = 5;
 	if (!str)
 		str = backup_string;
-	if (!str)
+	if (!str || *str == '\0')
 		return (NULL);
-	while (TRUE)
-	{
-		if (is_delim(*str, delim))
-			str++;
-		if (*str == '\0')
-			return (NULL);
-		break ;
-	}
+	 while(*str == ' ')
+	 	str++;
 	ret = str;
-	while (TRUE)
-	{
-		if (*str == '\0')
-		{
-			backup_string = str;
-			return (ret);
-		}
-		if (is_delim(*str, delim))
-		{
-			*str = '\0';
-			backup_string = str + 1;
-			return (ret);
-		}
+	while (!is_delim(*str, delim, g_data) && *str)
 		str++;
+	if (*str == '\0')
+		backup_string = str;
+	else
+	{
+		*str++ = '\0';
+		while(is_delim(*str, delim, g_data) && *str != '\0')
+			str++;
+		backup_string = str;
 	}
+	return (ret);
 }

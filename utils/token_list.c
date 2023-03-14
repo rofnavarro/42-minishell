@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/09 19:44:44 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:33:06 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	ft_print_token_list(t_program *g_data)
 	aux = g_data->token_start;
 	while (aux)
 	{
-		printf("%s\n", aux->cmd);
+		printf("cmd: %s\n", aux->cmd);
+		printf("separator: %d\n", (int)aux->type);
 		aux = aux->next;
 	}
 }

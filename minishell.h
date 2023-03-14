@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/14 16:38:39 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:54:12 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_program
 {
 	char	*cmd;
 	char	*cmd_token;
+	int		cmd_type;
 	char	**env;
 	char	**path;
 	int		status;
@@ -98,7 +99,7 @@ void		ft_loop(t_program *g_data);
 void		ft_start(char **env, t_program *g_data);
 
 //  utils/ft_strtok.c
-char		*ft_strtok(char *str, const char *delim);
+char		*ft_strtok(char *str, const char *delim, t_program *g_data);
 
 //  utils/token_list.c
 void		ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
