@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/10 20:39:48 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:38:39 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,11 @@
 //  token
 # include "./token.h"
 
-typedef struct s_env
-{
-	char			*env_line;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_program
 {
 	char	*cmd;
 	char	*cmd_token;
-	t_env	*env_start;
+	char	**env;
 	char	**path;
 	int		status;
 	int		stop;
@@ -83,16 +77,16 @@ typedef struct s_program
 
 //  utils/ft_builtin_cd.c
 void		ft_cd(char *str, t_program *g_data);
+
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str, t_program *g_data);
 
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
-void		ft_free_matrix(char **matrix);
 void		ft_exit(t_program *g_data);
 
 //  utils/ft_free.c
-void		ft_free_env_list(t_env *env);
+void		ft_free_matrix(char **matrix);
 
 //  utils/ft_init.c
 void		ft_init(t_program *g_data);

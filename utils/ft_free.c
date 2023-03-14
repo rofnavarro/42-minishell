@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/09 19:45:18 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:33:53 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_free_env_list(t_env *env)
+void	ft_free_matrix(char **matrix)
 {
-	t_env	*tmp;
+	int	i;
 
-	while (env != NULL)
-	{
-		tmp = env->next;
-		free(env);
-		env = tmp;
-	}
+	i = -1;
+	while (matrix[++i])
+		free(matrix[i]);
+	free(matrix);
 }
