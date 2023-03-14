@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/14 16:47:03 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:05:43 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_loop(t_program *g_data)
 		//	break ;
 		add_history(g_data->cmd);
 		ft_pwd(g_data->cmd, g_data);
-		ft_cd(g_data->cmd, g_data);
+		ft_add_env(g_data->cmd, g_data);
+		// ft_cd(g_data->cmd, g_data);
 		g_data->cmd_token = ft_strtok(g_data->cmd, "  ");
 		while (g_data->cmd_token != NULL)
 		{
