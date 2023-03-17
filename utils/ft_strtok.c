@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/14 19:52:03 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/17 15:33:46 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ static int	is_delim(char c, const char *delim, t_program *g_data)
 	{
 		if (c == delim[i])
 		{
-			if(g_data->cmd_type == 5)
+			if (g_data->cmd_type == 5)
 				g_data->cmd_type = i;
-			else if ((g_data->cmd_type == 1 && c == '<')|| (g_data->cmd_type == 3 && c == '>'))
+			else if ((g_data->cmd_type == 1 && c == '<') || \
+					(g_data->cmd_type == 3 && c == '>'))
 				g_data->cmd_type++;
 			else
 				ft_error("Error: unknown operator\n", 1);
@@ -48,8 +49,8 @@ char	*ft_strtok(char *str, const char *delim, t_program *g_data)
 		str = backup_string;
 	if (!str || *str == '\0')
 		return (NULL);
-	 while(*str == ' ')
-	 	str++;
+	while (*str == ' ')
+		str++;
 	ret = str;
 	while (!is_delim(*str, delim, g_data) && *str)
 		str++;
@@ -58,7 +59,7 @@ char	*ft_strtok(char *str, const char *delim, t_program *g_data)
 	else
 	{
 		*str++ = '\0';
-		while(is_delim(*str, delim, g_data) && *str != '\0')
+		while (is_delim(*str, delim, g_data) && *str != '\0')
 			str++;
 		backup_string = str;
 	}
