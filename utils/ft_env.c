@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/17 20:26:02 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/17 21:11:33 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void	ft_remove_var_env(char *variable, t_program *g_data)
 		aux = ft_substr(variable, 6, ft_strlen(variable) - 5);
 		new_env = ft_env_calloc(ft_env_size(g_data->env), 0);
 		i = 0;
-		j = 0;
-		while (g_data->env[i])
+		j = -1;
+		while (g_data->env[++j])
 		{
-			if (ft_strncmp(aux, g_data->env[i + j], ft_strlen(g_data->env[i + j])) != 0)
-				j = 1;
-			new_env[i + j] = ft_strdup(g_data->env[i + j]);
+			if (ft_strncmp(aux, g_data->env[j], ft_strlen(aux)) == 0)
+				j++;
+			new_env[i] = ft_strdup(g_data->env[j]);
 			i++;
 		}
 		free(aux);

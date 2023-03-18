@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/17 19:34:14 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/17 21:12:25 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ void	ft_loop(t_program *g_data)
 		ft_free_token_list(g_data, g_data->token_start, 1);
 		ft_exit(g_data);
 		free(g_data->cmd);
-		
-		// int i = -1;
-		// while (g_data->env[++i])
-		// 	printf("%s\n", g_data->env[i]);
 	}
 	ft_free_matrix(g_data->env);
 	ft_free_matrix(g_data->path);
