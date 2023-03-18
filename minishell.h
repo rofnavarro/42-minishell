@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/17 18:30:15 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:05:47 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		ft_pwd(char *str, t_program *g_data);
 //  utils/ft_env.c
 void		ft_add_var_env(char *new_variable, t_program *g_data);
 void		ft_remove_var_env(char *new_variable, t_program *g_data);
+void		ft_print_env(char *cmd, t_program *g_data);
 
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
