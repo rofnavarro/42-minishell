@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/18 15:17:21 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:46:54 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ void	ft_loop(t_program *g_data)
 		//if (!g_data->cmd) 		// verificar ctr+d (EOF - free all - exit)
 		//	break ;
 		add_history(g_data->cmd);
-		ft_pwd(g_data->cmd, g_data);
-		ft_add_var_env(g_data->cmd, g_data);
-		ft_remove_var_env(g_data->cmd, g_data);
-		ft_print_env(g_data->cmd, g_data);
-		// ft_cd(g_data->cmd, g_data);
+
+		is_builtin(g_data->cmd, g_data);
+
 		g_data->cmd_token = ft_strtok(g_data->cmd, "  ");
 		while (g_data->cmd_token != NULL)
 		{
@@ -36,7 +34,6 @@ void	ft_loop(t_program *g_data)
 		ft_exit(g_data);
 		free(g_data->cmd);
 	}
-	ft_free_matrix(g_data->env);
-	ft_free_matrix(g_data->path);
+	ft_free_data(g_data);
 	rl_clear_history();
 }

@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_builtin_env2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/20 16:42:07 by rferrero         ###   ########.fr       */
+/*   Created: 2023/03/20 16:44:33 by rferrero          #+#    #+#             */
+/*   Updated: 2023/03/20 16:46:52 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_free_matrix(char **matrix)
+int	ft_env_size(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] && *env != NULL)
+		i++;
+	return (i);
+}
+
+char	**ft_env_calloc(int size, int diff)
+{
+	char	**ret;
+
+	ret = (char **)ft_calloc(sizeof(char *), size + diff);
+	return (ret);
+}
+
+void	ft_print_env(char *cmd, t_program *g_data)
 {
 	int	i;
 
 	i = -1;
-	while (matrix[++i])
-		free(matrix[i]);
-	free(matrix);
-}
-
-void	ft_free_data(t_program *g_data)
-{
-	ft_free_matrix(g_data->env);
-	ft_free_matrix(g_data->path);
+	if (!g_data->env || !cmd || ft_strlen(cmd) < 3 || ft_strlen(cmd) > 3)
+		return ;
+	while (g_data->env[++i])
+		printf("%s\n", g_data->env[i]);
 }
