@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/14 16:32:34 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/22 23:23:27 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ static void	get_env(t_program *g_data, char **envp)
 {
 	int	i;
 
-	i = 0;
-	while (envp[i])
-		i++;
-	g_data->env = (char **)ft_calloc(sizeof(char *), i + 1);
+	g_data->env = (char **)ft_env_calloc(ft_env_size(envp), 2);
 	i = 0;
 	while (envp[i])
 	{
