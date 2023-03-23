@@ -6,24 +6,24 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/20 16:29:21 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/23 15:05:33 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*get_old_dir(t_program *g_data)
-{
-	int	i;
+// char	*get_old_dir(t_program *g_data)
+// {
+// 	int	i;
 
-	i = 0;
-	while (g_data->env[i])
-	{
-		if (ft_strncmp(g_data->env[i], "PWD=", 4) == 0)
-			return (g_data->env[i]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (g_data->env[i])
+// 	{
+// 		if (ft_strncmp(g_data->env[i], "PWD=", 4) == 0)
+// 			return (g_data->env[i]);
+// 		i++;
+// 	}
+// }
 
 void	ft_cd(char *str, t_program *g_data)
 {
@@ -33,14 +33,14 @@ void	ft_cd(char *str, t_program *g_data)
 	if (ft_strncmp(str, "cd", ft_strlen(str) - 1) == 0)
 	{
 
-		old_dir = get_old_dir(g_data);
+		// old_dir = get_old_dir(g_data);
 		if (chdir(home) == 0)
 		{
 			printf("%s\n", home);
 		}
 		else
 			printf("Couldn't find home directory\n");
-		free(old_dir);
+		// free(old_dir);
 		// printf("%s\n", old_dir);
 		// i = 0;
 		// while (ft_strncmp(g_data->env[i], "PWD=", 4) != 0)
