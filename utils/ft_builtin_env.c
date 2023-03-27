@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/27 16:38:27 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:56:14 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	replace_var_env(char *var, t_program *g_data)
 	char	**tmp;
 	char	*var_tmp;
 	int		i;
-	int		j;
 
 	var_tmp = ft_substr(var, 7, ft_strlen(var) - 7);
 	var_token = ft_split(var_tmp, '=');
@@ -54,7 +53,7 @@ static void	replace_var_env(char *var, t_program *g_data)
 	while (g_data->env[i])
 	{
 		tmp = ft_split(g_data->env[i], '=');
-		if (ft_strncmp(var_token[0], tmp[0], ft_strlen(var_token[0]) + 1) == 0)
+		if (ft_strncmp(var_token[0], tmp[0], ft_strlen(var_token[0])) == 0)
 		{
 			g_data->env[i] = ft_strdup(var_tmp);
 			ft_free_matrix(tmp);
@@ -83,7 +82,7 @@ void	ft_add_var_env(char *new_variable, t_program *g_data)
 	i = -1;
 	while (g_data->env[++i])
 		new_env[i] = ft_strdup(g_data->env[i]);
-	new_env[i] = ft_substr(new_variable, 7, ft_strlen(new_variable) - 6);
+	new_env[i] = ft_substr(new_variable, 7, ft_strlen(new_variable) - 7);
 	ft_free_matrix(g_data->env);
 	g_data->env = new_env;
 }
@@ -99,7 +98,7 @@ void	ft_remove_var_env(char *variable, t_program *g_data)
 	if (!variable || !g_data->env || ft_strlen(variable) < 6 || \
 		var_exist(variable, g_data, 5))
 		return ;
-	aux = ft_substr(variable, 6, ft_strlen(variable) - 5);
+	aux = ft_substr(variable, 6, ft_strlen(variable) - 6);
 	new_env = ft_env_calloc(ft_env_size(g_data->env) + 1);
 	i = -1;
 	j = 0;
