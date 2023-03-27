@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/03/10 20:39:19 by rferrero         ###   ########.fr        #
+#    Updated: 2023/03/27 15:21:43 by rinacio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC							=			minishell.c \
 															ft_start.c \
 															ft_strtok.c \
 															token_list.c \
+															ft_check_quotes.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)
