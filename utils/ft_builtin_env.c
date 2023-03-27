@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/24 04:52:10 by coder            ###   ########.fr       */
+/*   Updated: 2023/03/27 16:38:27 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_add_var_env(char *new_variable, t_program *g_data)
 	i = -1;
 	while (g_data->env[++i])
 		new_env[i] = ft_strdup(g_data->env[i]);
-	new_env[i] = ft_substr(new_variable, 7, ft_strlen(new_variable) - 7);
+	new_env[i] = ft_substr(new_variable, 7, ft_strlen(new_variable) - 6);
 	ft_free_matrix(g_data->env);
 	g_data->env = new_env;
 }
@@ -96,16 +96,18 @@ void	ft_remove_var_env(char *variable, t_program *g_data)
 	char	**new_env;
 	char	**tmp;
 
-	if (!variable || !g_data->env || ft_strlen(variable) < 6 || var_exist(variable, g_data, 5))
+	if (!variable || !g_data->env || ft_strlen(variable) < 6 || \
+		var_exist(variable, g_data, 5))
 		return ;
 	aux = ft_substr(variable, 6, ft_strlen(variable) - 5);
 	new_env = ft_env_calloc(ft_env_size(g_data->env) + 1);
-	i = 0;
+	i = -1;
 	j = 0;
-	while (g_data->env[i + j])
+	while (g_data->env[++i + j])
 	{
 		tmp = ft_split(g_data->env[i + j], '=');
-		if (ft_strncmp(tmp[0], aux, ft_strlen(tmp[0])) == 0 && (ft_strlen(tmp[0]) == ft_strlen(aux)))
+		if (ft_strncmp(tmp[0], aux, ft_strlen(tmp[0])) == 0 && \
+			(ft_strlen(tmp[0]) == ft_strlen(aux)))
 			j = 1;
 		if (g_data->env[i + j] == NULL)
 		{
@@ -114,7 +116,6 @@ void	ft_remove_var_env(char *variable, t_program *g_data)
 		}
 		new_env[i] = ft_strdup(g_data->env[i + j]);
 		ft_free_matrix(tmp);
-		i++;
 	}
 	free(aux);
 	ft_free_matrix(g_data->env);
