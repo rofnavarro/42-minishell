@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/10 20:10:42 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:27:35 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_program	g_data;
-
 	if (argc != 1)
 		ft_error("Error. Don't need arguments to start minishell.", EINVAL);
 	ft_init(&g_data);

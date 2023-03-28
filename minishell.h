@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 15:30:29 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:27:58 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@
 # include <readline/history.h>
 
 //  open()  stat()  lstat()  fstat()
-# include <fcntl.h>
 # include <sys/stat.h>
+# include <fcntl.h>
 
 //  wait()  waitpid()  wait3()  wait4()
 # include <sys/wait.h> 
 
 //  opendir()  readdir()  closedir()
-# include <dirent.h>
 # include <sys/types.h>
+# include <dirent.h>
 
 //  ioctl()
 # include <sys/ioctl.h>
@@ -64,6 +64,9 @@
 //  token
 # include "./token.h"
 
+//  global variable
+t_program	g_data;
+
 typedef struct s_program
 {
 	char	*cmd;
@@ -79,8 +82,20 @@ typedef struct s_program
 //  utils/ft_builtin_cd.c
 void		ft_cd(char *str, t_program *g_data);
 
+//  utils/ft_builtin_env.c
+void		ft_add_var_env(char *new_variable, t_program *g_data);
+void		ft_remove_var_env(char *new_variable, t_program *g_data);
+
+//  utils/ft_builtin_env2.c
+int			ft_env_size(char **env);
+char		**ft_env_calloc(int size);
+void		ft_print_env(char *cmd, t_program *g_data);
+
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str, t_program *g_data);
+
+//  utils/ft_builtin.c
+void		is_builtin(char *str, t_program *g_data);
 
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
@@ -88,6 +103,7 @@ void		ft_exit(t_program *g_data);
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
+void		ft_free_data(t_program *g_data);
 
 //  utils/ft_init.c
 void		ft_init(t_program *g_data);

@@ -1,42 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_start.c                                         :+:      :+:    :+:   */
+/*   ft_builtin_env2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/23 15:27:26 by rferrero         ###   ########.fr       */
+/*   Created: 2023/03/20 16:44:33 by rferrero          #+#    #+#             */
+/*   Updated: 2023/03/23 15:26:51 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	get_path(t_program *g_data, char **envp)
+int	ft_env_size(char **env)
 {
 	int	i;
 
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH=", 5) == 0)
+	while (env[i] && *env != NULL)
 		i++;
-	g_data->path = (ft_split(envp[i] + 5, ':'));
+	return (i);
 }
 
-static void	get_env(t_program *g_data, char **envp)
+char	**ft_env_calloc(int size)
+{
+	char	**ret;
+
+	ret = (char **)ft_calloc(sizeof(char *), size);
+	return (ret);
+}
+
+void	ft_print_env(char *cmd, t_program *g_data)
 {
 	int	i;
 
-	g_data->env = (char **)ft_env_calloc(ft_env_size(envp) + 1);
 	i = 0;
-	while (envp[i])
+	if (!g_data->env || !cmd || ft_strlen(cmd) < 3 || ft_strlen(cmd) > 3)
+		return ;
+	while (g_data->env[i])
 	{
-		g_data->env[i] = ft_strdup(envp[i]);
+		printf("%s\n", g_data->env[i]);
 		i++;
 	}
-}
-
-void	ft_start(char **envp, t_program *g_data)
-{
-	get_path(g_data, envp);
-	get_env(g_data, envp);
 }
