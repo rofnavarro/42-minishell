@@ -6,7 +6,7 @@
 #    By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/03/28 16:43:54 by rferrero         ###   ########.fr        #
+#    Updated: 2023/03/28 16:52:46 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRC							=			minishell.c \
 															ft_error.c \
 															ft_execute_token_list.c \
 															ft_free.c \
-															ft_init.c \
 															ft_loop.c \
 															ft_start.c \
 															ft_strtok.c \

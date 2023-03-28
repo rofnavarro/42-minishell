@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:41:07 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:58:44 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@
 //  token
 # include "./token.h"
 
-//  global variable
-t_program	g_data;
 
 typedef struct s_program
 {
@@ -78,6 +76,9 @@ typedef struct s_program
 	int		stop;
 	t_token	*token_start;
 }	t_program;
+
+//  global variable
+extern t_program	g_data;
 
 //  utils/ft_builtin_cd.c
 void		ft_cd(char *str);
@@ -99,14 +100,11 @@ void		is_builtin(char *str);
 
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
-void		ft_exit();
+void		ft_exit(void);
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
 void		ft_free_data(void);
-
-//  utils/ft_init.c
-void		ft_init(void);
 
 //  utils/ft_loop.c
 void		ft_loop(void);
