@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 19:37:53 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:44:11 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,15 @@ void	ft_remove_var_env(char *variable)
 	new_env = ft_env_calloc(ft_env_size(g_data.env) + 1);
 	i = -1;
 	j = 0;
-	while (g_data.env[++i + j] || g_data.env[i + j] != NULL)
+	while (g_data.env[++i + j])
 	{
 		tmp = ft_split(g_data.env[i + j], '=');
 		ft_find_var(tmp[0], aux, &j);
+		if (g_data.env[i + j] == NULL)
+		{
+			ft_free_matrix(tmp);
+			break ;
+		}
 		new_env[i] = ft_strdup(g_data.env[i + j]);
 		ft_free_matrix(tmp);
 	}
