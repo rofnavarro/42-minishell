@@ -6,13 +6,13 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 15:11:22 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:43:19 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type)
+void	ft_add_token(char *cmd_token, t_type cmd_type)
 {
 	t_token	*new_token;
 	t_token	*aux;
@@ -22,11 +22,11 @@ void	ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type)
 	new_token->type = cmd_type;
 	new_token->prev = NULL;
 	new_token->next = NULL;
-	if (!g_data->token_start)
-		g_data->token_start = new_token;
+	if (!g_data.token_start)
+		g_data.token_start = new_token;
 	else
 	{
-		aux = g_data->token_start;
+		aux = g_data.token_start;
 		while (aux->next)
 			aux = aux->next;
 		aux->next = new_token;
@@ -35,15 +35,15 @@ void	ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type)
 	}
 }
 
-void	ft_print_token_list(t_program *g_data)
+void	ft_print_token_list(void)
 {
 	t_token	*aux;
 	int	i;
 
 	i = 0;
-	if (!g_data->token_start)
+	if (!g_data.token_start)
 		return ;
-	aux = g_data->token_start;
+	aux = g_data.token_start;
 	while (aux)
 	{
 		printf("cmd: ");
@@ -58,17 +58,17 @@ void	ft_print_token_list(t_program *g_data)
 	}
 }
 
-void	ft_free_token_list(t_program *g_data, t_token *token, int start)
+void	ft_free_token_list(t_token *token, int start)
 {
 	if (!token)
 		return ;
 	if (token->next)
-		ft_free_token_list(g_data, token->next, 0);
+		ft_free_token_list(token->next, 0);
 	else if (token->prev)
 		token->prev->next = NULL;
 	token->prev = NULL;
 	token->next = NULL;
 	if (start == 1)
-		g_data->token_start = NULL;
+		g_data.token_start = NULL;
 	free(token);
 }
