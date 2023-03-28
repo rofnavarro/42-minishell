@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:23:24 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:42:38 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	is_delim(char c, const char *delim, t_program *g_data)
+static int	is_delim(char c, const char *delim)
 {
 	int	i;
 
@@ -23,11 +23,11 @@ static int	is_delim(char c, const char *delim, t_program *g_data)
 	{
 		if (c == delim[i])
 		{
-			if (g_data->cmd_type == 5)
-				g_data->cmd_type = i;
-			else if ((g_data->cmd_type == 1 && c == '<') || \
-					(g_data->cmd_type == 3 && c == '>'))
-				g_data->cmd_type++;
+			if (g_data.cmd_type == 5)
+				g_data.cmd_type = i;
+			else if ((g_data.cmd_type == 1 && c == '<') || \
+					(g_data.cmd_type == 3 && c == '>'))
+				g_data.cmd_type++;
 			else
 				ft_error("Error: unknown operator\n", 1);
 			return (TRUE);
@@ -37,14 +37,14 @@ static int	is_delim(char c, const char *delim, t_program *g_data)
 	return (FALSE);
 }
 
-char	*ft_strtok(char *str, const char *delim, t_program *g_data)
+char	*ft_strtok(char *str, const char *delim)
 {
 	static char	*backup_string;
 	char		*ret;
 	int			i;
 
 	i = 0;
-	g_data->cmd_type = 5;
+	g_data.cmd_type = 5;
 	if (!str)
 		str = backup_string;
 	if (!str || *str == '\0')
@@ -52,14 +52,14 @@ char	*ft_strtok(char *str, const char *delim, t_program *g_data)
 	while (*str == ' ')
 		str++;
 	ret = str;
-	while (!is_delim(*str, delim, g_data) && *str)
+	while (!is_delim(*str, delim) && *str)
 		str++;
 	if (*str == '\0')
 		backup_string = str;
 	else
 	{
 		*str++ = '\0';
-		while (is_delim(*str, delim, g_data) && *str != '\0')
+		while (is_delim(*str, delim) && *str != '\0')
 			str++;
 		backup_string = str;
 	}
