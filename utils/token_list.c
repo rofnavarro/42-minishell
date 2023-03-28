@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 15:02:37 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/28 15:11:22 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type)
 	t_token	*aux;
 
 	new_token = (t_token *)malloc(sizeof(t_token));
-	new_token->cmd = cmd_token;
+	new_token->cmd = ft_split(cmd_token, ' ');
 	new_token->type = cmd_type;
 	new_token->prev = NULL;
 	new_token->next = NULL;
@@ -38,13 +38,21 @@ void	ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type)
 void	ft_print_token_list(t_program *g_data)
 {
 	t_token	*aux;
+	int	i;
 
+	i = 0;
 	if (!g_data->token_start)
 		return ;
 	aux = g_data->token_start;
 	while (aux)
 	{
-		printf("cmd: %s\n", aux->cmd);
+		printf("cmd: ");
+		while (aux->cmd[i])
+		{
+			printf("%s ", aux->cmd[i]);
+			i++;
+		}
+		printf("\n");
 		printf("separator: %d\n", (int)aux->type);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 		aux = aux->next;
 	}
