@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:58:44 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:12:13 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 //  token
 # include "./token.h"
 
-
+//  structs
 typedef struct s_program
 {
 	char	*cmd;
@@ -126,7 +126,7 @@ char		*ft_switch_inside_quotation(char *str);
 
 //	utils/ft_execute_token_list.c
 void		ft_execute_token_list(void);
-void    	ft_execute(t_token *token);
+void		ft_execute(t_token *token);
 char		*ft_get_cmd_path(t_token *token);
 char		*ft_test_path(int i, t_token *token);
 

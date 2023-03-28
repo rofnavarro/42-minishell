@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 16:43:19 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/28 18:13:41 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_add_token(char *cmd_token, t_type cmd_type)
 void	ft_print_token_list(void)
 {
 	t_token	*aux;
-	int	i;
+	int		i;
 
 	i = 0;
 	if (!g_data.token_start)
@@ -53,7 +53,7 @@ void	ft_print_token_list(void)
 			i++;
 		}
 		printf("\n");
-		printf("separator: %d\n", (int)aux->type);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+		printf("separator: %d\n", (int)aux->type);
 		aux = aux->next;
 	}
 }

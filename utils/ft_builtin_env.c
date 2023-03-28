@@ -6,20 +6,20 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:59:16 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:17:47 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	var_exist(char *var, int size)
+static int	var_exist(char *variable, int size)
 {
 	char	**full_export;
 	char	**tmp_split;
 	char	*tmp;
 	int		i;
 
-	tmp = ft_substr(var, size, ft_strlen(var) - size);
+	tmp = ft_substr(variable, size, ft_strlen(variable) - size);
 	full_export = ft_split(tmp, '=');
 	i = 0;
 	free(tmp);
@@ -40,14 +40,14 @@ static int	var_exist(char *var, int size)
 	return (FALSE);
 }
 
-static void	replace_var_env(char *var)
+static void	replace_var_env(char *variable)
 {
 	char	**var_token;
 	char	**tmp;
 	char	*var_tmp;
 	int		i;
 
-	var_tmp = ft_substr(var, 7, ft_strlen(var) - 7);
+	var_tmp = ft_substr(variable, 7, ft_strlen(variable) - 7);
 	var_token = ft_split(var_tmp, '=');
 	i = 0;
 	while (g_data.env[i])
@@ -62,28 +62,29 @@ static void	replace_var_env(char *var)
 		ft_free_matrix(tmp);
 		i++;
 	}
-	free(var_tmp);
 	ft_free_matrix(var_token);
+	ft_free_matrix(tmp);
+	free(var_tmp);
 }
 
-void	ft_add_var_env(char *new_variable)
+void	ft_add_var_env(char *variable)
 {
 	int		i;
 	char	**new_env;
 
-	if (!new_variable || !g_data.env)
+	if (!variable || !g_data.env)
 		return ;
-	if (var_exist(new_variable, 7) == TRUE)
+	if (var_exist(variable, 7) == TRUE)
 	{
-		replace_var_env(new_variable);
+		replace_var_env(variable);
 		return ;
 	}
 	new_env = ft_env_calloc(ft_env_size(g_data.env) + 2);
 	i = -1;
 	while (g_data.env[++i])
 		new_env[i] = ft_strdup(g_data.env[i]);
-	new_env[i] = ft_substr(new_variable, 7, ft_strlen(new_variable) - 7);
 	ft_free_matrix(g_data.env);
+	new_env[i] = ft_substr(variable, 7, ft_strlen(variable) - 7);
 	g_data.env = new_env;
 }
 

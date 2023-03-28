@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 16:51:33 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:16:23 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	ft_execute_token_list(void)
 	aux = g_data.token_start;
 	while (aux)
 	{
-		ft_execute(aux);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+		ft_execute(aux);
 		aux = aux->next;
 	}
 }
 
-void    ft_execute(t_token *token)
+void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
 	int		pid1;
@@ -53,8 +53,8 @@ char	*ft_test_path(int i, t_token *token)
 	{
 		free(temp);
 		free(path);
-		return(ft_strdup(path));
-	}	char	*cmd_path;
+		return (ft_strdup(path));
+	}
 	free(temp);
 	free(path);
 	return (NULL);
