@@ -6,13 +6,13 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:20:25 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/20 16:54:58 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:38:46 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(char *str, t_program *g_data)
+void	ft_pwd(char *str)
 {
 	char	*buff;
 	char	*cwd;
