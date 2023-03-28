@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 18:17:47 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:03:38 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	replace_var_env(char *variable)
 		tmp = ft_split(g_data.env[i], '=');
 		if (ft_strncmp(var_token[0], tmp[0], ft_strlen(var_token[0])) == 0)
 		{
+			free(g_data.env[i]);
 			g_data.env[i] = ft_strdup(var_tmp);
 			ft_free_matrix(tmp);
 			break ;
@@ -63,7 +64,6 @@ static void	replace_var_env(char *variable)
 		i++;
 	}
 	ft_free_matrix(var_token);
-	ft_free_matrix(tmp);
 	free(var_tmp);
 }
 
@@ -83,8 +83,8 @@ void	ft_add_var_env(char *variable)
 	i = -1;
 	while (g_data.env[++i])
 		new_env[i] = ft_strdup(g_data.env[i]);
-	ft_free_matrix(g_data.env);
 	new_env[i] = ft_substr(variable, 7, ft_strlen(variable) - 7);
+	ft_free_matrix(g_data.env);
 	g_data.env = new_env;
 }
 
