@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 22:22:22 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/07 17:45:07 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:06:52 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum e_type
 //  structs
 typedef struct s_token
 {
-	char			*cmd;
+	char			**cmd;
 	t_type			type;
 	struct s_token	*next;
 	struct s_token	*prev;

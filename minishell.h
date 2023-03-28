@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/10 20:39:48 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:30:29 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,12 @@
 //  token
 # include "./token.h"
 
-typedef struct s_env
-{
-	char			*env_line;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_program
 {
 	char	*cmd;
 	char	*cmd_token;
-	t_env	*env_start;
+	int		cmd_type;
+	char	**env;
 	char	**path;
 	int		status;
 	int		stop;
@@ -83,16 +78,16 @@ typedef struct s_program
 
 //  utils/ft_builtin_cd.c
 void		ft_cd(char *str, t_program *g_data);
+
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str, t_program *g_data);
 
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
-void		ft_free_matrix(char **matrix);
 void		ft_exit(t_program *g_data);
 
 //  utils/ft_free.c
-void		ft_free_env_list(t_env *env);
+void		ft_free_matrix(char **matrix);
 
 //  utils/ft_init.c
 void		ft_init(t_program *g_data);
@@ -104,11 +99,21 @@ void		ft_loop(t_program *g_data);
 void		ft_start(char **env, t_program *g_data);
 
 //  utils/ft_strtok.c
-char		*ft_strtok(char *str, const char *delim);
+char		*ft_strtok(char *str, const char *delim, t_program *g_data);
 
 //  utils/token_list.c
 void		ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
 void		ft_print_token_list(t_program *g_data);
 void		ft_free_token_list(t_program *g_data, t_token *token, int start);
+
+//	utils/ft_check_quotes.c
+int			ft_check_quotes(char *arg);
+char		*ft_switch_inside_quotation(char *str);
+
+//	utils/ft_execute_token_list.c
+void		ft_execute_token_list(t_program *g_data);
+void    	ft_execute(t_program *g_data, t_token *token);
+char		*ft_get_cmd_path(t_program *g_data, t_token *token);
+char		*ft_test_path(int i, t_program *g_data, t_token *token);
 
 #endif

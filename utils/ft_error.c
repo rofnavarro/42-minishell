@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/07 17:45:08 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:33:48 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@ void	ft_error(char *msg, int arg)
 	printf("%s\n", msg);
 	strerror(arg);
 	exit(EXIT_FAILURE);
-}
-
-void	ft_free_matrix(char **matrix)
-{
-	int	i;
-
-	i = -1;
-	while (matrix[++i])
-		free(matrix[i]);
-	free(matrix);
 }
 
 void	ft_exit(t_program *g_data)
