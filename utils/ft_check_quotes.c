@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:02:23 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 13:06:11 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/28 18:14:42 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_check_quotes(char *arg)
 {
 	int	count_single;
-	int count_double;
+	int	count_double;
 	int	i;
 
 	i = 0;
@@ -36,12 +36,12 @@ int	ft_check_quotes(char *arg)
 
 char	ft_substitute_char(char c)
 {
-	char *characters;
-	int i;
+	char	*characters;
+	int		i;
 
 	characters = " |<>";
 	if (c < 5)
-		return characters[c - 1];
+		return (characters[c - 1]);
 	else
 	{
 		i = 0;
@@ -65,7 +65,8 @@ char	*ft_switch_inside_quotation(char *str)
 			i++;
 			while (str[i] != quote)
 			{
-				if (str[i] == ' ' || str[i] == '|' || str[i] == '<' || str[i] == '>' || str[i] < 5)
+				if (str[i] == ' ' || str[i] == '|' || str[i] == '<' || \
+					str[i] == '>' || str[i] < 5)
 					str[i] = ft_substitute_char(str[i]);
 				i++;
 			}
