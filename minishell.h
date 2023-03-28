@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 18:12:13 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:36:53 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void		ft_remove_var_env(char *new_variable);
 int			ft_env_size(char **env);
 char		**ft_env_calloc(int size);
 void		ft_print_env(char *cmd);
+void		ft_find_var(char *find_var, char *env_var, int *found);
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);

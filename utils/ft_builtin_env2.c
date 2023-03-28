@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:44:33 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:37:54 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:11:34 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,11 @@ void	ft_print_env(char *cmd)
 		printf("%s\n", g_data.env[i]);
 		i++;
 	}
+}
+
+void	ft_find_var(char *find_var, char *env_var, int *found)
+{
+	if (ft_strncmp(env_var, find_var, ft_strlen(env_var)) == 0 && \
+		ft_strlen(env_var) == ft_strlen(find_var))
+		*found = 1;
 }

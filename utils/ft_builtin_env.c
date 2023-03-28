@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 19:03:38 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:37:53 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,24 +96,16 @@ void	ft_remove_var_env(char *variable)
 	char	**new_env;
 	char	**tmp;
 
-	if (!variable || !g_data.env || ft_strlen(variable) < 6 || \
-		var_exist(variable, 5))
+	if (!variable || ft_strlen(variable) < 6 || var_exist(variable, 5))
 		return ;
 	aux = ft_substr(variable, 6, ft_strlen(variable) - 6);
 	new_env = ft_env_calloc(ft_env_size(g_data.env) + 1);
 	i = -1;
 	j = 0;
-	while (g_data.env[++i + j])
+	while (g_data.env[++i + j] || g_data.env[i + j] != NULL)
 	{
 		tmp = ft_split(g_data.env[i + j], '=');
-		if (ft_strncmp(tmp[0], aux, ft_strlen(tmp[0])) == 0 && \
-			(ft_strlen(tmp[0]) == ft_strlen(aux)))
-			j = 1;
-		if (g_data.env[i + j] == NULL)
-		{
-			ft_free_matrix(tmp);
-			break ;
-		}
+		ft_find_var(tmp[0], aux, &j);
 		new_env[i] = ft_strdup(g_data.env[i + j]);
 		ft_free_matrix(tmp);
 	}
