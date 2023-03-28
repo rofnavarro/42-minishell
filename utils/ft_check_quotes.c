@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:02:23 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/27 17:36:30 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/28 13:06:11 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ char	ft_substitute_char(char c)
 	int i;
 
 	characters = " |<>";
-	if (i < 4)
-		return characters[i];
+	if (c < 5)
+		return characters[c - 1];
 	else
 	{
 		i = 0;
 		while (characters[i] != c)
 			i++;
-		return (i);
+		return (i + 1);
 	}
 }
 
@@ -65,24 +65,12 @@ char	*ft_switch_inside_quotation(char *str)
 			i++;
 			while (str[i] != quote)
 			{
-				if (str[i] == ' ' || str[i] == '|' || str[i] == '<' || str[i] == '>' || str[i] < 4)
+				if (str[i] == ' ' || str[i] == '|' || str[i] == '<' || str[i] == '>' || str[i] < 5)
 					str[i] = ft_substitute_char(str[i]);
 				i++;
 			}
 		}
 		i++;
 	}
-	return (str);
-}
-
-char	*ft_switch_back_quotation(char *str, int i, char c)
-{
-	char	*temp;
-
-	str = ft_switch_inside_quotation(str);
-	temp = ft_strtrim(str, "\'\"");
-	free(str);
-	str = ft_strdup(temp);
-	free(temp);
 	return (str);
 }

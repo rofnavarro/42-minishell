@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/17 15:33:46 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:01:49 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	is_delim(char c, const char *delim, t_program *g_data)
 	int	i;
 
 	i = 0;
-	if (c == ' ')
-		return (TRUE);
+	// if (c == ' ')
+	// 	return (TRUE);
 	while (delim[i] != '\0')
 	{
 		if (c == delim[i])

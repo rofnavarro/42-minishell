@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/27 17:36:40 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/28 15:02:51 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,15 @@ char		*ft_strtok(char *str, const char *delim, t_program *g_data);
 void		ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
 void		ft_print_token_list(t_program *g_data);
 void		ft_free_token_list(t_program *g_data, t_token *token, int start);
+
+//	utils/ft_check_quotes.c
 int			ft_check_quotes(char *arg);
 char		*ft_switch_inside_quotation(char *str);
-char		*ft_switch_back_quotation(char *str, int i, char c);
+
+//	utils/ft_execute_token_list.c
+void		ft_execute_token_list(t_program *g_data);
+void    	ft_execute(t_program *g_data, t_token *token);
+char		*ft_get_cmd_path(t_program *g_data, t_token *token);
+char		*ft_test_path(int i, t_program *g_data, t_token *token);
 
 #endif
