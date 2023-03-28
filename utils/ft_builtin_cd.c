@@ -6,26 +6,13 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/23 15:05:33 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:28:54 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// char	*get_old_dir(t_program *g_data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (g_data->env[i])
-// 	{
-// 		if (ft_strncmp(g_data->env[i], "PWD=", 4) == 0)
-// 			return (g_data->env[i]);
-// 		i++;
-// 	}
-// }
-
-void	ft_cd(char *str, t_program *g_data)
+void	ft_cd(char *str)
 {
 	char	*home;
 	char	*old_dir;
