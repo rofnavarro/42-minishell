@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/23 18:30:05 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:41:49 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_error(char *msg, int arg)
 {
 	printf("%s\n", msg);
 	strerror(arg);
-	exit(EXIT_FAILURE);
+	// exit(EXIT_FAILURE);
 }
 
 void	ft_exit(t_program *g_data)

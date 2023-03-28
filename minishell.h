@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:27:58 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:41:07 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,56 +80,56 @@ typedef struct s_program
 }	t_program;
 
 //  utils/ft_builtin_cd.c
-void		ft_cd(char *str, t_program *g_data);
+void		ft_cd(char *str);
 
 //  utils/ft_builtin_env.c
-void		ft_add_var_env(char *new_variable, t_program *g_data);
-void		ft_remove_var_env(char *new_variable, t_program *g_data);
+void		ft_add_var_env(char *new_variable);
+void		ft_remove_var_env(char *new_variable);
 
 //  utils/ft_builtin_env2.c
 int			ft_env_size(char **env);
 char		**ft_env_calloc(int size);
-void		ft_print_env(char *cmd, t_program *g_data);
+void		ft_print_env(char *cmd);
 
 //  utils/ft_builtin_pwd.c
-void		ft_pwd(char *str, t_program *g_data);
+void		ft_pwd(char *str);
 
 //  utils/ft_builtin.c
-void		is_builtin(char *str, t_program *g_data);
+void		is_builtin(char *str);
 
 //  utils/ft_error.c
 void		ft_error(char *msg, int arg);
-void		ft_exit(t_program *g_data);
+void		ft_exit();
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
-void		ft_free_data(t_program *g_data);
+void		ft_free_data(void);
 
 //  utils/ft_init.c
-void		ft_init(t_program *g_data);
+void		ft_init(void);
 
 //  utils/ft_loop.c
-void		ft_loop(t_program *g_data);
+void		ft_loop(void);
 
 //  utils/ft_start.c
-void		ft_start(char **env, t_program *g_data);
+void		ft_start(char **env);
 
 //  utils/ft_strtok.c
-char		*ft_strtok(char *str, const char *delim, t_program *g_data);
+char		*ft_strtok(char *str, const char *delim);
 
 //  utils/token_list.c
-void		ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
-void		ft_print_token_list(t_program *g_data);
-void		ft_free_token_list(t_program *g_data, t_token *token, int start);
+void		ft_add_token(char *cmd_token, t_type cmd_type);
+void		ft_print_token_list(void);
+void		ft_free_token_list(t_token *token, int start);
 
 //	utils/ft_check_quotes.c
 int			ft_check_quotes(char *arg);
 char		*ft_switch_inside_quotation(char *str);
 
 //	utils/ft_execute_token_list.c
-void		ft_execute_token_list(t_program *g_data);
-void    	ft_execute(t_program *g_data, t_token *token);
-char		*ft_get_cmd_path(t_program *g_data, t_token *token);
-char		*ft_test_path(int i, t_program *g_data, t_token *token);
+void		ft_execute_token_list(void);
+void    	ft_execute(t_token *token);
+char		*ft_get_cmd_path(t_token *token);
+char		*ft_test_path(int i, t_token *token);
 
 #endif
