@@ -6,7 +6,7 @@
 #    By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/03/20 16:47:05 by rferrero         ###   ########.fr        #
+#    Updated: 2023/03/28 16:23:06 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ SRC							=			minishell.c \
 															ft_start.c \
 															ft_strtok.c \
 															token_list.c \
+															ft_check_quotes.c \
+															ft_execute_token_list.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)

@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/23 15:25:57 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:23:39 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_program
 {
 	char	*cmd;
 	char	*cmd_token;
+	int		cmd_type;
 	char	**env;
 	char	**path;
 	int		status;
@@ -111,11 +112,21 @@ void		ft_loop(t_program *g_data);
 void		ft_start(char **env, t_program *g_data);
 
 //  utils/ft_strtok.c
-char		*ft_strtok(char *str, const char *delim);
+char		*ft_strtok(char *str, const char *delim, t_program *g_data);
 
 //  utils/token_list.c
 void		ft_add_token(t_program *g_data, char *cmd_token, t_type cmd_type);
 void		ft_print_token_list(t_program *g_data);
 void		ft_free_token_list(t_program *g_data, t_token *token, int start);
+
+//	utils/ft_check_quotes.c
+int			ft_check_quotes(char *arg);
+char		*ft_switch_inside_quotation(char *str);
+
+//	utils/ft_execute_token_list.c
+void		ft_execute_token_list(t_program *g_data);
+void    	ft_execute(t_program *g_data, t_token *token);
+char		*ft_get_cmd_path(t_program *g_data, t_token *token);
+char		*ft_test_path(int i, t_program *g_data, t_token *token);
 
 #endif
