@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 16:37:40 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:51:33 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void    ft_execute(t_token *token)
 	char	*cmd_path;
 	int		pid1;
 
-	ft_pwd();
 	cmd_path = ft_get_cmd_path(token);
 	pid1 = fork();
 	if (pid1 < 0)
