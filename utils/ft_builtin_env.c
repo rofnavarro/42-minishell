@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 19:44:11 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:12:54 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	ft_remove_var_env(char *variable)
 	int		j;
 	char	*aux;
 	char	**new_env;
-	char	**tmp;
 
 	if (!variable || ft_strlen(variable) < 6 || var_exist(variable, 5))
 		return ;
@@ -104,15 +103,11 @@ void	ft_remove_var_env(char *variable)
 	j = 0;
 	while (g_data.env[++i + j])
 	{
-		tmp = ft_split(g_data.env[i + j], '=');
-		ft_find_var(tmp[0], aux, &j);
+		if (ft_strncmp(aux, g_data.env[i + j], ft_strlen(aux)) == 0)
+			j = 1;
 		if (g_data.env[i + j] == NULL)
-		{
-			ft_free_matrix(tmp);
 			break ;
-		}
 		new_env[i] = ft_strdup(g_data.env[i + j]);
-		ft_free_matrix(tmp);
 	}
 	free(aux);
 	ft_free_matrix(g_data.env);
