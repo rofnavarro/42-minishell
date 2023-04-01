@@ -6,35 +6,25 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/31 21:44:45 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/01 20:27:49 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_cd_back(char *aux)
+void	ft_export_add_env(char *var, char *var_name)
 {
-	char	*buff;
-	char	*path;
+	char	*tmp;
+	char	*tmp_exp;
+	char	*exp;
 
-	buff = NULL;
-	chdir("..");
-	path = getcwd(buff, 0);
-	ft_add_var_env(path);
-	free(path);
-	free(buff);
-}
-
-static void	ft_cd_stay(char *aux)
-{
-	char	*buff;
-	char	*path;
-
-	buff = NULL;
-	path = getcwd(buff, 0);
-	ft_add_var_env(path);
-	free(path);
-	free(buff);
+	tmp = ft_strdup("export ");
+	tmp_exp = ft_strjoin(tmp, var_name);
+	free(tmp);
+	exp = ft_strjoin(tmp_exp, var);
+	free(tmp_exp);
+	ft_add_var_env(exp);
+	free(exp);
 }
 
 void	ft_cd(char *variable)
@@ -46,11 +36,16 @@ void	ft_cd(char *variable)
 	buff = NULL;
 	aux = ft_substr(variable, 3, ft_strlen(variable) - 3);
 	old_path = getcwd(buff, 0);
-	if ((ft_strncmp(aux, "..", 2) == 0) && (ft_strlen(aux) == ft_strlen("..")))
+	ft_export_add_env(old_path, "OLDPWD=");
+	if ((ft_strncmp(aux, "..", 2) == 0) && \
+		(ft_strlen(aux) == ft_strlen("..")))
 		ft_cd_back(aux);
-	else if ((ft_strncmp(aux, ".", 1) == 0) && (ft_strlen(aux) == ft_strlen(".")))
+	else if ((ft_strncmp(aux, "~", 1) == 0) && \
+		(ft_strlen(aux) == ft_strlen("~")))
+		ft_cd_home(aux);
+	else if ((ft_strncmp(aux, ".", 1) == 0) && \
+		(ft_strlen(aux) == ft_strlen(".")))
 		ft_cd_stay(aux);
-	printf("\n\n%s\n\n", old_path);
 	free(aux);
 	free(old_path);
 	free(buff);
