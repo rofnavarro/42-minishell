@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 18:16:23 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 13:58:38 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,17 @@ void	ft_execute(t_token *token)
 	cmd_path = ft_get_cmd_path(token);
 	pid1 = fork();
 	if (pid1 < 0)
-		ft_error("Error while forking.\n", 1);
+	{
+		ft_error(errno);
+		return ;
+	}
 	if (pid1 == 0)
 	{
 		if (execve(cmd_path, token->cmd, g_data.env) == -1)
-			ft_error("Failed executing command", errno);
+		{
+			ft_error(errno);
+			return ;
+		}
 	}
 }
 
@@ -77,7 +83,7 @@ char	*ft_get_cmd_path(t_token *token)
 	if (cmd_path == NULL)
 	{
 		printf("%s: command not found\n", token->cmd[0]);
-		ft_error("", 127);
+		ft_error(errno);
 	}
 	return (cmd_path);
 }

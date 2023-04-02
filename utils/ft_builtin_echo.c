@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_builtin_echo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 14:43:11 by rferrero         ###   ########.fr       */
+/*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
+/*   Updated: 2023/04/02 20:08:14 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_error(int arg)
+void	ft_echo(char *cmd)
 {
-	// printf("Errno : %d\n", arg);
-	
-	// mudar para o comando que estiver sendo usado
-	printf("%s : ", g_data.cmd);
-	strerror(arg);
-	printf("%s\n", strerror(arg));
-}
+	char	*aux;
+	char	*aux_no_line;
 
-void	ft_exit(void)
-{
-	if (ft_strncmp(g_data.cmd, "exit", ft_strlen(g_data.cmd)) == 0 && \
-		ft_strlen(g_data.cmd) == 4)
-		g_data.stop = 1;
+	if (ft_strlen(cmd) <= 5)
+	{
+		printf("\n");
+		return ;
+	}
+	aux = ft_substr(cmd, 5, ft_strlen(cmd) - 5);
+	if (ft_strncmp(aux, "-n ", ft_strlen("-n ")) != 0)
+		printf("%s\n", aux);
+	else
+	{
+		aux_no_line = ft_substr(aux, 3, ft_strlen(aux) - 3);
+		printf("%s", aux_no_line);
+		free(aux_no_line);
+	}
+	free(aux);
 }

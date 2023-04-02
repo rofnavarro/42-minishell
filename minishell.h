@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 19:36:53 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 19:32:02 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_program
 	char	**path;
 	int		status;
 	int		stop;
+	int		exit_code;
 	t_token	*token_start;
 }	t_program;
 
@@ -81,7 +82,17 @@ typedef struct s_program
 extern t_program	g_data;
 
 //  utils/ft_builtin_cd.c
+void		ft_export_add_env(char *var, char *var_name);
+void		ft_check_cd_path(char *input_path);
 void		ft_cd(char *str);
+
+//  utils/ft_builtin_cd2.c
+void		ft_cd_back(char *aux);
+void		ft_cd_home(char *aux);
+void		ft_cd_stay(char *aux);
+
+//  utils/ft_builtin_echo.c
+void		ft_echo(char *cmd);
 
 //  utils/ft_builtin_env.c
 void		ft_add_var_env(char *new_variable);
@@ -100,7 +111,7 @@ void		ft_pwd(char *str);
 void		is_builtin(char *str);
 
 //  utils/ft_error.c
-void		ft_error(char *msg, int arg);
+void		ft_error(int arg);
 void		ft_exit(void);
 
 //  utils/ft_free.c
