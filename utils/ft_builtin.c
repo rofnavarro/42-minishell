@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 12:58:35 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 19:45:20 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,6 @@ void	is_builtin(char *str)
 		ft_pwd(str);
 	else if (ft_strncmp(str, "cd", 2) == 0)
 		ft_cd(str);
+	else if (ft_strncmp(str, "echo ", 5) == 0)
+		ft_echo(str);
 }

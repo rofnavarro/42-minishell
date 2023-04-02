@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 13:46:43 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 19:59:42 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,24 @@ void	ft_check_cd_path(char *input_path)
 	free(path);
 }
 
-void	ft_cd(char *variable)
+void	ft_cd(char *cmd)
 {
 	char	*aux;
 	char	*buff;
 	char	*old_path;
 
 	buff = NULL;
-	aux = ft_substr(variable, 3, ft_strlen(variable) - 3);
+	aux = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
 	old_path = getcwd(buff, 0);
 	ft_export_add_env(old_path, "OLDPWD=");
-	if ((ft_strncmp(aux, "..", 2) == 0) && \
-		(ft_strlen(aux) == ft_strlen("..")))
+	if (ft_strncmp(cmd, "cd", 2) == 0 && \
+		ft_strlen(cmd) == 2)
+		ft_cd_home("cd ~");
+	else if ((ft_strncmp(aux, " ..", 3) == 0) && \
+		(ft_strlen(aux) == ft_strlen(" ..")))
 		ft_cd_back(aux);
-	else if ((ft_strncmp(aux, "~", 1) == 0) && \
-		(ft_strlen(aux) == ft_strlen("~")))
+	else if ((ft_strncmp(aux, " ~", 2) == 0) && \
+		(ft_strlen(aux) == ft_strlen(" ~")))
 		ft_cd_home(aux);
 	else if ((ft_strncmp(aux, ".", 1) == 0) && \
 		(ft_strlen(aux) == ft_strlen(".")))

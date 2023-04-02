@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 20:23:47 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 13:46:52 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 19:57:45 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_cd_home(char *aux)
 	char	**home;
 	char	*path;
 	int		i;
+	int		dir;
 
 	i = -1;
 	while (g_data.env[++i])
@@ -45,7 +46,12 @@ void	ft_cd_home(char *aux)
 			break ;
 	}
 	home = ft_split(g_data.env[i], '=');
-	chdir(home[1]);
+	dir = chdir(home[1]);
+	if (dir < 0)
+	{
+		ft_error(errno);
+		return ;
+	}
 	buff = NULL;
 	path = getcwd(buff, 0);
 	ft_export_add_env(path, "PWD=");
