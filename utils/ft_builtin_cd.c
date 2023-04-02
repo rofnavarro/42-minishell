@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/01 20:27:49 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 13:46:43 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@ void	ft_export_add_env(char *var, char *var_name)
 	free(tmp_exp);
 	ft_add_var_env(exp);
 	free(exp);
+}
+
+void	ft_check_cd_path(char *input_path)
+{
+	char	*buff;
+	char	*path;
+	int		dir;
+
+	dir = chdir(input_path);
+	if (dir < 0)
+	{
+		ft_error(errno);
+		return ;
+	}
+	buff = NULL;
+	path = getcwd(buff, 0);
+	ft_export_add_env(path, "PWD=");
+	free(buff);
+	free(path);
 }
 
 void	ft_cd(char *variable)
@@ -46,7 +65,9 @@ void	ft_cd(char *variable)
 	else if ((ft_strncmp(aux, ".", 1) == 0) && \
 		(ft_strlen(aux) == ft_strlen(".")))
 		ft_cd_stay(aux);
+	else
+		ft_check_cd_path(aux);
 	free(aux);
-	free(old_path);
 	free(buff);
+	free(old_path);
 }

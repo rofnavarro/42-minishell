@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 20:23:47 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/01 20:25:23 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 13:46:52 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@ void	ft_cd_back(char *aux)
 {
 	char	*buff;
 	char	*path;
-	size_t	size;
+	int		dir;
 
+	dir = chdir("..");
+	if (dir < 0)
+	{
+		ft_error(errno);
+		return ;
+	}
 	buff = NULL;
-	chdir("..");
 	path = getcwd(buff, 0);
 	ft_export_add_env(path, "PWD=");
-	free(path);
 	free(buff);
+	free(path);
 }
 
 void	ft_cd_home(char *aux)
@@ -33,7 +38,6 @@ void	ft_cd_home(char *aux)
 	char	*path;
 	int		i;
 
-	buff = NULL;
 	i = -1;
 	while (g_data.env[++i])
 	{
@@ -42,11 +46,12 @@ void	ft_cd_home(char *aux)
 	}
 	home = ft_split(g_data.env[i], '=');
 	chdir(home[1]);
+	buff = NULL;
 	path = getcwd(buff, 0);
 	ft_export_add_env(path, "PWD=");
 	ft_free_matrix(home);
-	free(path);
 	free(buff);
+	free(path);
 }
 
 void	ft_cd_stay(char *aux)
@@ -57,6 +62,6 @@ void	ft_cd_stay(char *aux)
 	buff = NULL;
 	path = getcwd(buff, 0);
 	ft_export_add_env(path, "PWD=");
-	free(path);
 	free(buff);
+	free(path);
 }

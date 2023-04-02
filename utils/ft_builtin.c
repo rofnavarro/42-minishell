@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/01 20:29:26 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 12:58:35 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	is_builtin(char *str)
 {
 	if (ft_strncmp(str, "env", ft_strlen(str) - 1) == 0)
 		ft_print_env(str);
-	else if (ft_strncmp(str, "export", 6) == 0 && is_var_assigned(str) == TRUE)
+	else if (ft_strncmp(str, "export ", 7) == 0 && is_var_assigned(str) == TRUE)
 		ft_add_var_env(str);
-	else if (ft_strncmp(str, "unset", 5) == 0)
+	else if (ft_strncmp(str, "unset ", 6) == 0)
 		ft_remove_var_env(str);
 	else if (ft_strncmp(str, "pwd", ft_strlen(str) - 1) == 0)
 		ft_pwd(str);

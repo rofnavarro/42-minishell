@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 17:02:47 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:16:58 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_error(char *msg, int arg)
+void	ft_error(int arg)
 {
-	printf("%s\n", msg);
+	// printf("Errno : %d\n", arg);
 	strerror(arg);
+	printf("%s\n", strerror(arg));
 }
 
 void	ft_exit(void)
