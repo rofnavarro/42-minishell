@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/29 16:12:54 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 21:44:31 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static int	var_exist(char *variable, int size)
-{
-	char	**full_export;
-	char	**tmp_split;
-	char	*tmp;
-	int		i;
-
-	tmp = ft_substr(variable, size, ft_strlen(variable) - size);
-	full_export = ft_split(tmp, '=');
-	i = 0;
-	free(tmp);
-	while (g_data.env[i])
-	{
-		tmp_split = ft_split(g_data.env[i], '=');
-		if (ft_strncmp(full_export[0], tmp_split[0], \
-			ft_strlen(tmp_split[0]) + 1) == 0)
-		{
-			ft_free_matrix(tmp_split);
-			ft_free_matrix(full_export);
-			return (TRUE);
-		}
-		ft_free_matrix(tmp_split);
-		i++;
-	}
-	ft_free_matrix(full_export);
-	return (FALSE);
-}
 
 static void	replace_var_env(char *variable)
 {
@@ -65,6 +37,34 @@ static void	replace_var_env(char *variable)
 	}
 	ft_free_matrix(var_token);
 	free(var_tmp);
+}
+
+int	var_exist(char *variable, int size)
+{
+	char	**full_export;
+	char	**tmp_split;
+	char	*tmp;
+	int		i;
+
+	tmp = ft_substr(variable, size, ft_strlen(variable) - size);
+	full_export = ft_split(tmp, '=');
+	i = 0;
+	free(tmp);
+	while (g_data.env[i])
+	{
+		tmp_split = ft_split(g_data.env[i], '=');
+		if (ft_strncmp(full_export[0], tmp_split[0], \
+			ft_strlen(tmp_split[0]) + 1) == 0)
+		{
+			ft_free_matrix(tmp_split);
+			ft_free_matrix(full_export);
+			return (TRUE);
+		}
+		ft_free_matrix(tmp_split);
+		i++;
+	}
+	ft_free_matrix(full_export);
+	return (FALSE);
 }
 
 void	ft_add_var_env(char *variable)

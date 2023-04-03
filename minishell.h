@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 19:32:02 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 21:44:57 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void		ft_cd_stay(char *aux);
 void		ft_echo(char *cmd);
 
 //  utils/ft_builtin_env.c
+int			var_exist(char *variable, int size);
 void		ft_add_var_env(char *new_variable);
 void		ft_remove_var_env(char *new_variable);
 
