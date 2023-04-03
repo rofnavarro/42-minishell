@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 14:43:11 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 22:04:26 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_error(int arg)
 {
-	// printf("Errno : %d\n", arg);
-	
-	// mudar para o comando que estiver sendo usado
 	printf("%s : ", g_data.cmd);
 	strerror(arg);
 	printf("%s\n", strerror(arg));

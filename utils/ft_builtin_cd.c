@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 19:59:42 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/02 22:09:40 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	ft_cd(char *cmd)
 	aux = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
 	old_path = getcwd(buff, 0);
 	ft_export_add_env(old_path, "OLDPWD=");
-	if (ft_strncmp(cmd, "cd", 2) == 0 && \
-		ft_strlen(cmd) == 2)
-		ft_cd_home("cd ~");
+	if ((ft_strncmp(cmd, "cd", 2) == 0 && ft_strlen(cmd) == 2) || \
+		(ft_strncmp(cmd, "cd ", 3) == 0 && ft_strlen(cmd) == 3))
+		ft_cd_home(" ~");
 	else if ((ft_strncmp(aux, " ..", 3) == 0) && \
 		(ft_strlen(aux) == ft_strlen(" ..")))
 		ft_cd_back(aux);
