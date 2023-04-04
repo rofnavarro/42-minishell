@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 18:13:41 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:58:18 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	ft_free_token_list(t_token *token, int start)
 	token->next = NULL;
 	if (start == 1)
 		g_data.token_start = NULL;
+	ft_free_matrix(token->cmd);
 	free(token);
 }

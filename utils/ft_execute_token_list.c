@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 18:16:23 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:52:02 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	ft_execute(t_token *token)
 		if (execve(cmd_path, token->cmd, g_data.env) == -1)
 			ft_error("Failed executing command", errno);
 	}
+	waitpid(pid1, NULL, 0);
+	free(cmd_path);
 }
 
 char	*ft_test_path(int i, t_token *token)
@@ -49,13 +51,9 @@ char	*ft_test_path(int i, t_token *token)
 
 	temp = ft_strjoin(g_data.path[i], "/");
 	path = ft_strjoin(temp, token->cmd[0]);
-	if (access(path, F_OK) == 0)
-	{
-		free(temp);
-		free(path);
-		return (ft_strdup(path));
-	}
 	free(temp);
+	if (access(path, F_OK) == 0)
+		return (path);
 	free(path);
 	return (NULL);
 }
