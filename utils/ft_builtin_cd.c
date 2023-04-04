@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 15:41:34 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:22:36 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@ static void	ft_export_add_env(char *var, char *var_name)
 {
 	char	*tmp;
 	char	*tmp_exp;
-	char	*exp;
+	char	**exp;
 
-	tmp = ft_strdup("export ");
-	tmp_exp = ft_strjoin(tmp, var_name);
-	free(tmp);
-	exp = ft_strjoin(tmp_exp, var);
-	free(tmp_exp);
+	exp[0] = ft_strdup("export");
+	exp[1] = ft_strjoin(var_name, var);
 	ft_add_var_env(exp);
-	free(exp);
+	ft_free_matrix(exp);
 }
 
 static void	ft_check_cd_path(char *input_path)

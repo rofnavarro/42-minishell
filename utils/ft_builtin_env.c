@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 21:44:31 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:49:08 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ static void	replace_var_env(char *variable)
 {
 	char	**var_token;
 	char	**tmp;
-	char	*var_tmp;
 	int		i;
 
-	var_tmp = ft_substr(variable, 7, ft_strlen(variable) - 7);
-	var_token = ft_split(var_tmp, '=');
+	var_token = ft_split(variable, '=');
 	i = 0;
 	while (g_data.env[i])
 	{
@@ -28,7 +26,7 @@ static void	replace_var_env(char *variable)
 		if (ft_strncmp(var_token[0], tmp[0], ft_strlen(var_token[0])) == 0)
 		{
 			free(g_data.env[i]);
-			g_data.env[i] = ft_strdup(var_tmp);
+			g_data.env[i] = ft_strdup(variable);
 			ft_free_matrix(tmp);
 			break ;
 		}
@@ -36,17 +34,16 @@ static void	replace_var_env(char *variable)
 		i++;
 	}
 	ft_free_matrix(var_token);
-	free(var_tmp);
 }
 
-int	var_exist(char *variable, int size)
+int	var_exist(char *variable)
 {
 	char	**full_export;
 	char	**tmp_split;
 	char	*tmp;
 	int		i;
 
-	tmp = ft_substr(variable, size, ft_strlen(variable) - size);
+	tmp = ft_strdup(variable);
 	full_export = ft_split(tmp, '=');
 	i = 0;
 	free(tmp);
@@ -67,49 +64,46 @@ int	var_exist(char *variable, int size)
 	return (FALSE);
 }
 
-void	ft_add_var_env(char *variable)
+void	ft_add_var_env(char **variable)
 {
 	int		i;
 	char	**new_env;
 
-	if (!variable || !g_data.env)
+	if (!variable[1] || !g_data.env)
 		return ;
-	if (var_exist(variable, 7) == TRUE)
+	if (var_exist(variable[1]) == TRUE)
 	{
-		replace_var_env(variable);
+		replace_var_env(variable[1]);
 		return ;
 	}
 	new_env = ft_env_calloc(ft_env_size(g_data.env) + 2);
 	i = -1;
 	while (g_data.env[++i])
 		new_env[i] = ft_strdup(g_data.env[i]);
-	new_env[i] = ft_substr(variable, 7, ft_strlen(variable) - 7);
+	new_env[i] = ft_strdup(variable[1]);
 	ft_free_matrix(g_data.env);
 	g_data.env = new_env;
 }
 
-void	ft_remove_var_env(char *variable)
+void	ft_remove_var_env(char **variable)
 {
 	int		i;
 	int		j;
-	char	*aux;
 	char	**new_env;
 
-	if (!variable || ft_strlen(variable) < 6 || var_exist(variable, 5))
+	if (!variable[0] || ft_strlen(variable[0]) < 5 || var_exist(variable[0]))
 		return ;
-	aux = ft_substr(variable, 6, ft_strlen(variable) - 6);
 	new_env = ft_env_calloc(ft_env_size(g_data.env) + 1);
 	i = -1;
 	j = 0;
 	while (g_data.env[++i + j])
 	{
-		if (ft_strncmp(aux, g_data.env[i + j], ft_strlen(aux)) == 0)
+		if (ft_strncmp(variable[1], g_data.env[i + j], ft_strlen(variable[1])) == 0)
 			j = 1;
 		if (g_data.env[i + j] == NULL)
 			break ;
 		new_env[i] = ft_strdup(g_data.env[i + j]);
 	}
-	free(aux);
 	ft_free_matrix(g_data.env);
 	g_data.env = new_env;
 }

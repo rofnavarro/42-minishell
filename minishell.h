@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 14:19:09 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:33:44 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ extern t_program	g_data;
 void		ft_cd(char *str);
 
 //  utils/ft_builtin_echo.c
-void		ft_echo(char *cmd);
+void		ft_echo(char **cmd);
 
 //  utils/ft_builtin_env.c
-int			var_exist(char *variable, int size);
-void		ft_add_var_env(char *new_variable);
-void		ft_remove_var_env(char *new_variable);
+int			var_exist(char *variable);
+void		ft_add_var_env(char **new_variable);
+void		ft_remove_var_env(char **new_variable);
 
 //  utils/ft_builtin_env2.c
 int			ft_env_size(char **env);
@@ -102,7 +102,7 @@ void		ft_find_var(char *find_var, char *env_var, int *found);
 void		ft_pwd(char *str);
 
 //  utils/ft_builtin.c
-void		is_builtin(char *str);
+int			is_builtin(char **str);
 
 //  utils/ft_error.c
 void		ft_error(int arg);
@@ -116,6 +116,7 @@ void		ft_free_data(void);
 void		ft_loop(void);
 
 //  utils/ft_start.c
+void		get_path(void);
 void		ft_start(char **env);
 
 //  utils/ft_strtok.c

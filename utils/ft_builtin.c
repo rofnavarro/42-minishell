@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 14:21:42 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:30:18 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,37 @@ int	is_var_assigned(char *str)
 	return (FALSE);
 }
 
-void	is_builtin(char *str)
+int	is_builtin(char **str)
 {
-	if (ft_strncmp(str, "env", ft_strlen(str) - 1) == 0)
-		ft_print_env(str);
-	else if (ft_strncmp(str, "export ", 7) == 0 && is_var_assigned(str) == TRUE)
+	if (ft_strncmp(str[0], "env", ft_strlen(str[0]) - 1) == 0)
+	{
+		ft_print_env(str[0]);
+		return (TRUE);
+	}
+	else if (ft_strncmp(str[0], "export", 6) == 0 && is_var_assigned(str[1]) == TRUE)
+	{
 		ft_add_var_env(str);
-	else if (ft_strncmp(str, "unset ", 6) == 0)
+		return (TRUE);
+	}
+	else if (ft_strncmp(str[0], "unset", 5) == 0)
+	{
 		ft_remove_var_env(str);
-	else if (ft_strncmp(str, "pwd", ft_strlen(str) - 1) == 0)
-		ft_pwd(str);
-	else if (ft_strncmp(str, "cd", 2) == 0)
-		ft_cd(str);
-	else if (ft_strncmp(str, "echo ", 5) == 0)
+		return (TRUE);
+	}
+	else if (ft_strncmp(str[0], "pwd", ft_strlen(str[0]) - 1) == 0)
+	{
+		ft_pwd(str[0]);
+		return (TRUE);
+	}
+	else if (ft_strncmp(str[0], "cd", 2) == 0)
+	{
+		ft_cd(str[0]);
+		return (TRUE);
+	}
+	else if (ft_strncmp(str[0], "echo", 4) == 0)
+	{
 		ft_echo(str);
+		return (TRUE);
+	}
+	return (FALSE);
 }

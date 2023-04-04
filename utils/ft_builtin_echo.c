@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 14:30:40 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:33:23 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,45 +17,40 @@ static void	ft_find_print_var(char *dollar_var)
 	int		i;
 	char	**env_split;
 	char	*aux;
+	char	*tmp;
 
-	if (var_exist(dollar_var, 1) == TRUE)
+	tmp = ft_substr(dollar_var, 1, ft_strlen(dollar_var) - 1);
+	if (var_exist(tmp) == TRUE)
 	{
 		i = 0;
-		aux = ft_substr(dollar_var, 1, ft_strlen(dollar_var) - 1);
 		while (g_data.env[i])
 		{
 			env_split = ft_split(g_data.env[i], '=');
-			if (ft_strncmp(aux, env_split[0], ft_strlen(env_split[0])) == 0)
+			if (ft_strncmp(tmp, env_split[0], ft_strlen(env_split[0])) == 0)
 				printf("%s\n", env_split[1]);
 			ft_free_matrix(env_split);
 			i++;
 		}
-		free(aux);
+		free(tmp);
 	}
 	else
+	{
 		printf("\n");
+		free(tmp);
+	}
 }
 
-void	ft_echo(char *cmd)
+void	ft_echo(char **cmd)
 {
-	char	*aux;
-	char	*aux_no_line;
-
-	if (ft_strlen(cmd) <= 5)
+	if (ft_strlen(cmd[0]) < 4)
 	{
 		printf("\n");
 		return ;
 	}
-	aux = ft_substr(cmd, 5, ft_strlen(cmd) - 5);
-	if (aux[0] == '$' && ft_isalnum(aux[1]) != 0)
-		ft_find_print_var(aux);
-	else if (ft_strncmp(aux, "-n ", ft_strlen("-n ")) != 0)
-		printf("%s\n", aux);
+	if (cmd[1][0] == '$' && ft_isalnum(cmd[1][1]) != 0)
+		ft_find_print_var(cmd[1]);
+	else if (ft_strncmp(cmd[1], "-n ", ft_strlen("-n ")) != 0)
+		printf("%s\n", cmd[1]);
 	else
-	{
-		aux_no_line = ft_substr(aux, 3, ft_strlen(aux) - 3);
-		printf("%s", aux_no_line);
-		free(aux_no_line);
-	}
-	free(aux);
+		printf("%s", cmd[1]);
 }

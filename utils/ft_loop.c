@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 15:43:42 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 16:58:57 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_loop(void)
 		while (ft_check_quotes(g_data.cmd))
 			g_data.cmd = ft_strjoin_free(g_data.cmd, readline("> "));
 		add_history(g_data.cmd);
-		is_builtin(g_data.cmd);
 		g_data.cmd = ft_switch_inside_quotation(g_data.cmd);
 		g_data.cmd_token = ft_strtrim(ft_strtok(g_data.cmd, "|<<>")," ");
 		while (g_data.cmd_token != NULL)

@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/04 16:17:39 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:54:03 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,23 @@ void	ft_execute(t_token *token)
 	char	*cmd_path;
 	int		pid1;
 
-	cmd_path = ft_get_cmd_path(token);
-	pid1 = fork();
-	if (pid1 < 0)
+	if (is_builtin(token->cmd) == FALSE)
 	{
-		ft_error(errno);
-		return ;
+		cmd_path = ft_get_cmd_path(token);
+		pid1 = fork();
+		if (pid1 < 0)
+		{
+			ft_error(errno);
+			return ;
+		}
+		if (pid1 == 0)
+		{
+			if (execve(cmd_path, token->cmd, g_data.env) == -1)
+				return (ft_error(errno));
+		}
+		waitpid(pid1, NULL, 0);
+		free(cmd_path);
 	}
-	if (pid1 == 0)
-	{
-		if (execve(cmd_path, token->cmd, g_data.env) == -1)
-			return (ft_error(errno));
-	}
-	waitpid(pid1, NULL, 0);
-	free(cmd_path);
 }
 
 char	*ft_test_path(int i, t_token *token)
@@ -68,8 +71,15 @@ char	*ft_get_cmd_path(t_token *token)
 
 	cmd_path = NULL;
 	i = 0;
+	get_path();
+	if (g_data.path == NULL)
+	{
+		printf("command not found: %s\n", token->cmd[0]);
+		return (NULL);
+	}
 	while (g_data.path[i])
 	{
+		printf("%s\n", g_data.path[i]);
 		cmd_path = ft_test_path(i, token);
 		if (cmd_path)
 			break ;
