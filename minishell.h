@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 21:44:57 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:19:09 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,7 @@ typedef struct s_program
 extern t_program	g_data;
 
 //  utils/ft_builtin_cd.c
-void		ft_export_add_env(char *var, char *var_name);
-void		ft_check_cd_path(char *input_path);
 void		ft_cd(char *str);
-
-//  utils/ft_builtin_cd2.c
-void		ft_cd_back(char *aux);
-void		ft_cd_home(char *aux);
-void		ft_cd_stay(char *aux);
 
 //  utils/ft_builtin_echo.c
 void		ft_echo(char *cmd);
