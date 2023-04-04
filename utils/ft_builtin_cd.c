@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 14:18:45 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:13:09 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	ft_check_cd_path(char *input_path)
 	free(path);
 }
 
-static void	ft_cd_home()
+static void	ft_cd_home(void)
 {
 	char	*buff;
 	char	**home;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/04 14:52:02 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:11:00 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,6 @@ char	*ft_get_cmd_path(t_token *token)
 		i++;
 	}
 	if (cmd_path == NULL)
-	{
-		printf("%s: command not found\n", token->cmd[0]);
 		ft_error(errno);
-	}
 	return (cmd_path);
 }
