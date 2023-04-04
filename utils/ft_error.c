@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 15:12:30 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 16:08:41 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_error(int arg)
 {
 	strerror(arg);
+	g_data.exit_code = arg;
 	printf("%s\n", strerror(arg));
 }
 

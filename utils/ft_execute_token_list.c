@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/04 15:11:00 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 16:17:39 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	ft_execute(t_token *token)
 	if (pid1 == 0)
 	{
 		if (execve(cmd_path, token->cmd, g_data.env) == -1)
-		{
-			ft_error(errno);
-			return ;
-		}
+			return (ft_error(errno));
 	}
 	waitpid(pid1, NULL, 0);
 	free(cmd_path);
