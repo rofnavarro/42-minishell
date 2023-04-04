@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 19:14:49 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/04 19:29:31 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	ft_loop(void)
 			g_data.cmd = ft_strjoin_free(g_data.cmd, readline("> "));
 		add_history(g_data.cmd);
 		g_data.cmd = ft_switch_inside_quotation(g_data.cmd);
-		g_data.cmd_token = ft_strtrim(ft_strtok(g_data.cmd, "|<<>")," ");
+		g_data.cmd_token = ft_strtrim(ft_strtok(g_data.cmd, "|<<>>;")," ");
 		while (g_data.cmd_token != NULL)
 		{
 			g_data.cmd_token = ft_switch_inside_quotation(g_data.cmd_token);
 			ft_add_token(g_data.cmd_token, g_data.cmd_type);
 			free(g_data.cmd_token);
-			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>"), " ");
+			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>>;"), " ");
 		}
 		ft_print_token_list();
 		ft_execute_token_list();

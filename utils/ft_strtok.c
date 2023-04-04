@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 15:11:40 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:28:57 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_delim(char c, const char *delim)
 	{
 		if (c == delim[i])
 		{
-			if (g_data.cmd_type == 5)
+			if (g_data.cmd_type == 6)
 				g_data.cmd_type = i;
 			else if ((g_data.cmd_type == 1 && c == '<') || \
 					(g_data.cmd_type == 3 && c == '>'))
@@ -45,7 +45,7 @@ char	*ft_strtok(char *str, const char *delim)
 	int			i;
 
 	i = 0;
-	g_data.cmd_type = 5;
+	g_data.cmd_type = 6;
 	if (!str)
 		str = backup_string;
 	if (!str || *str == '\0')
