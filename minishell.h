@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 18:12:13 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:19:09 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_program
 	char	**path;
 	int		status;
 	int		stop;
+	int		exit_code;
 	t_token	*token_start;
 }	t_program;
 
@@ -83,7 +84,11 @@ extern t_program	g_data;
 //  utils/ft_builtin_cd.c
 void		ft_cd(char *str);
 
+//  utils/ft_builtin_echo.c
+void		ft_echo(char *cmd);
+
 //  utils/ft_builtin_env.c
+int			var_exist(char *variable, int size);
 void		ft_add_var_env(char *new_variable);
 void		ft_remove_var_env(char *new_variable);
 
@@ -91,6 +96,7 @@ void		ft_remove_var_env(char *new_variable);
 int			ft_env_size(char **env);
 char		**ft_env_calloc(int size);
 void		ft_print_env(char *cmd);
+void		ft_find_var(char *find_var, char *env_var, int *found);
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);
@@ -99,7 +105,7 @@ void		ft_pwd(char *str);
 void		is_builtin(char *str);
 
 //  utils/ft_error.c
-void		ft_error(char *msg, int arg);
+void		ft_error(int arg);
 void		ft_exit(void);
 
 //  utils/ft_free.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:42:38 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/02 15:11:40 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static int	is_delim(char c, const char *delim)
 	int	i;
 
 	i = 0;
-	// if (c == ' ')
-	// 	return (TRUE);
 	while (delim[i] != '\0')
 	{
 		if (c == delim[i])
@@ -29,7 +27,10 @@ static int	is_delim(char c, const char *delim)
 					(g_data.cmd_type == 3 && c == '>'))
 				g_data.cmd_type++;
 			else
-				ft_error("Error: unknown operator\n", 1);
+			{
+				ft_error(ENOENT);
+				return (FALSE);
+			}
 			return (TRUE);
 		}
 		i++;
