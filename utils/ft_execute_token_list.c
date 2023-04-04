@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/04 17:54:03 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:55:30 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,27 @@ void	ft_execute(t_token *token)
 	char	*cmd_path;
 	int		pid1;
 
-	if (is_builtin(token->cmd) == FALSE)
+	if (!is_builtin(token->cmd) && ft_strncmp(token->cmd[0], "exit", 4) != 0)
 	{
 		cmd_path = ft_get_cmd_path(token);
-		pid1 = fork();
-		if (pid1 < 0)
+		if (cmd_path)
 		{
-			ft_error(errno);
-			return ;
+			pid1 = fork();
+			printf("process forked!\n");
+			if (pid1 < 0)
+			{
+				ft_error(errno);
+				return ;
+			}
+			if (pid1 == 0)
+			{
+				printf("hi from child process\n");
+				if (execve(cmd_path, token->cmd, g_data.env) == -1)
+					return (ft_error(errno));
+			}
+			waitpid(pid1, NULL, 0);
+			free(cmd_path);
 		}
-		if (pid1 == 0)
-		{
-			if (execve(cmd_path, token->cmd, g_data.env) == -1)
-				return (ft_error(errno));
-		}
-		waitpid(pid1, NULL, 0);
-		free(cmd_path);
 	}
 }
 
@@ -72,20 +77,22 @@ char	*ft_get_cmd_path(t_token *token)
 	cmd_path = NULL;
 	i = 0;
 	get_path();
-	if (g_data.path == NULL)
+	if (g_data.path == NULL)		// return("error");
 	{
 		printf("command not found: %s\n", token->cmd[0]);
 		return (NULL);
 	}
 	while (g_data.path[i])
 	{
-		printf("%s\n", g_data.path[i]);
 		cmd_path = ft_test_path(i, token);
 		if (cmd_path)
 			break ;
 		i++;
 	}
 	if (cmd_path == NULL)
-		ft_error(errno);
+	{
+		printf("command not found: %s\n", token->cmd[0]);
+		g_data.exit_code = 127;
+	}
 	return (cmd_path);
 }
