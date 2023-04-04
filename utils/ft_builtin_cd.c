@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 14:18:45 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:41:34 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ static void	ft_check_cd_path(char *input_path)
 
 	dir = chdir(input_path);
 	if (dir < 0)
-	{
-		ft_error(errno);
-		return ;
-	}
+		return (ft_error(errno));
 	buff = NULL;
 	path = getcwd(buff, 0);
 	ft_export_add_env(path, "PWD=");
@@ -46,7 +43,7 @@ static void	ft_check_cd_path(char *input_path)
 	free(path);
 }
 
-static void	ft_cd_home()
+static void	ft_cd_home(void)
 {
 	char	*buff;
 	char	**home;
@@ -63,12 +60,11 @@ static void	ft_cd_home()
 	home = ft_split(g_data.env[i], '=');
 	dir = chdir(home[1]);
 	if (dir < 0)
-	{
-		ft_error(errno);
-		return ;
-	}
+		return (ft_error(errno));
 	buff = NULL;
 	path = getcwd(buff, 0);
+	if (path < 0)
+		return (ft_error(errno));
 	ft_export_add_env(path, "PWD=");
 	ft_free_matrix(home);
 	free(buff);
