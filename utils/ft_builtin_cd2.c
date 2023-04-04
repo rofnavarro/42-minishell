@@ -6,32 +6,32 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 20:23:47 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 19:57:45 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 00:47:08 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_cd_back(char *aux)
-{
-	char	*buff;
-	char	*path;
-	int		dir;
+// void	ft_cd_back()
+// {
+// 	char	*buff;
+// 	char	*path;
+// 	int		dir;
 
-	dir = chdir("..");
-	if (dir < 0)
-	{
-		ft_error(errno);
-		return ;
-	}
-	buff = NULL;
-	path = getcwd(buff, 0);
-	ft_export_add_env(path, "PWD=");
-	free(buff);
-	free(path);
-}
+// 	dir = chdir("..");
+// 	if (dir < 0)
+// 	{
+// 		ft_error(errno);
+// 		return ;
+// 	}
+// 	buff = NULL;
+// 	path = getcwd(buff, 0);
+// 	ft_export_add_env(path, "PWD=");
+// 	free(buff);
+// 	free(path);
+// }
 
-void	ft_cd_home(char *aux)
+void	ft_cd_home()
 {
 	char	*buff;
 	char	**home;
@@ -60,14 +60,15 @@ void	ft_cd_home(char *aux)
 	free(path);
 }
 
-void	ft_cd_stay(char *aux)
-{
-	char	*buff;
-	char	*path;
+// void	ft_cd_stay()
+// {
+// 	char	*buff;
+// 	char	*path;
 
-	buff = NULL;
-	path = getcwd(buff, 0);
-	ft_export_add_env(path, "PWD=");
-	free(buff);
-	free(path);
-}
+// 	buff = NULL;
+// 	path = getcwd(buff, 0);
+// 	ft_export_add_env(path, "PWD=");
+// 	free(buff);
+// 	free(path);
+// }
+
