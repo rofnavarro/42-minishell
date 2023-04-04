@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_echo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/02 22:04:08 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:30:40 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_echo(char *cmd)
 		return ;
 	}
 	aux = ft_substr(cmd, 5, ft_strlen(cmd) - 5);
-	if (aux[0] == '$' && ft_isalpha(aux[1]) > 0)
+	if (aux[0] == '$' && ft_isalnum(aux[1]) != 0)
 		ft_find_print_var(aux);
 	else if (ft_strncmp(aux, "-n ", ft_strlen("-n ")) != 0)
 		printf("%s\n", aux);
