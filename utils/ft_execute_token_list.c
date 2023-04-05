@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 12:32:09 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 12:41:27 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
 	int		pid1;
+	int		wstatus;
 
 	if (!is_builtin(token->cmd) && ft_strncmp(token->cmd[0], "exit", 4) != 0)
 	{
@@ -47,7 +48,8 @@ void	ft_execute(t_token *token)
 				if (execve(cmd_path, token->cmd, g_data.env) == -1)
 					return (ft_error(errno));
 			}
-			waitpid(pid1, NULL, 0);
+			waitpid(pid1, &wstatus, 0);
+			g_data.exit_code = wstatus;
 			free(cmd_path);
 		}
 	}
