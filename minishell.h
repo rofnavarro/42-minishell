@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 16:44:46 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 16:57:03 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,6 @@ void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
 char		*ft_get_cmd_path(t_token *token);
 char		*ft_test_path(int i, t_token *token);
+void		ft_cmd_not_found(char *cmd);
 
 #endif

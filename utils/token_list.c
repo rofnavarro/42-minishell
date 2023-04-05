@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 16:45:33 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 16:50:26 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**ft_token_quotes(char **cmd)
 		free(temp);
 		i++;
 	}
-	return(cmd);
+	return (cmd);
 }
 
 void	ft_print_token_list(void)
