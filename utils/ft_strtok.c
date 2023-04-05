@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 16:48:21 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 16:49:02 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	is_delim(char c, const char *delim)
 {
 	int	i;
 
-	i = 0;new_token->
+	i = 0;
 	while (delim[i] != '\0')
 	{
 		if (c == delim[i])
