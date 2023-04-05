@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 14:37:36 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 15:25:27 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ void	ft_add_token(char *cmd_token, t_type cmd_type)
 {
 	t_token	*new_token;
 	t_token	*aux;
-	int i;
+	int		i;
 
 	i = 0;
 	new_token = (t_token *)malloc(sizeof(t_token));
 	new_token->cmd = ft_split(cmd_token, ' ');
-	while(new_token->cmd[i])
+	while (new_token->cmd[i])
 	{
 		new_token->cmd[i] = ft_switch_inside_quotation(new_token->cmd[i]);
+		new_token->cmd[i] = ft_strtrim(new_token->cmd[i], "\'\"");
 		i++;
 	}
 	new_token->type = cmd_type;
@@ -46,7 +47,6 @@ void	ft_print_token_list(void)
 {
 	t_token	*aux;
 	int		i;
-
 
 	if (!g_data.token_start)
 		return ;

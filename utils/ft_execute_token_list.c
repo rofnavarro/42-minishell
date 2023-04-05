@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 14:44:06 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 15:25:01 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_get_cmd_path(t_token *token)
 	cmd_path = NULL;
 	i = 0;
 	get_path();
-	if (g_data.path == NULL)		
+	if (g_data.path == NULL)
 	{
 		printf("command not found: %s\n", token->cmd[0]);
 		return (NULL);
