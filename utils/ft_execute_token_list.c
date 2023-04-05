@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/04 18:55:30 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 12:32:09 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_execute(t_token *token)
 		if (cmd_path)
 		{
 			pid1 = fork();
-			printf("process forked!\n");
 			if (pid1 < 0)
 			{
 				ft_error(errno);
@@ -45,7 +44,6 @@ void	ft_execute(t_token *token)
 			}
 			if (pid1 == 0)
 			{
-				printf("hi from child process\n");
 				if (execve(cmd_path, token->cmd, g_data.env) == -1)
 					return (ft_error(errno));
 			}
@@ -77,7 +75,7 @@ char	*ft_get_cmd_path(t_token *token)
 	cmd_path = NULL;
 	i = 0;
 	get_path();
-	if (g_data.path == NULL)		// return("error");
+	if (g_data.path == NULL)		
 	{
 		printf("command not found: %s\n", token->cmd[0]);
 		return (NULL);
@@ -91,7 +89,10 @@ char	*ft_get_cmd_path(t_token *token)
 	}
 	if (cmd_path == NULL)
 	{
-		printf("command not found: %s\n", token->cmd[0]);
+		if (ft_strncmp(token->cmd[0], "$?", 2) == 0 && ft_strlen(token->cmd[0]) == 2)
+			printf("command not found: %d\n", g_data.exit_code);
+		else
+			printf("command not found: %s\n", token->cmd[0]);
 		g_data.exit_code = 127;
 	}
 	return (cmd_path);

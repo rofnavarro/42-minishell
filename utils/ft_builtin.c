@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 19:06:01 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 12:26:38 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,5 @@ int	is_builtin(char **str)
 		ft_echo(str);
 		return (TRUE);
 	}
-	else if(ft_strncmp(str[0], "$?", 2) == 0)
-		return(printf("command not found: %d\n", g_data.exit_code));
 	return (FALSE);
 }
