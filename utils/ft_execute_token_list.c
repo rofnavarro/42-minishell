@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 14:44:06 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 15:22:13 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_get_cmd_path(t_token *token)
 	cmd_path = NULL;
 	i = 0;
 	get_path();
-	if (g_data.path == NULL)		
+	if (g_data.path == NULL)
 	{
 		printf("command not found: %s\n", token->cmd[0]);
 		return (NULL);
@@ -93,7 +93,8 @@ char	*ft_get_cmd_path(t_token *token)
 	}
 	if (cmd_path == NULL)
 	{
-		if (ft_strncmp(token->cmd[0], "$?", 2) == 0 && ft_strlen(token->cmd[0]) == 2)
+		if (ft_strncmp(token->cmd[0], "$?", 2) == 0 && \
+			ft_strlen(token->cmd[0]) == 2)
 			printf("command not found: %d\n", g_data.exit_code);
 		else
 			printf("command not found: %s\n", token->cmd[0]);

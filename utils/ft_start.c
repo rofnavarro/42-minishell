@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 19:18:26 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 15:17:47 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_path(void)
 	int	i;
 
 	i = 0;
-	if(g_data.path)
+	if (g_data.path)
 		ft_free_matrix(g_data.path);
 	while (ft_strnstr(g_data.env[i], "PATH=", 5) == 0)
 		i++;

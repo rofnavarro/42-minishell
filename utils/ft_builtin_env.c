@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 17:49:08 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:19:05 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void	ft_remove_var_env(char **variable)
 	j = 0;
 	while (g_data.env[++i + j])
 	{
-		if (ft_strncmp(variable[1], g_data.env[i + j], ft_strlen(variable[1])) == 0)
+		if (ft_strncmp(variable[1], g_data.env[i + j], \
+			ft_strlen(variable[1])) == 0)
 			j = 1;
 		if (g_data.env[i + j] == NULL)
 			break ;

@@ -3,11 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 19:28:57 by rinacio          ###   ########.fr       */
-/*                            			printf("O token é: %s\n", g_data.cmd_token);                                                */
+/*   Updated: 2023/04/05 15:20:04 by rferrero         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"

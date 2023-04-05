@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 17:33:44 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:05:37 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_program
 extern t_program	g_data;
 
 //  utils/ft_builtin_cd.c
-void		ft_cd(char *str);
+void		ft_cd(char **cmd);
 
 //  utils/ft_builtin_echo.c
 void		ft_echo(char **cmd);

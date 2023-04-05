@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 17:22:36 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:16:51 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 static void	ft_export_add_env(char *var, char *var_name)
 {
 	char	*tmp;
-	char	*tmp_exp;
 	char	**exp;
 
-	exp[0] = ft_strdup("export");
-	exp[1] = ft_strjoin(var_name, var);
+	exp = (char **)ft_env_calloc(2 + 1);
+	exp[0] = ft_strdup("export ");
+	tmp = ft_strjoin(exp[0], var_name);
+	exp[1] = ft_strjoin(tmp, var);
 	ft_add_var_env(exp);
+	free(tmp);
 	ft_free_matrix(exp);
 }
 
@@ -68,27 +70,22 @@ static void	ft_cd_home(void)
 	free(path);
 }
 
-void	ft_cd(char *cmd)
+void	ft_cd(char **cmd)
 {
-	char	*aux;
 	char	*buff;
 	char	*old_path;
 
 	buff = NULL;
 	old_path = getcwd(buff, 0);
 	ft_export_add_env(old_path, "OLDPWD=");
-	if ((ft_strncmp(cmd, "cd", 2) == 0 && ft_strlen(cmd) == 2) || \
-		(ft_strncmp(cmd, "cd ", 3) == 0 && ft_strlen(cmd) == 3))
+	if ((ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])) == 0) && !cmd[1])
 		ft_cd_home();
 	else
 	{
-		aux = ft_substr(cmd, 3, ft_strlen(cmd) - 3);
-		if ((ft_strncmp(aux, "~", 1) == 0) && \
-			(ft_strlen(aux) == ft_strlen("~")))
+		if (ft_strncmp(cmd[1], "~", ft_strlen(cmd[1])) == 0)
 			ft_cd_home();
 		else
-			ft_check_cd_path(aux);
-		free(aux);
+			ft_check_cd_path(cmd[1]);
 	}
 	free(buff);
 	free(old_path);
