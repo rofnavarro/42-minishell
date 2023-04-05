@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 15:21:40 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:30:12 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_add_token(char *cmd_token, t_type cmd_type)
 	while (new_token->cmd[i])
 	{
 		new_token->cmd[i] = ft_switch_inside_quotation(new_token->cmd[i]);
+		new_token->cmd[i] = ft_strtrim(new_token->cmd[i], "\'\"");
 		i++;
 	}
 	new_token->type = cmd_type;
