@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 12:41:27 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 14:44:06 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_execute_token_list(void)
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
-	int		pid1;
+	int		pid;
 	int		wstatus;
 
 	if (!is_builtin(token->cmd) && ft_strncmp(token->cmd[0], "exit", 4) != 0)
@@ -37,18 +37,20 @@ void	ft_execute(t_token *token)
 		cmd_path = ft_get_cmd_path(token);
 		if (cmd_path)
 		{
-			pid1 = fork();
-			if (pid1 < 0)
+			pid = fork();
+			if (pid < 0)
 			{
 				ft_error(errno);
 				return ;
 			}
-			if (pid1 == 0)
+			if (pid == 0)
 			{
 				if (execve(cmd_path, token->cmd, g_data.env) == -1)
 					return (ft_error(errno));
 			}
-			waitpid(pid1, &wstatus, 0);
+			waitpid(pid, &wstatus, 0);
+			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
+				wstatus = WEXITSTATUS(wstatus);
 			g_data.exit_code = wstatus;
 			free(cmd_path);
 		}
