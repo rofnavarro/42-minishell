@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 15:23:48 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:35:48 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,38 @@ static void	ft_find_print_var(char *dollar_var)
 	}
 }
 
+static void	ft_echo_class(char **cmd, int i)
+{
+	if (cmd[i][0] == '$' && cmd[i][1] == '?')
+		printf("%d\n", g_data.exit_code);
+	else if (cmd[i][0] == '$' && ft_isprint(cmd[i][1]) != 0)
+		ft_find_print_var(cmd[i]);
+	else if ((ft_strncmp(cmd[1], "-n", ft_strlen("-n")) == 0) && \
+				cmd[i + 1] != NULL)
+	{
+		if (cmd[i + 1][0] != '$')
+		{
+			printf("%s", cmd[i + 1]);
+			if (i + 1 >= 2 && cmd[i + 2] != NULL)
+				printf(" ");
+		}
+	}
+	else if (ft_strncmp(cmd[1], "-n", ft_strlen("-n") != 0))
+	{
+		printf("%s", cmd[i]);
+		if (cmd[i + 1] != NULL)
+			printf(" ");
+		else
+			printf("\n");
+	}
+}
+
 void	ft_echo(char **cmd)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
-	if (ft_strlen(cmd[0]) < 4)
+	if (ft_strlen(cmd[0]) == 4 && cmd[1] == NULL)
 	{
 		printf("\n");
 		return ;
@@ -52,25 +79,14 @@ void	ft_echo(char **cmd)
 	i = 1;
 	while (cmd[i] != NULL)
 	{
-		if (cmd[i][0] == '$' && cmd[i][1] == '?')
-			printf("%d\n", g_data.exit_code);
-		else if (cmd[i][0] == '$' && ft_isprint(cmd[i][1]) != 0)
-			ft_find_print_var(cmd[i]);
-		else if ((ft_strncmp(cmd[1], "-n", ft_strlen("-n")) == 0) && \
-					cmd[i + 1] != NULL)
+		if (cmd[i][0] == '\'')
 		{
-			printf("%s", cmd[i + 1]);
-			if (i + 1 >= 2 && cmd[i + 2] != NULL)
-				printf(" ");
+			tmp = ft_strtrim(cmd[i], "'");
+			free(cmd[i]);
+			printf("%s\n", tmp);
+			cmd[i] = ft_substr_free(tmp, 0, ft_strlen(tmp));
 		}
-		else if (ft_strncmp(cmd[1], "-n", ft_strlen("-n") != 0))
-		{
-			printf("%s", cmd[i]);
-			if (cmd[i + 1] != NULL)
-				printf(" ");
-			else
-				printf("\n");
-		}
+		ft_echo_class(cmd, i);
 		g_data.exit_code = 0;
 		i++;
 	}
