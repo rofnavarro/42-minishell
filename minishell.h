@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 15:31:17 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:44:46 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ char		*ft_strtok(char *str, const char *delim);
 void		ft_add_token(char *cmd_token, t_type cmd_type);
 void		ft_print_token_list(void);
 void		ft_free_token_list(t_token *token, int start);
+char		**ft_token_quotes(char **cmd);
 
 //	utils/ft_check_quotes.c
 int			ft_check_quotes(char *arg);

@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 16:18:07 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/05 16:45:33 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,10 @@ void	ft_add_token(char *cmd_token, t_type cmd_type)
 {
 	t_token	*new_token;
 	t_token	*aux;
-	char	*temp;
-	int		i;
 
-	i = 0;
 	new_token = (t_token *)malloc(sizeof(t_token));
 	new_token->cmd = ft_split(cmd_token, ' ');
-	while (new_token->cmd[i])
-	{
-		temp = ft_strtrim(ft_switch_inside_quotation(new_token->cmd[i]), "\"");
-		free(new_token->cmd[i]);
-		new_token->cmd[i] = ft_strdup(temp);
-		free(temp);
-		i++;
-	}
+	new_token->cmd = ft_token_quotes(new_token->cmd);
 	new_token->type = cmd_type;
 	new_token->prev = NULL;
 	new_token->next = NULL;
@@ -44,6 +34,23 @@ void	ft_add_token(char *cmd_token, t_type cmd_type)
 		new_token->prev = aux;
 		new_token->next = NULL;
 	}
+}
+
+char	**ft_token_quotes(char **cmd)
+{
+	char	*temp;
+	int		i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		temp = ft_strtrim(ft_switch_inside_quotation(cmd[i]), "\"");
+		free(cmd[i]);
+		cmd[i] = ft_strdup(temp);
+		free(temp);
+		i++;
+	}
+	return(cmd);
 }
 
 void	ft_print_token_list(void)
