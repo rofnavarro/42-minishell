@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 15:16:51 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:27:15 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 static void	ft_export_add_env(char *var, char *var_name)
 {
-	char	*tmp;
 	char	**exp;
 
 	exp = (char **)ft_env_calloc(2 + 1);
 	exp[0] = ft_strdup("export ");
-	tmp = ft_strjoin(exp[0], var_name);
-	exp[1] = ft_strjoin(tmp, var);
+	exp[1] = ft_strjoin(var_name, var);
 	ft_add_var_env(exp);
-	free(tmp);
 	ft_free_matrix(exp);
 }
 
