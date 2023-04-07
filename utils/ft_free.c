@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:37:58 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/07 17:13:50 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_free_matrix(char **matrix)
 
 void	ft_free_data(void)
 {
-	ft_free_matrix(g_data.env);
-	ft_free_matrix(g_data.path);
+	if (g_data.env != NULL)
+		ft_free_matrix(g_data.env);
+	if (g_data.path != NULL)
+		ft_free_matrix(g_data.path);
 }

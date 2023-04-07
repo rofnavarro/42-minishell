@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 15:17:47 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:12:36 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,20 @@ void	get_path(void)
 	int	i;
 
 	i = 0;
+	if (!g_data.env)
+		g_data.path = NULL;
 	if (g_data.path)
 		ft_free_matrix(g_data.path);
-	while (ft_strnstr(g_data.env[i], "PATH=", 5) == 0)
+	while (g_data.env[i])
+	{
+		if (ft_strncmp(g_data.env[i], "PATH=", 5) == 0)
+			break ;
 		i++;
-	g_data.path = (ft_split(g_data.env[i] + 5, ':'));
-	if (!g_data.env[i])
+	}
+	if (i == ft_env_size(g_data.env))
 		g_data.path = NULL;
+	else
+		g_data.path = (ft_split(g_data.env[i] + 5, ':'));
 }
 
 static void	get_env(char **envp)

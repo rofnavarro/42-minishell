@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 13:30:18 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:09:09 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,8 @@ static void	ft_find_print_var(char *dollar_var)
 			ft_free_matrix(env_split);
 			i++;
 		}
-		free(tmp);
 	}
-	else
-	{
-		printf("\n");
-		free(tmp);
-	}
+	free(tmp);
 }
 
 static void	ft_echo_class(char **cmd, int i)

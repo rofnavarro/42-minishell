@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 15:14:27 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:08:00 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ void	ft_loop(void)
 	while (g_data.stop == 0)
 	{
 		char	*user;
-		char	*pwd;
 	
 		user = find_var_value(g_data.env, "USER");
-		pwd = find_var_value(g_data.env, "PWD");
-		printf("%s:%s", user, pwd);
+		printf("%s:", user);
 		g_data.cmd = readline("$ ");
 		if (!g_data.cmd) // verificar ctr+d (EOF - free all - exit)
 			break ;
@@ -45,7 +43,6 @@ void	ft_loop(void)
 		ft_exit();
 		free(g_data.cmd);
 		free(user);
-		free(pwd);
 	}
 	rl_clear_history();
 }

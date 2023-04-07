@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 16:27:15 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:55:49 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	ft_cd(char **cmd)
 	buff = NULL;
 	old_path = getcwd(buff, 0);
 	ft_export_add_env(old_path, "OLDPWD=");
-	if ((ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])) == 0) && !cmd[1])
+	if ((ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])) == 0) && !cmd[1] && \
+		ft_strlen(cmd[0]) == ft_strlen("cd"))
 		ft_cd_home();
 	else
 	{
