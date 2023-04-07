@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 15:32:29 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:14:27 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@ void	ft_loop(void)
 {
 	while (g_data.stop == 0)
 	{
-		g_data.cmd = readline("hell$: ");
+		char	*user;
+		char	*pwd;
+	
+		user = find_var_value(g_data.env, "USER");
+		pwd = find_var_value(g_data.env, "PWD");
+		printf("%s:%s", user, pwd);
+		g_data.cmd = readline("$ ");
 		if (!g_data.cmd) // verificar ctr+d (EOF - free all - exit)
 			break ;
 		while (ft_check_quotes(g_data.cmd))
@@ -31,13 +37,15 @@ void	ft_loop(void)
 			free(g_data.cmd_token);
 			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>>;"), " ");
 		}
-		printf("\n------------- Token list -------------\n");
-		ft_print_token_list();
-		printf("\n--------------------------------------\n\n");
+		// printf("\n------------- Token list -------------\n");
+		// ft_print_token_list();
+		// printf("\n--------------------------------------\n\n");
 		ft_execute_token_list();
 		ft_free_token_list(g_data.token_start, 1);
 		ft_exit();
 		free(g_data.cmd);
+		free(user);
+		free(pwd);
 	}
 	rl_clear_history();
 }
