@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_env2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:44:33 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 17:23:29 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/07 22:28:30 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ char	*find_var_value(char **env, char *var)
 		ft_free_matrix(aux);
 		i++;
 	}
+	return (NULL);
 }
