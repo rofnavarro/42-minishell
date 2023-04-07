@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:44:33 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 15:16:04 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:23:29 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ char	*find_var_value(char **env, char *var)
 		aux = ft_split(env[i], '=');
 		if (ft_strncmp(var, aux[0], ft_strlen(var)) == 0 && \
 			ft_strlen(var) == ft_strlen(aux[0]))
-			{
-				tmp = ft_strdup(aux[1]);
-				ft_free_matrix(aux);
-				return (tmp);
-			}
+		{
+			tmp = ft_strdup(aux[1]);
+			ft_free_matrix(aux);
+			return (tmp);
+		}
 		ft_free_matrix(aux);
 		i++;
 	}

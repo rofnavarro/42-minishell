@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 16:08:00 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:18:51 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_loop(void)
 {
+	char	*user;
+	
 	while (g_data.stop == 0)
 	{
-		char	*user;
-	
 		user = find_var_value(g_data.env, "USER");
 		printf("%s:", user);
 		g_data.cmd = readline("$ ");
