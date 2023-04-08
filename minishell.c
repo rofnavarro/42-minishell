@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 19:14:53 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/08 00:54:46 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	if (argc != 1)
 	{
-		ft_error(errno);
-		exit(errno);
+		printf("Minishell don't need any arguments to run\n");
+		exit(EXIT_FAILURE);
 	}
 	g_data = (t_program){0};
 	ft_start(envp);

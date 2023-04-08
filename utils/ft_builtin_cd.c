@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 15:55:49 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/08 01:00:24 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ static void	ft_check_cd_path(char *input_path)
 {
 	char	*buff;
 	char	*path;
-	int		dir;
 
-	dir = chdir(input_path);
-	if (dir < 0)
+	if (chdir(input_path) < 0)
 		return (ft_error(errno));
 	buff = NULL;
 	path = getcwd(buff, 0);
@@ -45,7 +43,6 @@ static void	ft_cd_home(void)
 	char	**home;
 	char	*path;
 	int		i;
-	int		dir;
 
 	i = -1;
 	while (g_data.env[++i])
@@ -54,8 +51,7 @@ static void	ft_cd_home(void)
 			break ;
 	}
 	home = ft_split(g_data.env[i], '=');
-	dir = chdir(home[1]);
-	if (dir < 0)
+	if (chdir(home[1]) < 0)
 		return (ft_error(errno));
 	buff = NULL;
 	path = getcwd(buff, 0);
