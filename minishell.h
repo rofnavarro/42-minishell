@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/10 02:14:55 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/10 15:21:36 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ typedef struct s_program
 	int		stop;
 	int		exit_code;
 	t_token	*token_start;
-	int		fd[2];
+	int		fd[2][2];
+	int		count_pipes;
 }	t_program;
 
 //  global variable

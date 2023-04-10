@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/10 04:05:38 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/10 18:00:58 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,27 @@ void	ft_execute_token_list(void)
 
 void	redirect_to_pipe(void)
 {
-	close(g_data.fd[0]);
-	dup2(g_data.fd[1], STDOUT_FILENO);
-	close(g_data.fd[1]);
+	int i;
+
+	if (g_data.count_pipes % 2 != 0)
+		i = 0;
+	else
+		i = 1;
+	close(g_data.fd[i][0]);
+	dup2(g_data.fd[i][1], STDOUT_FILENO);
+	close(g_data.fd[i][1]);
 }
 
 void	redirect_from_pipe(void)
 {
-	dup2(g_data.fd[0], STDIN_FILENO);
-	close(g_data.fd[0]);
+	int	i;
+
+	if (g_data.count_pipes % 2 != 0)
+		i = 0;
+	else
+		i = 1;
+	dup2(g_data.fd[i][0], STDIN_FILENO);
+	close(g_data.fd[i][0]);
 }
 
 void	ft_execute(t_token *token)
@@ -52,8 +64,17 @@ void	ft_execute(t_token *token)
 		{
 			if (token->type == 0)
 			{
-				if (pipe(g_data.fd) == -1)
-					return (ft_error(errno));
+				if (g_data.count_pipes % 2 == 0)
+				{
+					if (pipe(g_data.fd[0]) == -1)
+						return (ft_error(errno));					
+				}
+				else
+				{
+					if (pipe(g_data.fd[1]) == -1)
+						return (ft_error(errno));				
+				}
+				g_data.count_pipes++;
 			}
 			cmd_path = ft_get_cmd_path(token);
 			if (cmd_path)
@@ -65,7 +86,7 @@ void	ft_execute(t_token *token)
 				{
 					if (token->type == 0)
 						redirect_to_pipe();
-					else if (token->prev && token->prev->type == 0)
+					if (token->prev && token->prev->type == 0)
 						redirect_from_pipe();
 					if (execve(cmd_path, token->cmd, g_data.env) == -1)
 						return (ft_error(errno));
@@ -77,9 +98,19 @@ void	ft_execute(t_token *token)
 				
 				free(cmd_path);
 				if (token->type == 0)
-					close(g_data.fd[1]);
+				{
+					if (g_data.count_pipes % 2 != 0)
+						close(g_data.fd[0][1]);
+					else
+						close(g_data.fd[1][1]);
+				}
 				else if (token->prev && token->prev->type == 0)
-					close(g_data.fd[0]);	
+				{
+					if (g_data.count_pipes % 2 != 0)
+						close(g_data.fd[0][0]);
+					else
+						close(g_data.fd[1][0]);					
+				}
 			}
 		}	
 	}
