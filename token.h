@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 22:22:22 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 15:06:52 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/04 19:24:47 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef enum e_type
 	LESS_LESS,
 	GREATER,
 	GREATER_GREATER,
+	SEMICOLON,
 	EOC,
 }	t_type;
 

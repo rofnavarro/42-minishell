@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 15:41:34 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/08 01:00:24 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,21 @@
 
 static void	ft_export_add_env(char *var, char *var_name)
 {
-	char	*tmp;
-	char	*tmp_exp;
-	char	*exp;
+	char	**exp;
 
-	tmp = ft_strdup("export ");
-	tmp_exp = ft_strjoin(tmp, var_name);
-	free(tmp);
-	exp = ft_strjoin(tmp_exp, var);
-	free(tmp_exp);
+	exp = (char **)ft_env_calloc(2 + 1);
+	exp[0] = ft_strdup("export ");
+	exp[1] = ft_strjoin(var_name, var);
 	ft_add_var_env(exp);
-	free(exp);
+	ft_free_matrix(exp);
 }
 
 static void	ft_check_cd_path(char *input_path)
 {
 	char	*buff;
 	char	*path;
-	int		dir;
 
-	dir = chdir(input_path);
-	if (dir < 0)
+	if (chdir(input_path) < 0)
 		return (ft_error(errno));
 	buff = NULL;
 	path = getcwd(buff, 0);
@@ -49,7 +43,6 @@ static void	ft_cd_home(void)
 	char	**home;
 	char	*path;
 	int		i;
-	int		dir;
 
 	i = -1;
 	while (g_data.env[++i])
@@ -58,8 +51,7 @@ static void	ft_cd_home(void)
 			break ;
 	}
 	home = ft_split(g_data.env[i], '=');
-	dir = chdir(home[1]);
-	if (dir < 0)
+	if (chdir(home[1]) < 0)
 		return (ft_error(errno));
 	buff = NULL;
 	path = getcwd(buff, 0);
@@ -71,27 +63,23 @@ static void	ft_cd_home(void)
 	free(path);
 }
 
-void	ft_cd(char *cmd)
+void	ft_cd(char **cmd)
 {
-	char	*aux;
 	char	*buff;
 	char	*old_path;
 
 	buff = NULL;
 	old_path = getcwd(buff, 0);
 	ft_export_add_env(old_path, "OLDPWD=");
-	if ((ft_strncmp(cmd, "cd", 2) == 0 && ft_strlen(cmd) == 2) || \
-		(ft_strncmp(cmd, "cd ", 3) == 0 && ft_strlen(cmd) == 3))
+	if ((ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])) == 0) && !cmd[1] && \
+		ft_strlen(cmd[0]) == ft_strlen("cd"))
 		ft_cd_home();
 	else
 	{
-		aux = ft_substr(cmd, 3, ft_strlen(cmd) - 3);
-		if ((ft_strncmp(aux, "~", 1) == 0) && \
-			(ft_strlen(aux) == ft_strlen("~")))
+		if (ft_strncmp(cmd[1], "~", ft_strlen(cmd[1])) == 0)
 			ft_cd_home();
 		else
-			ft_check_cd_path(aux);
-		free(aux);
+			ft_check_cd_path(cmd[1]);
 	}
 	free(buff);
 	free(old_path);

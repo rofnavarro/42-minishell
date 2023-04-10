@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:02:23 by rinacio           #+#    #+#             */
-/*   Updated: 2023/03/28 18:14:42 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:17:48 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ char	ft_substitute_char(char c)
 	char	*characters;
 	int		i;
 
-	characters = " |<>";
-	if (c < 5)
+	characters = " |<>;";
+	if (c < 6)
 		return (characters[c - 1]);
 	else
 	{
@@ -66,7 +66,7 @@ char	*ft_switch_inside_quotation(char *str)
 			while (str[i] != quote)
 			{
 				if (str[i] == ' ' || str[i] == '|' || str[i] == '<' || \
-					str[i] == '>' || str[i] < 5)
+					str[i] == '>' || str[i] == ';' || str[i] < 6)
 					str[i] = ft_substitute_char(str[i]);
 				i++;
 			}

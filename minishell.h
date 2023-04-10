@@ -6,14 +6,14 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/04 14:19:09 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/10 17:06:35 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//  printf()
+//  printf()  perror()
 # include <stdio.h>
 
 //  malloc()  free()  exit()  getenv()
@@ -28,9 +28,6 @@
 
 //  strerror()
 # include <string.h>
-
-//  perror()
-# include <errno.h>
 
 //  readline()  rl_clear_history()  rl_on_new_line()  rl_replace_line()
 //  rl_redisplay()  add_history()
@@ -61,6 +58,9 @@
 //  libft.a
 # include "./libft/libft.h"
 
+//  error.h
+# include "./error.h"
+
 //  token
 # include "./token.h"
 
@@ -76,33 +76,35 @@ typedef struct s_program
 	int		stop;
 	int		exit_code;
 	t_token	*token_start;
+	int		fd[2][2];
+	int		count_pipes;
 }	t_program;
 
 //  global variable
 extern t_program	g_data;
 
 //  utils/ft_builtin_cd.c
-void		ft_cd(char *str);
+void		ft_cd(char **cmd);
 
 //  utils/ft_builtin_echo.c
-void		ft_echo(char *cmd);
+void		ft_echo(char **cmd);
 
 //  utils/ft_builtin_env.c
-int			var_exist(char *variable, int size);
-void		ft_add_var_env(char *new_variable);
-void		ft_remove_var_env(char *new_variable);
+int			var_exist(char *variable);
+void		ft_add_var_env(char **new_variable);
+void		ft_remove_var_env(char **new_variable);
 
 //  utils/ft_builtin_env2.c
 int			ft_env_size(char **env);
 char		**ft_env_calloc(int size);
 void		ft_print_env(char *cmd);
-void		ft_find_var(char *find_var, char *env_var, int *found);
+char		*find_var_value(char **env, char *var);
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);
 
 //  utils/ft_builtin.c
-void		is_builtin(char *str);
+int			is_builtin(char **str);
 
 //  utils/ft_error.c
 void		ft_error(int arg);
@@ -116,6 +118,7 @@ void		ft_free_data(void);
 void		ft_loop(void);
 
 //  utils/ft_start.c
+void		get_path(void);
 void		ft_start(char **env);
 
 //  utils/ft_strtok.c
@@ -125,6 +128,7 @@ char		*ft_strtok(char *str, const char *delim);
 void		ft_add_token(char *cmd_token, t_type cmd_type);
 void		ft_print_token_list(void);
 void		ft_free_token_list(t_token *token, int start);
+char		**ft_token_quotes(char **cmd);
 
 //	utils/ft_check_quotes.c
 int			ft_check_quotes(char *arg);
@@ -135,5 +139,6 @@ void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
 char		*ft_get_cmd_path(t_token *token);
 char		*ft_test_path(int i, t_token *token);
+void		ft_cmd_not_found(char *cmd);
 
 #endif

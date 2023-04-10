@@ -3,23 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/03/28 16:41:42 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/07 17:12:36 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	get_path(char **envp)
+void	get_path(void)
 {
 	int	i;
 
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH=", 5) == 0)
+	if (!g_data.env)
+		g_data.path = NULL;
+	if (g_data.path)
+		ft_free_matrix(g_data.path);
+	while (g_data.env[i])
+	{
+		if (ft_strncmp(g_data.env[i], "PATH=", 5) == 0)
+			break ;
 		i++;
-	g_data.path = (ft_split(envp[i] + 5, ':'));
+	}
+	if (i == ft_env_size(g_data.env))
+		g_data.path = NULL;
+	else
+		g_data.path = (ft_split(g_data.env[i] + 5, ':'));
 }
 
 static void	get_env(char **envp)
@@ -37,6 +48,6 @@ static void	get_env(char **envp)
 
 void	ft_start(char **envp)
 {
-	get_path(envp);
 	get_env(envp);
+	get_path();
 }
