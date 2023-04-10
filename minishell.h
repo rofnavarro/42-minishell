@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/10 15:21:36 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/10 17:06:35 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//  printf()
+//  printf()  perror()
 # include <stdio.h>
 
 //  malloc()  free()  exit()  getenv()
@@ -28,9 +28,6 @@
 
 //  strerror()
 # include <string.h>
-
-//  perror()
-# include <errno.h>
 
 //  readline()  rl_clear_history()  rl_on_new_line()  rl_replace_line()
 //  rl_redisplay()  add_history()
@@ -60,6 +57,9 @@
 
 //  libft.a
 # include "./libft/libft.h"
+
+//  error.h
+# include "./error.h"
 
 //  token
 # include "./token.h"
