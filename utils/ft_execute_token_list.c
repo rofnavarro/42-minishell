@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/10 18:00:58 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/10 19:59:16 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,31 @@ void	ft_execute(t_token *token)
 	char	*cmd_path;
 	int		pid;
 	int		wstatus;
+	int		file;
 
+	if (token->type == 1)
+	{
+		file = open(token->cmd, O_RDONLY);
+		if(file == -1)
+		{
+			file = open("/dev/null", O_RDONLY);
+			return (ft_error(errno));	
+		}
+		dup2(file, STDIN_FILENO);
+		close(file);
+	}
+	if (token->type == 3)
+	{
+		file = open(token->cmd, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		if(file == -1)
+			return (ft_error(errno));	
+	}
+	if (token->type == 4)
+	{
+		file = open(token->cmd, O_CREAT | O_WRONLY | O_APPEND, 0777);
+		if(file == -1)
+			return (ft_error(errno));	
+	}
 	if (token->type != 1 && token->type != 2 && 
 		(!token->prev || (token->prev->type!= 3 && token->prev->type!= 4)))
 	{
