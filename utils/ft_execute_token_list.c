@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 16:57:59 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/10 04:05:38 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,62 @@ void	ft_execute_token_list(void)
 	}
 }
 
+void	redirect_to_pipe(void)
+{
+	close(g_data.fd[0]);
+	dup2(g_data.fd[1], STDOUT_FILENO);
+	close(g_data.fd[1]);
+}
+
+void	redirect_from_pipe(void)
+{
+	dup2(g_data.fd[0], STDIN_FILENO);
+	close(g_data.fd[0]);
+}
+
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
 	int		pid;
 	int		wstatus;
 
-	if (!is_builtin(token->cmd) && ft_strncmp(token->cmd[0], "exit", 4) != 0)
+	if (token->type != 1 && token->type != 2 && 
+		(!token->prev || (token->prev->type!= 3 && token->prev->type!= 4)))
 	{
-		cmd_path = ft_get_cmd_path(token);
-		if (cmd_path)
+		if (!is_builtin(token->cmd) && ft_strncmp(token->cmd[0], "exit", 4) != 0)
 		{
-			pid = fork();
-			if (pid < 0)
+			if (token->type == 0)
 			{
-				ft_error(errno);
-				return ;
-			}
-			if (pid == 0)
-			{
-				if (execve(cmd_path, token->cmd, g_data.env) == -1)
+				if (pipe(g_data.fd) == -1)
 					return (ft_error(errno));
 			}
-			waitpid(pid, &wstatus, 0);
-			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
-				wstatus = WEXITSTATUS(wstatus);
-			g_data.exit_code = wstatus;
-			free(cmd_path);
-		}
+			cmd_path = ft_get_cmd_path(token);
+			if (cmd_path)
+			{
+				pid = fork();
+				if (pid < 0)
+					return (ft_error(errno));
+				if (pid == 0)
+				{
+					if (token->type == 0)
+						redirect_to_pipe();
+					else if (token->prev && token->prev->type == 0)
+						redirect_from_pipe();
+					if (execve(cmd_path, token->cmd, g_data.env) == -1)
+						return (ft_error(errno));
+				}
+				waitpid(pid, &wstatus, 0);
+				if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
+					wstatus = WEXITSTATUS(wstatus);
+				g_data.exit_code = wstatus;
+				
+				free(cmd_path);
+				if (token->type == 0)
+					close(g_data.fd[1]);
+				else if (token->prev && token->prev->type == 0)
+					close(g_data.fd[0]);	
+			}
+		}	
 	}
 }
 
