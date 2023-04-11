@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/11 03:14:12 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/11 21:12:35 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	redirect_to_pipe(void)
 {
 	int i;
 
-	if (g_data.count_pipes % 2 != 0)
-		i = 0;
-	else
-		i = 1;
+	i = 1 - g_data.count_pipes % 2;
 	close(g_data.fd[i][0]);
 	dup2(g_data.fd[i][1], STDOUT_FILENO);
 	close(g_data.fd[i][1]);
@@ -44,19 +41,9 @@ void	redirect_from_pipe(int type)
 	int	i;
 
 	if (type == 0)
-	{
-		if (g_data.count_pipes % 2 != 0)
-			i = 1;
-		else
-			i = 0;		
-	}
+		i = g_data.count_pipes % 2;
 	else
-	{
-		if (g_data.count_pipes % 2 != 0)
-			i = 0;
-		else
-			i = 1;
-	}
+		i = 1 - g_data.count_pipes % 2;
 	dup2(g_data.fd[i][0], STDIN_FILENO);
 	close(g_data.fd[i][0]);
 }
@@ -73,6 +60,8 @@ void	ft_execute(t_token *token)
 		file = open(token->cmd[0], O_RDONLY);
 		if(file == -1)
 		{
+			if (access(token->cmd[0], F_OK) == 0)
+				return(ft_error(1, "open falhou\n"));
 			file = open("/dev/null", O_RDONLY);
 			perror(NULL);
 			ft_error(1, "open falhou\n");
@@ -81,105 +70,77 @@ void	ft_execute(t_token *token)
 		dup2(file, STDIN_FILENO);
 		close(file);
 	}
-	else if (token->type == 3)
+	else if (token->type == 2)
 	{
-		file = open(token->cmd[0], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		printf("heredoc \n");
+	}
+	else if (token->type == 3 || token->type == 4)
+	{
+		if (token->type == 3)
+			file = open(token->cmd[0], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		else
+			file = open(token->cmd[0], O_CREAT | O_WRONLY | O_APPEND, 0777);
 		if(file == -1)
 		{
 			perror(NULL);
 			ft_error(1, "open falhou\n");
 			return ;
 		}
+		dup2(file, STDOUT_FILENO);
+		close(file);
 	}
-	else if (token->type == 4)
-	{
-		file = open(token->cmd[0], O_CREAT | O_WRONLY | O_APPEND, 0777);
-		if(file == -1)
-		{
-			perror(NULL);
-			ft_error(1, "open falhou\n");
-			return ;
-		}
-	}
-	if (token->type != 1 && token->type != 2 && 
-		(!token->prev || (token->prev->type!= 3 && token->prev->type!= 4)))
+	if (!token->prev || (token->prev->type!= 3 && token->prev->type!= 4))
 	{
 		if (!is_builtin(token->cmd) && ft_strncmp(token->cmd[0], "exit", 4) != 0)
 		{
 			if (token->type == 0)
 			{
-				if (g_data.count_pipes % 2 == 0)
+				if (pipe(g_data.fd[g_data.count_pipes % 2]) == -1)
 				{
-					if (pipe(g_data.fd[0]) == -1)
-					{
-						perror(NULL);
-						ft_error(1, "pipe falhou\n");
-						return ;
-					}
-				}
-				else
-				{
-					if (pipe(g_data.fd[1]) == -1)
-					{
-						perror(NULL);
-						ft_error(1, "pipe falhou\n");
-						return ;
-					}		
+					perror(NULL);
+					ft_error(1, "pipe falhou\n");
+					return ;
 				}
 				g_data.count_pipes++;
 			}
-			cmd_path = ft_get_cmd_path(token);
-			if (cmd_path)
+		}
+		cmd_path = ft_get_cmd_path(token);
+		if (cmd_path)
+		{
+			pid = fork();
+			if (pid < 0)
 			{
-				pid = fork();
-				if (pid < 0)
+				perror(NULL);
+				ft_error(1, "fork falhou\n");
+				return ;
+			}
+			if (pid == 0)
+			{
+				if (token->type == 0)
+					redirect_to_pipe();
+				if (token->prev && token->prev->type == 0)
+					redirect_from_pipe(token->type);
+				if (execve(cmd_path, token->cmd, g_data.env) == -1)
 				{
 					perror(NULL);
-					ft_error(1, "fork falhou\n");
+					ft_error(1, "execve falhou\n");
 					return ;
 				}
-				if (pid == 0)
-				{
-					if (token->type == 0)
-						redirect_to_pipe();
-					if (token->prev && token->prev->type == 0)
-						redirect_from_pipe(token->type);
-					if (execve(cmd_path, token->cmd, g_data.env) == -1)
-					{
-						perror(NULL);
-						ft_error(1, "execve falhou\n");
-						return ;
-					}
-				}
-				waitpid(pid, &wstatus, 0);
-				if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
-					wstatus = WEXITSTATUS(wstatus);
-				g_data.exit_code = wstatus;
-				free(cmd_path);
-				if (token->type == 0)
-				{
-					if (g_data.count_pipes % 2 != 0)
-						close(g_data.fd[0][1]);
-					else
-						close(g_data.fd[1][1]);
-					if (token->prev && token->prev->type == 0)
-					{
-						if (g_data.count_pipes % 2 != 0)
-							close(g_data.fd[1][0]);
-
-						else
-							close(g_data.fd[0][0]);
-					}
-				}
-				else if (token->prev && token->prev->type == 0)
-				{
-					if (g_data.count_pipes % 2 != 0)
-						close(g_data.fd[0][0]);
-					else
-						close(g_data.fd[1][0]);
-				}
 			}
-		}	
+			waitpid(pid, &wstatus, 0);
+			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
+					wstatus = WEXITSTATUS(wstatus);
+			g_data.exit_code = wstatus;
+			free(cmd_path);
+			if (token->type == 0)
+			{
+				close(g_data.fd[1 - g_data.count_pipes % 2][1]);
+				if (token->prev && token->prev->type == 0)
+					close(g_data.fd[g_data.count_pipes % 2][0]);
+			}
+			else if (token->prev && token->prev->type == 0)
+				close(g_data.fd[1 - g_data.count_pipes % 2][0]);;
+		}
 	}
 }
 
