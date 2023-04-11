@@ -6,11 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/04/11 21:12:35 by rinacio          ###   ########.fr       */
-=======
-/*   Updated: 2023/04/10 19:41:19 by rinacio          ###   ########.fr       */
->>>>>>> 98bc351968431294395e3943321d7d610342e4e4
+/*   Updated: 2023/04/11 22:08:58 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,27 +253,9 @@ void	ft_execute(t_token *token)
 		dup2(file, STDIN_FILENO);
 		close(file);
 	}
-<<<<<<< HEAD
 	else if (token->type == 2)
 	{
 		printf("heredoc \n");
-=======
-	if (token->type == 2)
-	{
-		printf("heredoc \n");
-	}
-	else if (token->type == 3)
-	{
-		file = open(token->cmd[0], O_CREAT | O_WRONLY | O_TRUNC, 0777);
-		if(file == -1)
-		{
-			perror(NULL);
-			ft_error(1, "open falhou\n");
-			return ;
-		}
-    dup2(file, STDOUT_FILENO);
-		close(file);
->>>>>>> 98bc351968431294395e3943321d7d610342e4e4
 	}
 	else if (token->type == 3 || token->type == 4)
 	{
