@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/11 22:13:04 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/11 22:26:26 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,47 +92,47 @@ void	ft_execute(t_token *token)
 	}
 	if (!token->prev || (token->prev->type!= 3 && token->prev->type!= 4))
 	{
-		if (!is_builtin(token->cmd) && ft_strncmp(token->cmd[0], "exit", 4) != 0)
+		if (token->type == 0)
 		{
-			if (token->type == 0)
-			{
-				if (pipe(g_data.fd[g_data.count_pipes % 2]) == -1)
-				{
-					perror(NULL);
-					ft_error(1, "pipe falhou\n");
-					return ;
-				}
-				g_data.count_pipes++;
-			}
-		}
-		cmd_path = ft_get_cmd_path(token);
-		if (cmd_path)
-		{
-			pid = fork();
-			if (pid < 0)
+			if (pipe(g_data.fd[g_data.count_pipes % 2]) == -1)
 			{
 				perror(NULL);
-				ft_error(1, "fork falhou\n");
+				ft_error(1, "pipe falhou\n");
 				return ;
 			}
-			if (pid == 0)
+			g_data.count_pipes++;
+		}
+		if (!is_builtin(token->cmd) && ft_strncmp(token->cmd[0], "exit", 4) != 0)
+		{
+			cmd_path = ft_get_cmd_path(token);
+			if (cmd_path)
 			{
-				if (token->type == 0)
-					redirect_to_pipe();
-				if (token->prev && token->prev->type == 0)
-					redirect_from_pipe(token->type);
-				if (execve(cmd_path, token->cmd, g_data.env) == -1)
+				pid = fork();
+				if (pid < 0)
 				{
 					perror(NULL);
-					ft_error(1, "execve falhou\n");
+					ft_error(1, "fork falhou\n");
 					return ;
 				}
+				if (pid == 0)
+				{
+					if (token->type == 0)
+						redirect_to_pipe();
+					if (token->prev && token->prev->type == 0)
+						redirect_from_pipe(token->type);
+					if (execve(cmd_path, token->cmd, g_data.env) == -1)
+					{
+						perror(NULL);
+						ft_error(1, "execve falhou\n");
+						return ;
+					}
+				}
+				waitpid(pid, &wstatus, 0);
+				if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
+						wstatus = WEXITSTATUS(wstatus);
+				g_data.exit_code = wstatus;
+				free(cmd_path);
 			}
-			waitpid(pid, &wstatus, 0);
-			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
-					wstatus = WEXITSTATUS(wstatus);
-			g_data.exit_code = wstatus;
-			free(cmd_path);
 			if (token->type == 0)
 			{
 				close(g_data.fd[1 - g_data.count_pipes % 2][1]);
