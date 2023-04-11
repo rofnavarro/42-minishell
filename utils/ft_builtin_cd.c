@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/08 01:00:24 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:19:40 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ static void	ft_check_cd_path(char *input_path)
 	char	*path;
 
 	if (chdir(input_path) < 0)
-		return (ft_error(errno));
+	{
+		perror(NULL);
+		ft_error(1, "chdir falhou\n");
+		return ;
+	}
 	buff = NULL;
 	path = getcwd(buff, 0);
 	ft_export_add_env(path, "PWD=");
@@ -51,12 +55,20 @@ static void	ft_cd_home(void)
 			break ;
 	}
 	home = ft_split(g_data.env[i], '=');
-	if (chdir(home[1]) < 0)
-		return (ft_error(errno));
+	if (chdir(home[1]) == -1)
+	{
+		perror(NULL);
+		ft_error(1, "chdir falhou\n");
+		return ;
+	}
 	buff = NULL;
 	path = getcwd(buff, 0);
-	if (path < 0)
-		return (ft_error(errno));
+	if (path == NULL)
+	{
+		perror(NULL);
+		ft_error(1, "getcwd falhou\n");
+		return ;
+	}
 	ft_export_add_env(path, "PWD=");
 	ft_free_matrix(home);
 	free(buff);
