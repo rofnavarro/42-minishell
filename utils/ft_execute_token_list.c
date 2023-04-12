@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/12 21:32:32 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/13 00:39:46 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,6 @@ void ft_aux(t_token *token)
 	free(token->next->cmd[i + 1]);
 	free(token->next->cmd);
 	token->next->cmd = new_cmd;
-	// printf("\n------------- Token list -------------\n");
-	// ft_print_token_list();
-	// printf("\n--------------------------------------\n\n");
 }
 
 void	ft_execute(t_token *token)
@@ -92,6 +89,9 @@ void	ft_execute(t_token *token)
 	int		pid;
 	int		wstatus;
 
+	// printf("\n------------- Token list -------------\n");
+	// ft_print_token_list();
+	// printf("\n--------------------------------------\n\n");
 	if (token->type == 1)
 	{
 		ft_aux(token);
@@ -151,7 +151,7 @@ void	ft_execute(t_token *token)
 				}
 				if (pid == 0)
 				{
-					if (token->prev->type == 1)
+					if (token->prev && token->prev->type == 1)
 					{
 						dup2(g_data.infile, STDIN_FILENO);
 						close(g_data.infile);
