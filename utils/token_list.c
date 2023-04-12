@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/05 16:50:26 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/12 20:17:57 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	ft_print_token_list(void)
 			printf("%s\n", aux->cmd[i]);
 			i++;
 		}
-		printf("\n");
 		printf("separator: %d\n", (int)aux->type);
+		printf("\n");
 		aux = aux->next;
 	}
 }

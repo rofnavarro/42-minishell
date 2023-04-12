@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/11 18:18:41 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/12 19:57:35 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ typedef struct s_program
 	t_token	*token_start;
 	int		fd[2][2];
 	int		count_pipes;
+	int		infile;
+	int		outfile;
+	int		stdin_copy;
+	int		stdout_copy;
 }	t_program;
 
 //  global variable
