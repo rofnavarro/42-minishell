@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:44:33 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 22:28:30 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/12 01:51:38 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_print_env(char *cmd)
 		printf("%s\n", g_data.env[i]);
 		i++;
 	}
+	g_data.exit_code = 0;
 }
 
 char	*find_var_value(char **env, char *var)

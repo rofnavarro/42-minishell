@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/11 22:26:26 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/12 01:59:08 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ void	ft_execute_token_list(void)
 
 void	redirect_to_pipe(void)
 {
-	int i;
+	int	i;
 
 	i = 1 - g_data.count_pipes % 2;
 	close(g_data.fd[i][0]);
 	dup2(g_data.fd[i][1], STDOUT_FILENO);
 	close(g_data.fd[i][1]);
 }
-
 
 void	redirect_from_pipe(int type)
 {
@@ -59,10 +58,10 @@ void	ft_execute(t_token *token)
 	if (token->type == 1)
 	{
 		file = open(token->cmd[0], O_RDONLY);
-		if(file == -1)
+		if (file == -1)
 		{
 			if (access(token->cmd[0], F_OK) == 0)
-				return(ft_error(1, "open falhou\n"));
+				return (ft_error(1, "open falhou\n"));
 			file = open("/dev/null", O_RDONLY);
 			perror(NULL);
 			ft_error(1, "open falhou\n");
@@ -81,7 +80,7 @@ void	ft_execute(t_token *token)
 			file = open(token->cmd[0], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		else
 			file = open(token->cmd[0], O_CREAT | O_WRONLY | O_APPEND, 0777);
-		if(file == -1)
+		if (file == -1)
 		{
 			perror(NULL);
 			ft_error(1, "open falhou\n");
@@ -90,7 +89,7 @@ void	ft_execute(t_token *token)
 		dup2(file, STDOUT_FILENO);
 		close(file);
 	}
-	if (!token->prev || (token->prev->type!= 3 && token->prev->type!= 4))
+	if (!token->prev || (token->prev->type != 3 && token->prev->type != 4))
 	{
 		if (token->type == 0)
 		{
@@ -140,7 +139,7 @@ void	ft_execute(t_token *token)
 					close(g_data.fd[g_data.count_pipes % 2][0]);
 			}
 			else if (token->prev && token->prev->type == 0)
-				close(g_data.fd[1 - g_data.count_pipes % 2][0]);;
+				close(g_data.fd[1 - g_data.count_pipes % 2][0]);
 		}
 	}
 }
