@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/12 19:57:35 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/13 04:30:42 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,26 @@ char		*ft_switch_inside_quotation(char *str);
 //	utils/ft_execute_token_list.c
 void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
-char		*ft_get_cmd_path(t_token *token);
+
+//	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);
+char		*ft_get_cmd_path(t_token *token);
 void		ft_cmd_not_found(char *cmd);
+
+//	utils/ft_input_output.c
+void		ft_open_output_file(t_token *token);
+void		ft_get_input_file(t_token *token);
+void		ft_open_input_file(t_token *token);
+void		ft_check_std_in_out(t_token *token);
+
+//	utils/ft_pipe.c
+void		redirect_to_pipe(void);
+void		redirect_from_pipe(int type);
+void		ft_open_pipe(void);
+void		ft_close_pipes(t_token *token);
+
+//	utils/ft_fork.c
+void		ft_child_process(t_token *token, char *cmd_path);
+void		ft_parent_process(int pid);
 
 #endif
