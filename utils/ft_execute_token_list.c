@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/13 04:29:53 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/13 17:12:41 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,41 @@ int	ft_is_executable(t_token *token)
 	return (1);
 }
 
+void ft_heredoc(t_token *token)
+{
+	char	*input;
+	char	*aux;
+	char	*next_line;
+
+	input = ft_strdup("");
+	next_line = ft_strdup("");
+	while (ft_strncmp(next_line, token->next->cmd[0], ft_strlen(token->cmd[0])))
+	{
+		aux = ft_strdup(input);
+		free(next_line);
+		next_line = readline("> ");
+		if (ft_strncmp(next_line, token->next->cmd[0], ft_strlen(token->cmd[0])))
+		{
+			free(input);
+			input = ft_strjoin(aux, next_line);
+			free(aux);
+			aux = ft_strdup(input);
+			free(input);
+			input = ft_strjoin(aux, "\n");			
+		}
+		else
+			free(aux);
+	}
+	printf("input: %s\n", input);
+	free(input);
+}
+
 void	ft_token_type_exec(t_token *token)
 {
 	if (token->type == LESS)
 		ft_get_input_file(token);
 	else if (token->type == LESS_LESS)
-		printf("heredoc \n");
+		ft_heredoc(token);
 	else if (token->type == GREATER || token->type == GREATER_GREATER)
 		ft_open_output_file(token);
 	else if (token->type == PIPE)
@@ -57,7 +86,7 @@ void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
 	int		pid;
-
+	
 	ft_token_type_exec(token);
 	if (ft_is_executable(token) && !is_builtin(token->cmd)
 		&& ft_strncmp(token->cmd[0], "exit", 4) != 0)
