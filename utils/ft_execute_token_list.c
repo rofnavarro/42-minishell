@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/14 22:51:39 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/15 01:19:19 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_is_executable(t_token *token)
 	if (token->type == LESS || token->type == LESS_LESS)
 		return (0);
 	else if (token->prev && (token->prev->type == GREATER
-			|| token->prev->type == GREATER_GREATER))
+			|| token->prev->type == GREATER_GREATER
+			|| token->prev->type == LESS_LESS))
 		return (0);
 	return (1);
 }
@@ -56,12 +57,15 @@ void ft_heredoc(t_token *token)
 			free(aux);
 			aux = ft_strdup(input);
 			free(input);
-			input = ft_strjoin(aux, "\n");			
+			input = ft_strjoin(aux, "\n");
+			free(aux);			
 		}
 		else
 			free(aux);
 	}
-	printf("input: %s\n", input);
+	free(next_line);
+	if(!ft_strncmp(token->cmd[0], "cat", ft_strlen(token->cmd[0])))
+		printf("%s", input);
 	free(input);
 }
 
@@ -81,12 +85,12 @@ void	ft_token_type_exec(t_token *token)
 
 	// printf("\n------------- Token list -------------\n");
 	// ft_print_token_list();
-	// printf("\n--------------------------------------\n\n");
+	// printf("\n--------------------------------------\n\n");	
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
 	int		pid;
-	
+
 	ft_token_type_exec(token);
 	if (ft_is_executable(token) && !is_builtin(token->cmd)
 		&& ft_strncmp(token->cmd[0], "exit", 4) != 0)
