@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/05 15:19:05 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/12 01:51:06 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	replace_var_env(char *variable)
 		i++;
 	}
 	ft_free_matrix(var_token);
+	g_data.exit_code = 0;
 }
 
 int	var_exist(char *variable)
@@ -83,6 +84,7 @@ void	ft_add_var_env(char **variable)
 	new_env[i] = ft_strdup(variable[1]);
 	ft_free_matrix(g_data.env);
 	g_data.env = new_env;
+	g_data.exit_code = 0;
 }
 
 void	ft_remove_var_env(char **variable)
@@ -107,4 +109,5 @@ void	ft_remove_var_env(char **variable)
 	}
 	ft_free_matrix(g_data.env);
 	g_data.env = new_env;
+	g_data.exit_code = 0;
 }

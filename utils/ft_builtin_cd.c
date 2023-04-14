@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/11 18:19:40 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/12 01:50:02 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ static void	ft_check_cd_path(char *input_path)
 	char	*buff;
 	char	*path;
 
-	if (chdir(input_path) < 0)
+	if (chdir(input_path) == -1)
 	{
 		perror(NULL);
-		ft_error(1, "chdir falhou\n");
 		return ;
 	}
 	buff = NULL;
@@ -39,6 +38,7 @@ static void	ft_check_cd_path(char *input_path)
 	ft_export_add_env(path, "PWD=");
 	free(buff);
 	free(path);
+	g_data.exit_code = 0;
 }
 
 static void	ft_cd_home(void)
@@ -55,24 +55,18 @@ static void	ft_cd_home(void)
 			break ;
 	}
 	home = ft_split(g_data.env[i], '=');
-	if (chdir(home[1]) == -1)
-	{
-		perror(NULL);
-		ft_error(1, "chdir falhou\n");
-		return ;
-	}
 	buff = NULL;
 	path = getcwd(buff, 0);
-	if (path == NULL)
+	if (path == NULL || chdir(home[1]) == -1)
 	{
 		perror(NULL);
-		ft_error(1, "getcwd falhou\n");
 		return ;
 	}
 	ft_export_add_env(path, "PWD=");
 	ft_free_matrix(home);
 	free(buff);
 	free(path);
+	g_data.exit_code = 0;
 }
 
 void	ft_cd(char **cmd)
