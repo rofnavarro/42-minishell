@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/11 03:08:55 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/15 01:30:33 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_error(int arg, char *msg)
 
 void	ft_exit(void)
 {
-	if (ft_strncmp(g_data.cmd, "exit", ft_strlen(g_data.cmd)) == 0 && \
-		ft_strlen(g_data.cmd) == 4)
+	if (ft_strncmp(g_data.cmd, "exit", 4) == 0)
 		g_data.stop = 1;
 }
