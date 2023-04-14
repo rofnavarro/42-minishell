@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/13 04:30:42 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/14 22:49:06 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_program
 	int		outfile;
 	int		stdin_copy;
 	int		stdout_copy;
+	char	*user;
 }	t_program;
 
 //  global variable
@@ -109,6 +110,7 @@ void		ft_pwd(char *str);
 
 //  utils/ft_builtin.c
 int			is_builtin(char **str);
+int			ft_is_builtin_child(char *input);
 
 //  utils/ft_error.c
 void		ft_error(int arg, char *msg);
@@ -117,6 +119,7 @@ void		ft_exit(void);
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
 void		ft_free_data(void);
+void		ft_free_loop(void);
 
 //  utils/ft_loop.c
 void		ft_loop(void);
@@ -162,5 +165,7 @@ void		ft_close_pipes(t_token *token);
 //	utils/ft_fork.c
 void		ft_child_process(t_token *token, char *cmd_path);
 void		ft_parent_process(int pid);
+void		ft_exec_child_builtin(t_token *token,  char *cmd_path);
+void		ft_free_child_process(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/12 01:57:03 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/14 22:07:28 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_is_builtin_parent(char *input)
 	return (FALSE);
 }
 
-static int	ft_builtin_child(char *input)
+int	ft_is_builtin_child(char *input)
 {
 	if (ft_strncmp(input, "env", ft_strlen(input)) == 0 || \
 		ft_strncmp(input, "pwd", ft_strlen(input)) == 0 || \
@@ -55,17 +55,6 @@ int	is_builtin(char **str)
 			ft_remove_var_env(str);
 		else if (ft_strncmp(str[0], "cd", ft_strlen(str[0])) == 0)
 			ft_cd(str);
-		return (TRUE);
-	}
-	if (ft_is_builtin_child(str[0]) == TRUE)
-	{
-		if (ft_strncmp(str[0], "env", ft_strlen(str[0])) == 0 && str[1] == NULL)
-			ft_print_env(str[0]);
-		else if (ft_strncmp(str[0], "pwd", ft_strlen(str[0])) == 0 && \
-					str[1] == NULL)
-			ft_pwd(str[0]);
-		else if (ft_strncmp(str[0], "echo", ft_strlen(str[0])) == 0)
-			ft_echo(str);
 		return (TRUE);
 	}
 	return (FALSE);

@@ -6,20 +6,18 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/12 19:15:55 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/14 22:52:34 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 void	ft_loop(void)
-{
-	char	*user;
-	
+{	
 	while (g_data.stop == 0)
 	{
-		user = find_var_value(g_data.env, "USER");
-		printf("%s:", user);
+		g_data.user = find_var_value(g_data.env, "USER");
+		printf("%s:", g_data.user);
 		g_data.cmd = readline("$ ");
 		if (!g_data.cmd) // verificar ctr+d (EOF - free all - exit)
 			break ;
@@ -36,10 +34,7 @@ void	ft_loop(void)
 			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>>;"), " ");
 		}
 		ft_execute_token_list();
-		ft_free_token_list(g_data.token_start, 1);
 		ft_exit();
-		free(g_data.cmd);
-		free(user);
+		ft_free_loop();
 	}
-	rl_clear_history();
 }
