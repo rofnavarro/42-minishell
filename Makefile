@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/04/04 14:19:18 by rferrero         ###   ########.fr        #
+#    Updated: 2023/04/13 04:17:47 by rinacio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,11 @@ SRC							=			minishell.c \
 															ft_loop.c \
 															ft_start.c \
 															ft_strtok.c \
-															token_list.c \
+															ft_token_list.c \
+															ft_cmd_path.c \
+															ft_input_output.c \
+															ft_pipe.c \
+															ft_fork.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)

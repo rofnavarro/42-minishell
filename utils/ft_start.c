@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:55 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 17:12:36 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:14:23 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,6 @@ void	ft_start(char **envp)
 {
 	get_env(envp);
 	get_path();
+	g_data.stdin_copy = dup(STDIN_FILENO);
+	g_data.stdout_copy = dup(STDOUT_FILENO);
 }
