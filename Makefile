@@ -6,7 +6,7 @@
 #    By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/04/13 04:17:47 by rinacio          ###   ########.fr        #
+#    Updated: 2023/04/15 02:39:57 by rinacio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC							=			minishell.c \
 															ft_input_output.c \
 															ft_pipe.c \
 															ft_fork.c \
+															ft_signals.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)
