@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/15 03:19:13 by rinacio          ###   ########.fr       */
+/*   Created: 2023/04/15 02:39:36 by rinacio           #+#    #+#             */
+/*   Updated: 2023/04/15 03:20:10 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_free_matrix(char **matrix)
+void	handle_sigint_empty(int sig)
 {
-	int	i;
-
-	i = -1;
-	while (matrix[++i])
-		free(matrix[i]);
-	free(matrix);
-}
-
-void	ft_free_data(void)
-{
-	if (g_data.env != NULL)
-		ft_free_matrix(g_data.env);
-	if (g_data.path != NULL)
-		ft_free_matrix(g_data.path);
-}
-
-void	ft_free_loop(void)
-{
-	ft_free_token_list(g_data.token_start, 1);
-	free(g_data.cmd);
 	free(g_data.user);
+	g_data.user = find_var_value(g_data.env, "USER");
+	printf("\n%s:$ ", g_data.user);
 }

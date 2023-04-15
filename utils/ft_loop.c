@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/14 22:52:34 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/15 03:04:10 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ void	ft_loop(void)
 {	
 	while (g_data.stop == 0)
 	{
+		int teste = 0;
+	
+		g_data.sa.sa_handler = &handle_sigint_empty;
+		sigaction(SIGINT, &g_data.sa, NULL);
+		signal(SIGQUIT, SIG_IGN);
 		g_data.user = find_var_value(g_data.env, "USER");
 		printf("%s:", g_data.user);
 		g_data.cmd = readline("$ ");
-		if (!g_data.cmd) // verificar ctr+d (EOF - free all - exit)
+		if (!g_data.cmd)
 			break ;
 		while (ft_check_quotes(g_data.cmd))
 			g_data.cmd = ft_strjoin_free(g_data.cmd, readline("> "));

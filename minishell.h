@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/14 22:49:06 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/15 02:53:30 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_program
 	int		stdin_copy;
 	int		stdout_copy;
 	char	*user;
+	struct 	sigaction sa;
 }	t_program;
 
 //  global variable
@@ -167,5 +168,8 @@ void		ft_child_process(t_token *token, char *cmd_path);
 void		ft_parent_process(int pid);
 void		ft_exec_child_builtin(t_token *token,  char *cmd_path);
 void		ft_free_child_process(void);
+
+//	ft_signals.c
+void		handle_sigint_empty(int sig);
 
 #endif
