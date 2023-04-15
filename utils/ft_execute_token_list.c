@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/15 01:19:19 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/15 23:57:09 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_is_executable(t_token *token)
 	return (1);
 }
 
-void ft_heredoc(t_token *token)
+void	ft_heredoc(t_token *token)
 {
 	char	*input;
 	char	*aux;
@@ -50,7 +50,8 @@ void ft_heredoc(t_token *token)
 		aux = ft_strdup(input);
 		free(next_line);
 		next_line = readline("> ");
-		if (ft_strncmp(next_line, token->next->cmd[0], ft_strlen(token->cmd[0])))
+		if (ft_strncmp(next_line, token->next->cmd[0],
+				ft_strlen(token->cmd[0])))
 		{
 			free(input);
 			input = ft_strjoin(aux, next_line);
@@ -58,13 +59,13 @@ void ft_heredoc(t_token *token)
 			aux = ft_strdup(input);
 			free(input);
 			input = ft_strjoin(aux, "\n");
-			free(aux);			
+			free(aux);
 		}
 		else
 			free(aux);
 	}
 	free(next_line);
-	if(!ft_strncmp(token->cmd[0], "cat", ft_strlen(token->cmd[0])))
+	if (!ft_strncmp(token->cmd[0], "cat", ft_strlen(token->cmd[0])))
 		printf("%s", input);
 	free(input);
 }
@@ -98,13 +99,16 @@ void	ft_execute(t_token *token)
 		cmd_path = ft_get_cmd_path(token);
 		if (cmd_path)
 		{
+			g_data.sa_child.sa_handler = &handle_sig_child;
+			sigaction(SIGINT, &g_data.sa_child, NULL);
+			sigaction(SIGQUIT, &g_data.sa_child, NULL);
 			pid = fork();
 			if (pid < 0)
 			{
 				perror(NULL);
 				return (ft_error(1, ""));
 			}
-			if (pid == 0)
+			if (!pid)
 				ft_child_process(token, cmd_path);
 			ft_parent_process(pid);
 			free(cmd_path);

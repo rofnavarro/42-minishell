@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/14 23:24:03 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/15 23:50:35 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,22 @@ void	ft_parent_process(int pid)
 {
 	int		wstatus;
 
+	wstatus = 0;
 	waitpid(pid, &wstatus, 0);
 	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
 			wstatus = WEXITSTATUS(wstatus);
+	if (g_data.aux_sig)
+	{
+		wstatus = g_data.exit_code;
+		g_data.aux_sig = 0;
+	}
 	g_data.exit_code = wstatus;
 }
 
-void	ft_exec_child_builtin(t_token *token,  char *cmd_path)
+void	ft_exec_child_builtin(t_token *token, char *cmd_path)
 {
-	if (ft_strncmp(token->cmd[0], "env", ft_strlen(token->cmd[0])) == 0 && token->cmd[1] == NULL)
+	if (ft_strncmp(token->cmd[0], "env",
+			ft_strlen(token->cmd[0])) == 0 && token->cmd[1] == NULL)
 		ft_print_env(token->cmd[0]);
 	else if (ft_strncmp(token->cmd[0], "pwd", ft_strlen(token->cmd[0])) == 0 && \
 				token->cmd[1] == NULL)
