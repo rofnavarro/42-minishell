@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/15 23:56:40 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/18 18:49:30 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_program
 	char				*cmd_token;
 	int					cmd_type;
 	char				**env;
+	char				**export;
 	char				**path;
 	int					status;
 	int					stop;
@@ -107,6 +108,9 @@ int			ft_env_size(char **env);
 char		**ft_env_calloc(int size);
 void		ft_print_env(char *cmd);
 char		*find_var_value(char **env, char *var);
+
+//  utils/ft_builtin_export.c
+void		get_export(char **env);
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);

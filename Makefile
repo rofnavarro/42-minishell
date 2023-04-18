@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+         #
+#    By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/04/15 02:39:57 by rinacio          ###   ########.fr        #
+#    Updated: 2023/04/18 17:51:37 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC							=			minishell.c \
 															ft_builtin_echo.c \
 															ft_builtin_env.c \
 															ft_builtin_env2.c \
+															ft_builtin_export.c \
 															ft_builtin_pwd.c \
 															ft_builtin.c \
 															ft_check_quotes.c \
