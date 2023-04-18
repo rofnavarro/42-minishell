@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/15 23:57:09 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/18 18:23:45 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_is_executable(t_token *token)
 	else if (token->prev && (token->prev->type == GREATER
 			|| token->prev->type == GREATER_GREATER
 			|| token->prev->type == LESS_LESS))
-		return (0);
+				return (0);
 	return (1);
 }
 
@@ -83,16 +83,18 @@ void	ft_token_type_exec(t_token *token)
 	if (token->cmd[0] == NULL)
 		return ;
 }
-
 	// printf("\n------------- Token list -------------\n");
 	// ft_print_token_list();
 	// printf("\n--------------------------------------\n\n");	
+
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
 	int		pid;
 
 	ft_token_type_exec(token);
+	if ((token->type == GREATER || token->type == GREATER_GREATER) && token->cmd[0] == NULL)
+		return ;
 	if (ft_is_executable(token) && !is_builtin(token->cmd)
 		&& ft_strncmp(token->cmd[0], "exit", 4) != 0)
 	{

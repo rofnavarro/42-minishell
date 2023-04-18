@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input_output.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/13 04:29:04 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/18 17:55:19 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	ft_open_output_file(t_token *token)
 		ft_error(1, "open write falhou\n");
 		return ;
 	}
-	dup2(g_data.outfile, STDOUT_FILENO);
+	if (token->next->type != EOC)
+		dup2(g_data.outfile, STDOUT_FILENO);
 	close(g_data.outfile);
 }
 
