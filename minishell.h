@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/18 18:49:30 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:26:31 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ char		*find_var_value(char **env, char *var);
 
 //  utils/ft_builtin_export.c
 void		get_export(char **env);
+
+//  utils/ft_builtin_export2.c
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);
