@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:11:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/18 19:26:55 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 02:08:52 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	ft_put_value_quotes(char **export)
 	}
 }
 
-void	ft_print_export(char *cmd)
+void	ft_print_export()
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/14 22:07:28 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/19 02:22:31 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,13 @@ int	is_builtin(char **str)
 	{
 		if (ft_strncmp(str[0], "export", ft_strlen(str[0])) == 0 && \
 				is_var_assigned(str[1]) == TRUE)
+		{
 			ft_add_var_env(str);
+			get_export(g_data.env);	
+		}
+		else if (ft_strncmp(str[0], "export", ft_strlen(str[0])) == 0 && \
+				is_var_assigned(str[1]) == FALSE)
+			ft_export(str);
 		else if (ft_strncmp(str[0], "unset", ft_strlen(str[0])) == 0)
 			ft_remove_var_env(str);
 		else if (ft_strncmp(str[0], "cd", ft_strlen(str[0])) == 0)
