@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:11:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 13:55:04 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:22:18 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	ft_put_value_quotes(char **export)
 	}
 }
 
-void	ft_print_export()
+void	ft_print_export(void)
 {
 	int	i;
 

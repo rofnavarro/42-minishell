@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 19:26:02 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 13:54:42 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:22:16 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_add_export(char *variable)
 {
 	int		i;
 	char	**new_export;
-	
+
 	new_export = ft_env_calloc(ft_env_size(g_data.export) + 2);
 	i = -1;
 	while (g_data.export[++i])
