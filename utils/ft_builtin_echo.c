@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_echo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 17:09:09 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:51:58 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ static void	ft_find_print_var(char *dollar_var)
 	free(tmp);
 }
 
+static void ft_clean_up_quotes(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		while (str[i] == '\'' || str[i] == '\"')
+			i++;
+		printf("%c", str[i]);
+	}
+}
+
 static void	ft_echo_class(char **cmd, int i)
 {
 	char	*tmp;
@@ -50,7 +63,7 @@ static void	ft_echo_class(char **cmd, int i)
 	else if (cmd[i][0] == '$' && ft_isprint(cmd[i][1]) != 0)
 		ft_find_print_var(cmd[i]);
 	else
-		printf("%s", cmd[i]);
+		ft_clean_up_quotes(cmd[i]);
 }
 
 void	ft_echo(char **cmd)
