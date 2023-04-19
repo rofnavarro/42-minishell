@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/18 17:18:26 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/19 18:39:53 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,24 @@ void	ft_child_process(t_token *token, char *cmd_path)
 		redirect_from_pipe(token->type);
 	if (ft_is_builtin_child(token->cmd[0]) == TRUE)
 		ft_exec_child_builtin(token, cmd_path);
-	else if (execve(cmd_path, token->cmd, g_data.env) == -1)
+	else if (cmd_path)
 	{
-		perror(NULL);
-		ft_error(1, "execve falhou\n");
-		return ;
-	}	
+		if (execve(cmd_path, token->cmd, g_data.env) == -1)
+		{
+			perror(NULL);
+			ft_error(1, "");
+			return ;
+		}
+	}
+	if (!cmd_path)
+	{
+		if (execve(token->cmd[0], token->cmd, g_data.env) == -1)
+		{
+			perror(NULL);
+			ft_error(1, "");
+			return ;
+		}		
+	}
 }
 
 void	ft_parent_process(int pid)
@@ -38,7 +50,7 @@ void	ft_parent_process(int pid)
 	int		wstatus;
 
 	wstatus = 0;
-	waitpid(pid, &wstatus, 0);
+	waitpid(pid, &wstatus, -1);
 	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
 			wstatus = WEXITSTATUS(wstatus);
 	if (g_data.aux_sig)

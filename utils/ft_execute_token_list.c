@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/18 18:23:45 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/19 17:45:06 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	ft_execute_token_list(void)
 {
 	t_token	*aux;
 
+	if (ft_check_sintax())
+	{
+		ft_exit();
+		return ;
+	}
 	if (!g_data.token_start)
 		return ;
 	aux = g_data.token_start;
@@ -70,8 +75,10 @@ void	ft_heredoc(t_token *token)
 	free(input);
 }
 
-void	ft_token_type_exec(t_token *token)
+int	ft_token_type_exec(t_token *token)
 {
+	if ((token->type == GREATER || token->type == GREATER_GREATER) && token->cmd[0] == NULL)
+		return (1);
 	if (token->type == LESS)
 		ft_get_input_file(token);
 	else if (token->type == LESS_LESS)
@@ -81,39 +88,71 @@ void	ft_token_type_exec(t_token *token)
 	else if (token->type == PIPE)
 		ft_open_pipe();
 	if (token->cmd[0] == NULL)
-		return ;
+		return (0);
+	return (0);
 }
 	// printf("\n------------- Token list -------------\n");
 	// ft_print_token_list();
 	// printf("\n--------------------------------------\n\n");	
+
+int	ft_check_slash(char *str)
+{
+	char	**str_split;
+	int		result;
+
+	str_split = ft_split(str, '/');
+	if (str_split[1])
+		result = 1;
+	else
+		result = 0;
+	ft_free_matrix(str_split);
+	return (result);
+}
 
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
 	int		pid;
 
-	ft_token_type_exec(token);
-	if ((token->type == GREATER || token->type == GREATER_GREATER) && token->cmd[0] == NULL)
+	if (ft_token_type_exec(token))
 		return ;
 	if (ft_is_executable(token) && !is_builtin(token->cmd)
 		&& ft_strncmp(token->cmd[0], "exit", 4) != 0)
 	{
-		cmd_path = ft_get_cmd_path(token);
-		if (cmd_path)
+		if (ft_check_slash(token->cmd[0]))
 		{
-			g_data.sa_child.sa_handler = &handle_sig_child;
-			sigaction(SIGINT, &g_data.sa_child, NULL);
-			sigaction(SIGQUIT, &g_data.sa_child, NULL);
-			pid = fork();
-			if (pid < 0)
+				g_data.sa_child.sa_handler = &handle_sig_child;
+				sigaction(SIGINT, &g_data.sa_child, NULL);
+				sigaction(SIGQUIT, &g_data.sa_child, NULL);
+				pid = fork();
+				if (pid < 0)
+				{
+					perror(NULL);
+					return (ft_error(1, ""));
+				}
+				if (!pid)
+					ft_child_process(token, NULL);
+				ft_parent_process(pid);		
+		}
+		else
+		{
+			cmd_path = ft_get_cmd_path(token);
+			if (cmd_path)
 			{
-				perror(NULL);
-				return (ft_error(1, ""));
+				g_data.sa_child.sa_handler = &handle_sig_child;
+				sigaction(SIGINT, &g_data.sa_child, NULL);
+				sigaction(SIGQUIT, &g_data.sa_child, NULL);
+				pid = fork();
+				if (pid < 0)
+				{
+					perror(NULL);
+					return (ft_error(1, ""));
+				}
+				if (!pid)
+					ft_child_process(token, cmd_path);
+				ft_parent_process(pid);
+				free(cmd_path);
 			}
-			if (!pid)
-				ft_child_process(token, cmd_path);
-			ft_parent_process(pid);
-			free(cmd_path);
 		}
 	}
 	ft_close_pipes(token);

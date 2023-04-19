@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/15 23:56:40 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/18 19:56:16 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,5 +174,8 @@ void		ft_free_child_process(void);
 //	ft_signals.c
 void		handle_sigint_empty(int sig);
 void		handle_sig_child(int sig);
+
+//ft_syntax_error.c
+int			ft_check_sintax(void);
 
 #endif

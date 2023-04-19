@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+         #
+#    By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/04/15 02:39:57 by rinacio          ###   ########.fr        #
+#    Updated: 2023/04/18 19:56:56 by rinacio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC							=			minishell.c \
 															ft_pipe.c \
 															ft_fork.c \
 															ft_signals.c \
+															ft_syntax_error.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)
