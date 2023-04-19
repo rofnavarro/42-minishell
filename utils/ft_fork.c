@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/15 23:50:35 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/19 02:04:23 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	ft_parent_process(int pid)
 	int		wstatus;
 
 	wstatus = 0;
-	waitpid(pid, &wstatus, 0);
+	waitpid(pid, &wstatus, -1);
 	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
-			wstatus = WEXITSTATUS(wstatus);
+		wstatus = WEXITSTATUS(wstatus);
 	if (g_data.aux_sig)
 	{
 		wstatus = g_data.exit_code;

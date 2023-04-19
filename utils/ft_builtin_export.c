@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:11:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 02:08:52 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/19 01:57:37 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_sort(char **export)
 	}
 }
 
-static void	ft_add_prefix(char **export)
+void	ft_add_prefix(char **export)
 {
 	int		i;
 	char	*tmp[2];
@@ -87,6 +87,8 @@ void	get_export(char **env)
 {
 	int	i;
 
+	if (g_data.export != NULL)
+		ft_free_matrix(g_data.export);
 	g_data.export = (char **)ft_env_calloc(ft_env_size(env) + 1);
 	i = -1;
 	while (env[++i])
