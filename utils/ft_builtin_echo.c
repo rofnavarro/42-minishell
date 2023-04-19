@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 18:51:58 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:08:58 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ static void ft_clean_up_quotes(char *str)
 	{
 		while (str[i] == '\'' || str[i] == '\"')
 			i++;
+		if (str[i] == '$' && str[i + 1] == '?')
+		{
+			i = i + 2;
+			printf("%d", g_data.exit_code);
+		}
 		printf("%c", str[i]);
 	}
 }
