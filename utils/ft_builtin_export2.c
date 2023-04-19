@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_export2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 19:26:02 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 01:59:40 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:54:42 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,8 @@ void	ft_export(char **cmd)
 	if (!cmd[1])
 		ft_print_export();
 	else
+	{
 		ft_add_export(cmd[1]);
+		ft_sort(g_data.export);
+	}
 }

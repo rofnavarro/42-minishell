@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 01:51:55 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:51:47 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ int	is_builtin(char **str)
 				ft_export(str);
 		}
 		else if (ft_strncmp(str[0], "unset", ft_strlen(str[0])) == 0)
+		{
 			ft_remove_var_env(str);
+			get_export(g_data.env);
+		}
 		else if (ft_strncmp(str[0], "cd", ft_strlen(str[0])) == 0)
 			ft_cd(str);
 		return (TRUE);

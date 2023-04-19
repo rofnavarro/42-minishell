@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 01:57:32 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:54:25 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void		ft_print_env(char *cmd);
 char		*find_var_value(char **env, char *var);
 
 //  utils/ft_builtin_export.c
+void		ft_sort(char **export);
 void		ft_add_prefix(char **export);
 void		ft_print_export();
 void		get_export(char **env);

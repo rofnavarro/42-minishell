@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:11:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 01:57:37 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:55:04 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_sort(char **export)
+void	ft_sort(char **export)
 {
 	int		i;
 	char	*tmp;
