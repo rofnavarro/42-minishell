@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/20 18:15:46 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/20 19:07:10 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void		ft_exit(void);
 void		ft_free_matrix(char **matrix);
 void		ft_free_data(void);
 void		ft_free_loop(void);
-void		ft_free_matrix_int(int **matrix);
+void		ft_free_matrix_int(int **matrix, int size);
 
 //  utils/ft_loop.c
 void		ft_loop(void);

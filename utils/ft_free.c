@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/20 18:15:37 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/20 19:07:40 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ void	ft_free_matrix(char **matrix)
 	free(matrix);
 }
 
-void	ft_free_matrix_int(int **matrix)
+void	ft_free_matrix_int(int **matrix, int size)
 {
 	int	i;
 
-	i = -1;
-	while (matrix[++i])
+	i = 0;
+	while (i < size)
+	{
 		free(matrix[i]);
+		i++;
+	}
 	free(matrix);
 }
 

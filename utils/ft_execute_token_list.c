@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/20 18:15:56 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/20 19:05:42 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_execute_token_list(void)
 	int		wstatus;
 	int		i = 0;
 
+	g_data.count_pipes = 0;
 	g_data.count_fork = 0;
 	g_data.pid = malloc(sizeof(int) * g_data.token_list_size);
 	g_data.fd = malloc(sizeof (int*) * (g_data.token_list_size - 1));
@@ -50,7 +51,7 @@ void	ft_execute_token_list(void)
 		g_data.exit_code = wstatus;
 	}
 	free(g_data.pid);
-	ft_free_matrix_int(g_data.fd);
+	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
 }
 
 int	ft_is_executable(t_token *token)

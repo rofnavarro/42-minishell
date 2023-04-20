@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/15 01:30:33 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/20 19:10:46 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@ void	ft_exit(void)
 {
 	if (ft_strncmp(g_data.cmd, "exit", 4) == 0)
 		g_data.stop = 1;
+	close(g_data.stdin_copy);
+	close(g_data.stdout_copy);
 }
