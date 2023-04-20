@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 17:45:06 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/20 18:15:56 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 void	ft_execute_token_list(void)
 {
 	t_token	*aux;
+	int		wstatus;
+	int		i = 0;
 
-	if (ft_check_sintax())
+	g_data.count_fork = 0;
+	g_data.pid = malloc(sizeof(int) * g_data.token_list_size);
+	g_data.fd = malloc(sizeof (int*) * (g_data.token_list_size - 1));
+	while (i < g_data.token_list_size - 1)
 	{
-		ft_exit();
-		return ;
+		g_data.fd[i] = malloc(sizeof(int) * 2);
+		i++;
 	}
+	if (ft_check_sintax())
+		return ft_exit();
 	if (!g_data.token_start)
 		return ;
 	aux = g_data.token_start;
@@ -29,6 +36,21 @@ void	ft_execute_token_list(void)
 		ft_execute(aux);
 		aux = aux->next;
 	}
+	for(int i = 0; i < g_data.count_fork; i++)
+	{
+		wstatus = 0;
+		waitpid(-1, &wstatus, 0);
+		if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
+				wstatus = WEXITSTATUS(wstatus);
+		if (g_data.aux_sig)
+		{
+			wstatus = g_data.exit_code;
+			g_data.aux_sig = 0;
+		}
+		g_data.exit_code = wstatus;
+	}
+	free(g_data.pid);
+	ft_free_matrix_int(g_data.fd);
 }
 
 int	ft_is_executable(t_token *token)
@@ -112,45 +134,36 @@ int	ft_check_slash(char *str)
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
-	int		pid;
 
+	if(!token->cmd[0] && token->type == 6)
+		return ;
 	if (ft_token_type_exec(token))
 		return ;
 	if (ft_is_executable(token) && !is_builtin(token->cmd)
 		&& ft_strncmp(token->cmd[0], "exit", 4) != 0)
 	{
-		if (ft_check_slash(token->cmd[0]))
-		{
-				g_data.sa_child.sa_handler = &handle_sig_child;
-				sigaction(SIGINT, &g_data.sa_child, NULL);
-				sigaction(SIGQUIT, &g_data.sa_child, NULL);
-				pid = fork();
-				if (pid < 0)
-				{
-					perror(NULL);
-					return (ft_error(1, ""));
-				}
-				if (!pid)
-					ft_child_process(token, NULL);
-				ft_parent_process(pid);		
-		}
-		else
-		{
+		if (!ft_check_slash(token->cmd[0]))
 			cmd_path = ft_get_cmd_path(token);
-			if (cmd_path)
+		if (ft_check_slash(token->cmd[0]) || cmd_path)
+		{
 			{
 				g_data.sa_child.sa_handler = &handle_sig_child;
 				sigaction(SIGINT, &g_data.sa_child, NULL);
 				sigaction(SIGQUIT, &g_data.sa_child, NULL);
-				pid = fork();
-				if (pid < 0)
+				g_data.pid[g_data.count_fork] = fork();
+				g_data.count_fork++;
+				if (g_data.pid[g_data.count_fork - 1] < 0)
 				{
 					perror(NULL);
 					return (ft_error(1, ""));
 				}
-				if (!pid)
-					ft_child_process(token, cmd_path);
-				ft_parent_process(pid);
+				if (!g_data.pid[g_data.count_fork - 1])
+				{
+					if (cmd_path)
+						ft_child_process(token, cmd_path);
+					else
+						ft_child_process(token, NULL);
+				}
 				free(cmd_path);
 			}
 		}

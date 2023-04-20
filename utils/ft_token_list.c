@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_token_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/14 20:31:53 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/20 18:23:13 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_add_token(char *cmd_token, t_type cmd_type)
 		new_token->prev = aux;
 		new_token->next = NULL;
 	}
+	g_data.token_list_size++;
 }
 
 char	**ft_token_quotes(char **cmd)
@@ -44,7 +45,7 @@ char	**ft_token_quotes(char **cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		temp = ft_strtrim(ft_switch_inside_quotation(cmd[i]), "\"");
+		temp = ft_strdup(ft_switch_inside_quotation(cmd[i]));
 		free(cmd[i]);
 		cmd[i] = ft_strdup(temp);
 		free(temp);

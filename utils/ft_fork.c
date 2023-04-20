@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 18:39:53 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/20 18:01:27 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,6 @@ void	ft_child_process(t_token *token, char *cmd_path)
 			return ;
 		}		
 	}
-}
-
-void	ft_parent_process(int pid)
-{
-	int		wstatus;
-
-	wstatus = 0;
-	waitpid(pid, &wstatus, -1);
-	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
-			wstatus = WEXITSTATUS(wstatus);
-	if (g_data.aux_sig)
-	{
-		wstatus = g_data.exit_code;
-		g_data.aux_sig = 0;
-	}
-	g_data.exit_code = wstatus;
 }
 
 void	ft_exec_child_builtin(t_token *token, char *cmd_path)

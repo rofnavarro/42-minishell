@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/18 19:56:16 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/20 18:15:46 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ typedef struct s_program
 	int					stop;
 	int					exit_code;
 	t_token				*token_start;
-	int					fd[2][2];
+	int					token_list_size;
+	int					**fd;
 	int					count_pipes;
 	int					infile;
 	int					outfile;
@@ -86,6 +87,8 @@ typedef struct s_program
 	struct sigaction	sa;
 	struct sigaction	sa_child;
 	int					aux_sig;
+	int					*pid;
+	int					count_fork;
 }	t_program;
 
 //  global variable
@@ -123,6 +126,7 @@ void		ft_exit(void);
 void		ft_free_matrix(char **matrix);
 void		ft_free_data(void);
 void		ft_free_loop(void);
+void		ft_free_matrix_int(int **matrix);
 
 //  utils/ft_loop.c
 void		ft_loop(void);
