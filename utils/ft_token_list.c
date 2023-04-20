@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 18:38:03 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/20 18:00:29 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	**ft_token_quotes(char **cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		temp = ft_strtrim(ft_switch_inside_quotation(cmd[i]), "\"");
+		temp = ft_strdup(ft_switch_inside_quotation(cmd[i]));
 		free(cmd[i]);
 		cmd[i] = ft_strdup(temp);
 		free(temp);

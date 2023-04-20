@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 19:08:58 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/20 18:26:59 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,54 @@ static void	ft_find_print_var(char *dollar_var)
 
 static void ft_clean_up_quotes(char *str)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	if (str[0] == '\"' && str)
 	{
-		while (str[i] == '\'' || str[i] == '\"')
-			i++;
-		if (str[i] == '$' && str[i + 1] == '?')
+		tmp = ft_strdup(ft_strtrim(str, "\""));
+		free(str);
+		str = ft_strdup(tmp);
+		free(tmp);
+		while (str[i] != '\0')
 		{
-			i = i + 2;
-			printf("%d", g_data.exit_code);
+			if (str[i] == '$' && str[i + 1] == '?')
+			{
+				i = i + 2;
+				printf("%d", g_data.exit_code);
+			}
+			if (str[i] == '\'' || str[i] == '\"')
+				i++;
+			printf("%c", str[i]);
 		}
-		printf("%c", str[i]);
+		return ;
+	}
+	else if (str[0] == '\'' && str)
+	{
+		tmp = ft_strdup(ft_strtrim(str, "\'"));
+		free(str);
+		str = ft_strdup(tmp);
+		free(tmp);
+		while (str[i] != '\0')
+		{
+			if (str[i] == '$' && str[i + 1] == '?')
+			{
+				i = i + 2;
+				printf("%d", g_data.exit_code);
+			}
+			if (str[i] == '\'' || str[i] == '\"')
+				i++;
+			printf("%c", str[i]);
+		}
+		return ;
 	}
 }
 
 static void	ft_echo_class(char **cmd, int i)
 {
-	char	*tmp;
 
-	if (cmd[i][0] == '\'')
-	{
-		tmp = ft_strtrim(cmd[i], "'");
-		printf("%s", tmp);
-		free(tmp);
-	}
-	else if (cmd[i][0] == '$' && cmd[i][1] == '?')
+	if (cmd[i][0] == '$' && cmd[i][1] == '?')
 		printf("%d", g_data.exit_code);
 	else if (cmd[i][0] == '$' && ft_isprint(cmd[i][1]) != 0)
 		ft_find_print_var(cmd[i]);
