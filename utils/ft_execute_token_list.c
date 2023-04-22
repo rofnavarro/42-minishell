@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/20 19:05:42 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/22 04:45:07 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
 
+	cmd_path = NULL;
 	if(!token->cmd[0] && token->type == 6)
 		return ;
 	if (ft_token_type_exec(token))
@@ -165,7 +166,8 @@ void	ft_execute(t_token *token)
 					else
 						ft_child_process(token, NULL);
 				}
-				free(cmd_path);
+				if (cmd_path)
+					free(cmd_path);
 			}
 		}
 	}
