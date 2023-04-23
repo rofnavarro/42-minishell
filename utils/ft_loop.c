@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/20 18:26:57 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/23 14:16:45 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	ft_loop(void)
 			free(g_data.cmd_token);
 			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>>;"), " ");
 		}
-		// ft_print_token_list();
+		ft_quotes_handler();
+		ft_print_token_list();
 		ft_execute_token_list();
 		ft_exit();
 		ft_free_loop();

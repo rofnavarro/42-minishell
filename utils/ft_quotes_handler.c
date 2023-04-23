@@ -1,0 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_quotes_handler.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
+/*   Updated: 2023/04/23 14:45:55 by rferrero         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+static void	quotes_replace(t_token *token)
+{
+	char	*tmp;
+	int		i;
+	int		n;
+	int		m;
+
+	i = 1;
+	while (token->cmd[i])
+	{
+		tmp = (char *)malloc(sizeof(char) * ft_strlen(token->cmd[i]) + 1);
+		n = 0;
+		m = 0;
+		while (token->cmd[i][n])
+		{
+			if (token->cmd[i][n] == '\'')
+			{
+				n++;
+				while (token->cmd[i][n] != '\'')
+				{
+					tmp[m] = token->cmd[i][n];
+					n++;
+					m++;
+				}
+			}
+			else if (token->cmd[i][n] == '\"')
+			{
+				n++;
+				while (token->cmd[i][n] != '\"')
+				{
+					tmp[m] = token->cmd[i][n];
+					n++;
+					m++;
+				}
+			}
+			else
+			{
+				tmp[m] = token->cmd[i][n];
+				m++;
+			}
+			n++;
+		}
+		tmp[m] = '\0';
+		free(token->cmd[i]);
+		token->cmd[i] = ft_strdup(tmp);
+		free(tmp);
+		i++;
+	}
+}
+
+void	ft_quotes_handler(void)
+{
+	t_token	*aux;
+
+	aux = g_data.token_start;
+	while (aux)
+	{
+		quotes_replace(aux);
+		aux = aux->next;
+	}
+}

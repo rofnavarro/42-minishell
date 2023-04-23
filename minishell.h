@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 15:17:16 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/23 14:21:24 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,55 @@ void		ft_pwd(char *str);
 int			is_builtin(char **str);
 int			ft_is_builtin_child(char *input);
 
+//	utils/ft_check_quotes.c
+int			ft_check_quotes(char *arg);
+char		*ft_switch_inside_quotation(char *str);
+
+//	utils/ft_cmd_path.c
+char		*ft_test_path(int i, t_token *token);
+char		*ft_get_cmd_path(t_token *token);
+void		ft_cmd_not_found(char *cmd);
+
 //  utils/ft_error.c
 void		ft_error(int arg, char *msg);
 void		ft_exit(void);
+
+//	utils/ft_execute_token_list.c
+void		ft_execute_token_list(void);
+void		ft_execute(t_token *token);
+
+//	utils/ft_fork.c
+void		ft_child_process(t_token *token, char *cmd_path);
+void		ft_parent_process(int pid);
+void		ft_exec_child_builtin(t_token *token, char *cmd_path);
+void		ft_free_child_process(void);
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
 void		ft_free_data(void);
 void		ft_free_loop(void);
 
+//	utils/ft_input_output.c
+void		ft_open_output_file(t_token *token);
+void		ft_get_input_file(t_token *token);
+void		ft_open_input_file(t_token *token);
+void		ft_check_std_in_out(t_token *token);
+
 //  utils/ft_loop.c
 void		ft_loop(void);
+
+//	utils/ft_pipe.c
+void		redirect_to_pipe(void);
+void		redirect_from_pipe(int type);
+void		ft_open_pipe(void);
+void		ft_close_pipes(t_token *token);
+
+//  utils/ft_quote_handler.c
+void		ft_quotes_handler(void);
+
+//	ft_signals.c
+void		handle_sigint_empty(int sig);
+void		handle_sig_child(int sig);
 
 //  utils/ft_start.c
 void		get_path(void);
@@ -149,40 +187,5 @@ void		ft_add_token(char *cmd_token, t_type cmd_type);
 void		ft_print_token_list(void);
 void		ft_free_token_list(t_token *token, int start);
 char		**ft_token_quotes(char **cmd);
-
-//	utils/ft_check_quotes.c
-int			ft_check_quotes(char *arg);
-char		*ft_switch_inside_quotation(char *str);
-
-//	utils/ft_execute_token_list.c
-void		ft_execute_token_list(void);
-void		ft_execute(t_token *token);
-
-//	utils/ft_cmd_path.c
-char		*ft_test_path(int i, t_token *token);
-char		*ft_get_cmd_path(t_token *token);
-void		ft_cmd_not_found(char *cmd);
-
-//	utils/ft_input_output.c
-void		ft_open_output_file(t_token *token);
-void		ft_get_input_file(t_token *token);
-void		ft_open_input_file(t_token *token);
-void		ft_check_std_in_out(t_token *token);
-
-//	utils/ft_pipe.c
-void		redirect_to_pipe(void);
-void		redirect_from_pipe(int type);
-void		ft_open_pipe(void);
-void		ft_close_pipes(t_token *token);
-
-//	utils/ft_fork.c
-void		ft_child_process(t_token *token, char *cmd_path);
-void		ft_parent_process(int pid);
-void		ft_exec_child_builtin(t_token *token, char *cmd_path);
-void		ft_free_child_process(void);
-
-//	ft_signals.c
-void		handle_sigint_empty(int sig);
-void		handle_sig_child(int sig);
 
 #endif
