@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/24 15:49:15 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 19:53:05 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,27 @@ void	ft_execute_token_list(void)
 		{
 			wstatus = 0;
 			pid_waited = waitpid(-1, &wstatus, 0);
-			printf("waited pid: %d\n", pid_waited);
 			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
-			 	wstatus = WEXITSTATUS(wstatus);
-			else if (g_data.aux_sig)
+			  	wstatus = WEXITSTATUS(wstatus);
+			if (g_data.aux_sig)
 			{
-				printf("caiu aqui\n");
-				wstatus = g_data.exit_code;
+				wstatus = g_data.aux_sig;
 				g_data.aux_sig = 0;
 				g_data.exit_code = wstatus;
 			}
-			else if (pid_waited == g_data.pid[g_data.count_fork - 1])
+			if(WIFSIGNALED(wstatus))
+			{
+				if(g_data.exit_code == 131)
+					printf("Quit (core dumped)\n");
+				if(g_data.exit_code == 2)
+				{
+					g_data.exit_code = 130;
+					printf("\n");
+				}
+			}
+			//printf("wstatus: %d\n", wstatus);
+			//printf("waited pid: %d\n", pid_waited);
+			if (pid_waited == g_data.pid[g_data.count_fork - 1])
 			{
 				g_data.exit_code = wstatus;
 			}
@@ -77,37 +87,37 @@ int	ft_is_executable(t_token *token)
 	return (1);
 }
 
-void	ft_heredoc(t_token *token)
+int	ft_heredoc(t_token *token)
 {
 	char	*input;
-	char	*aux;
-	char	*next_line;
+	char	*delim;
+	int		fd;
 
+	delim = ft_strdup(token->next->cmd[0]);
+	printf("delim: %s\n", delim);
 	input = ft_strdup("");
-	next_line = ft_strdup("");
-	while (ft_strncmp(next_line, token->next->cmd[0], ft_strlen(token->cmd[0])))
+	fd = open("__heredoc", O_WRONLY | O_CREAT, 0600);
+	while (TRUE)
 	{
-		aux = ft_strdup(input);
-		free(next_line);
-		next_line = readline("> ");
-		if (ft_strncmp(next_line, token->next->cmd[0],
-				ft_strlen(token->cmd[0])))
+		free(input);
+		input = readline("> ");
+		if (ft_strncmp(input, delim, ft_strlen(delim)))
 		{
+			write(fd, input, ft_strlen(input));
 			free(input);
-			input = ft_strjoin(aux, next_line);
-			free(aux);
-			aux = ft_strdup(input);
-			free(input);
-			input = ft_strjoin(aux, "\n");
-			free(aux);
+			write(fd, "\n", 1);
+			input = ft_strdup("");
 		}
 		else
-			free(aux);
+		{
+			free(input);
+			break ;
+		}
 	}
-	free(next_line);
-	if (!ft_strncmp(token->cmd[0], "cat", ft_strlen(token->cmd[0])))
-		printf("%s", input);
-	free(input);
+	free(delim);
+	close(fd);
+	fd = open("__heredoc", O_RDONLY);
+	return (fd);
 }
 
 int	ft_token_type_exec(t_token *token)
@@ -117,7 +127,7 @@ int	ft_token_type_exec(t_token *token)
 	if (token->type == LESS)
 		ft_get_input_file(token);
 	else if (token->type == LESS_LESS)
-		ft_heredoc(token);
+		g_data.fd_heredoc = ft_heredoc(token);
 	else if (token->type == GREATER || token->type == GREATER_GREATER)
 		ft_open_output_file(token);
 	else if (token->type == PIPE)
@@ -126,9 +136,6 @@ int	ft_token_type_exec(t_token *token)
 		return (0);
 	return (0);
 }
-	// printf("\n------------- Token list -------------\n");
-	// ft_print_token_list();
-	// printf("\n--------------------------------------\n\n");	
 
 int	ft_check_slash(char *str)
 {
@@ -161,11 +168,12 @@ void	ft_execute(t_token *token)
 		if (ft_check_slash(token->cmd[0]) || cmd_path)
 		{
 			{
-				g_data.sa_child.sa_handler = &handle_sig_child;
-				sigaction(SIGINT, &g_data.sa_child, NULL);
-				sigaction(SIGQUIT, &g_data.sa_child, NULL);
+				signal(SIGINT, SIG_IGN);
+				// g_data.sa_parent.sa_handler = &handle_sig_parent;
+				// sigaction(SIGINT, &g_data.sa_parent, NULL);
+				// sigaction(SIGQUIT, &g_data.sa_parent, NULL);
 				g_data.pid[g_data.count_fork] = fork();
-				printf("pid: %d\n", g_data.pid[g_data.count_fork]);
+				//printf("pid: %d\n", g_data.pid[g_data.count_fork]);
 				g_data.count_fork++;
 				if (g_data.pid[g_data.count_fork - 1] < 0)
 				{

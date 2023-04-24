@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/22 05:03:26 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 19:44:02 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_loop();
 	rl_clear_history();
 	ft_free_data();
-	//printf("Minishell closed!\n");
+	printf("Minishell closed!\n");
 	return (EXIT_SUCCESS);
 }

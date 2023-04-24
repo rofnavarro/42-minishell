@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/24 15:50:27 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 18:58:42 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ typedef struct s_program
 	char				*user;
 	struct sigaction	sa;
 	struct sigaction	sa_child;
+	struct sigaction	sa_parent;
 	int					*pid;
 	int					count_fork;
 	int					aux_sig;
+	int					fd_heredoc;
 }	t_program;
 
 //  global variable
@@ -178,6 +180,7 @@ void		ft_free_child_process(void);
 //	ft_signals.c
 void		handle_sigint_empty(int sig);
 void		handle_sig_child(int sig);
+void		handle_sig_parent(int sig);
 
 //ft_syntax_error.c
 int			ft_check_sintax(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_syntax_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:39:17 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/24 03:07:51 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 19:26:50 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int ft_check_sintax(void)
                 token_error = ft_strjoin("syntax error near unexpected token ", "`newline'");
             else if (!aux->next->cmd[0])
                 token_error = ft_strjoin("syntax error near unexpected token ", ft_char_error(aux->next->type));
+            else
+                break ;
             ft_error(2, token_error);
             free(token_error);
             return (1);
