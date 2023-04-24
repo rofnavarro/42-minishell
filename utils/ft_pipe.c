@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:12:41 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/20 19:00:57 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/22 04:53:42 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	ft_open_pipe(void)
 		ft_error(1, "");
 		return ;
 	}
-	printf("pipe[%d][0] aberto\n", g_data.count_pipes);
-	printf("pipe[%d][1] aberto\n", g_data.count_pipes);
+	//printf("pipe[%d][0] aberto\n", g_data.count_pipes);
+	//printf("pipe[%d][1] aberto\n", g_data.count_pipes);
 	g_data.count_pipes++;
 }
 
@@ -50,17 +50,17 @@ void	ft_close_pipes(t_token *token)
 	{
 		{
 			close(g_data.fd[g_data.count_pipes - 1][1]);
-			printf("pipe [%d][1] fechado\n", g_data.count_pipes - 1);
+			//printf("pipe [%d][1] fechado\n", g_data.count_pipes - 1);
 		}
 		if (token->prev && token->prev->type == PIPE)
 		{
 			close(g_data.fd[g_data.count_pipes - 2][0]);
-			printf("pipe [%d][0] fechado\n", g_data.count_pipes - 2);
+			//printf("pipe [%d][0] fechado\n", g_data.count_pipes - 2);
 		}
 	}
 	else if (token->prev && token->prev->type == PIPE)
 	{
 		close(g_data.fd[g_data.count_pipes - 1][0]);
-		printf("pipe [%d][0] fechado\n", g_data.count_pipes - 1);
+		//printf("pipe [%d][0] fechado\n", g_data.count_pipes - 1);
 	}
 }

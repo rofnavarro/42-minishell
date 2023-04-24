@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_syntax_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:39:17 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 16:54:59 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 03:07:51 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int ft_check_sintax(void)
 	{
         if (aux->type == PIPE && !aux->cmd[0])
         {
-            token_error = ft_strjoin("syntax error near unexpected token ", "'|'");
+            token_error = ft_strjoin("syntax error near unexpected token ", "`|'");
             ft_error(2, token_error);
             free(token_error);
             return (1);
@@ -52,7 +52,7 @@ int ft_check_sintax(void)
                 || aux->type == LESS || aux->type == LESS_LESS))
         {
             if (!aux->next)
-                token_error = ft_strjoin("syntax error near unexpected token ", "'newline'");
+                token_error = ft_strjoin("syntax error near unexpected token ", "`newline'");
             else if (!aux->next->cmd[0])
                 token_error = ft_strjoin("syntax error near unexpected token ", ft_char_error(aux->next->type));
             ft_error(2, token_error);

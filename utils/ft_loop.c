@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/20 18:23:36 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 05:20:26 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_loop(void)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		g_data.sa.sa_handler = &handle_sigint_empty;
+		g_data.sa.sa_flags = SA_SIGINFO;
 		sigaction(SIGINT, &g_data.sa, NULL);
 		g_data.user = find_var_value(g_data.env, "USER");
 		rl_text = ft_strjoin(g_data.user, ":$ ");
@@ -39,7 +40,7 @@ void	ft_loop(void)
 			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>>;"), " ");
 		}
 		
-		ft_print_token_list();
+		//ft_print_token_list();
 		ft_execute_token_list();
 		ft_exit();
 		ft_free_loop();

@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/22 04:45:07 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 15:49:35 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,28 @@ void	ft_execute_token_list(void)
 		ft_execute(aux);
 		aux = aux->next;
 	}
-	for(int i = 0; i < g_data.count_fork; i++)
-	{
-		wstatus = 0;
-		waitpid(-1, &wstatus, 0);
-		if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
-				wstatus = WEXITSTATUS(wstatus);
-		if (g_data.aux_sig)
+	if (g_data.count_fork)
+	{		
+		int pid_waited;
+		for(int i = 0; i < g_data.count_fork; i++)
 		{
-			wstatus = g_data.exit_code;
-			g_data.aux_sig = 0;
+			wstatus = 0;
+			pid_waited = waitpid(-1, &wstatus, 0);
+			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
+			 	wstatus = WEXITSTATUS(wstatus);
+			else if (WIFSIGNALED(wstatus))
+			{
+				wstatus = g_data.exit_code;
+				//g_data.aux_sig = 0;
+				g_data.exit_code = wstatus;
+			}
+			else if (pid_waited == g_data.pid[g_data.count_fork - 1])
+			{
+				g_data.exit_code = wstatus;
+			}
+			//printf("wstatus: %d\n", wstatus);
+			//g_data.exit_code = wstatus;
 		}
-		g_data.exit_code = wstatus;
 	}
 	free(g_data.pid);
 	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
@@ -142,7 +152,7 @@ void	ft_execute(t_token *token)
 	if (ft_token_type_exec(token))
 		return ;
 	if (ft_is_executable(token) && !is_builtin(token->cmd)
-		&& ft_strncmp(token->cmd[0], "exit", 4) != 0)
+		&& (ft_strncmp(token->cmd[0], "exit", 4) != 0 || ft_strlen(token->cmd[0]) != 4))
 	{
 		if (!ft_check_slash(token->cmd[0]))
 			cmd_path = ft_get_cmd_path(token);

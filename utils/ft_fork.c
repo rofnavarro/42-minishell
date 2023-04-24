@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/20 18:01:27 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 12:53:15 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_child_process(t_token *token, char *cmd_path)
 {
+	//g_data.sa_child.sa_handler = &handle_sig_child;
+	//sigaction(SIGINT, &g_data.sa_child, NULL);
+	//sigaction(SIGQUIT, &g_data.sa_child, NULL);
 	if (token->prev && token->prev->type == LESS)
 	{
 		dup2(g_data.infile, STDIN_FILENO);
