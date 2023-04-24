@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/23 21:13:55 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:10:30 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,44 @@ static void	check_if_var(char *str, int *n, char *tmp, int *m)
 	char 	*tmp_var;
 	char	*tmp_value;
 	int		i;
-	int		k;
 
 	tmp_var = (char *)malloc(sizeof(char) * (ft_strlen(str) - *n + 1));
 	i = 0;
-	if (str[*n] == '$')
+	while (str[*n] != '\"')
 	{
-		*n++;
-		printf("\n\n%s\n\n%d\n\n", str, *n);
-		while (str[*n] != '\0')
-		{
-			tmp_var[i] = str[*n];
-			printf("%s\n", str);
-			printf("\n\n%c\n\n", tmp_var[i]);
-			i++;
-			*n++;		
-		}
+		tmp_var[i] = str[*n];
+		i++;
+		(*n)++;
 	}
 	tmp_var[i] = '\0';
-	if (var_exist(tmp_var) == TRUE)
-	{
-		tmp_value = find_var_value(g_data.env, tmp_var);
-		k = 0;
-		while (tmp_value[k])
-		{
-			tmp[*m] = tmp_value[k];
-			k++;
-			*m++;
-		}
-		free(tmp_value);
-	}
+	tmp_value = find_var_value(g_data.env, tmp_var);
 	free(tmp_var);
+	i = 0;
+	if (tmp_value != NULL)
+	{
+		while (tmp_value[i] != '\0')
+		{
+			tmp[(*m)] = tmp_value[i];
+			(*m)++;
+			i++;
+		}
+	}
+	free(tmp_value);
+}
+static void	exit_code_handler(char *str, int *n, char *tmp, int *m)
+{
+	char	*tmp_code;
+	int		i;
+
+	tmp_code = ft_itoa(g_data.exit_code);
+	printf("%s\n", tmp_code);
+	i = 0;
+	while (tmp_code[i] != '\0')
+	{
+		tmp[*m] = tmp_code[i];
+		(*m)++;
+		i++;
+	}
 }
 
 static void	quotes_replace(t_token *token)
@@ -60,7 +67,7 @@ static void	quotes_replace(t_token *token)
 	i = 0;
 	while (token->cmd[i])
 	{
-		tmp = (char *)malloc(sizeof(char) * ft_strlen(token->cmd[i]) + 1);
+		tmp = (char *)malloc(sizeof(char) * ft_strlen(token->cmd[i]) + 1000);
 		n = 0;
 		m = 0;
 		while (token->cmd[i][n])
@@ -80,8 +87,15 @@ static void	quotes_replace(t_token *token)
 				n++;
 				while (token->cmd[i][n] != '\"')
 				{
-					// check_if_var(token->cmd[i], &n, tmp, &m);
-					if (token->cmd[i][n] != '\0')
+					if (token->cmd[i][n] == '$')
+					{
+						n++;
+						if (token->cmd[i][n] == '?')
+							exit_code_handler(token->cmd[i], &n, tmp, &m);
+						else
+							check_if_var(token->cmd[i], &n, tmp, &m);
+					}
+					else
 					{
 						tmp[m] = token->cmd[i][n];
 						n++;

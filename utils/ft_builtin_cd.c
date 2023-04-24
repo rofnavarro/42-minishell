@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/12 01:50:02 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/24 18:27:48 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static void	ft_cd_home(void)
 		if (ft_strncmp(g_data.env[i], "HOME=", 5) == 0)
 			break ;
 	}
+	if (g_data.env[i] == NULL)
+		return ;
 	home = ft_split(g_data.env[i], '=');
 	buff = NULL;
 	path = getcwd(buff, 0);
