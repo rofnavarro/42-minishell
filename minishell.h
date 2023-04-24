@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/24 15:56:46 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 15:50:27 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_program
 	struct sigaction	sa_child;
 	int					*pid;
 	int					count_fork;
+	int					aux_sig;
 }	t_program;
 
 //  global variable

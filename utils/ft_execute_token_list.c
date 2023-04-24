@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/24 15:49:35 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/24 15:49:15 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ void	ft_execute_token_list(void)
 		{
 			wstatus = 0;
 			pid_waited = waitpid(-1, &wstatus, 0);
+			printf("waited pid: %d\n", pid_waited);
 			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
 			 	wstatus = WEXITSTATUS(wstatus);
-			else if (WIFSIGNALED(wstatus))
+			else if (g_data.aux_sig)
 			{
+				printf("caiu aqui\n");
 				wstatus = g_data.exit_code;
-				//g_data.aux_sig = 0;
+				g_data.aux_sig = 0;
 				g_data.exit_code = wstatus;
 			}
 			else if (pid_waited == g_data.pid[g_data.count_fork - 1])
@@ -163,6 +165,7 @@ void	ft_execute(t_token *token)
 				sigaction(SIGINT, &g_data.sa_child, NULL);
 				sigaction(SIGQUIT, &g_data.sa_child, NULL);
 				g_data.pid[g_data.count_fork] = fork();
+				printf("pid: %d\n", g_data.pid[g_data.count_fork]);
 				g_data.count_fork++;
 				if (g_data.pid[g_data.count_fork - 1] < 0)
 				{
