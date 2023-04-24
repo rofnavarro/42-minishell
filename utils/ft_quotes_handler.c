@@ -6,11 +6,49 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/23 14:45:55 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/23 21:13:55 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static void	check_if_var(char *str, int *n, char *tmp, int *m)
+{
+	char 	*tmp_var;
+	char	*tmp_value;
+	int		i;
+	int		k;
+
+	tmp_var = (char *)malloc(sizeof(char) * (ft_strlen(str) - *n + 1));
+	i = 0;
+	if (str[*n] == '$')
+	{
+		*n++;
+		printf("\n\n%s\n\n%d\n\n", str, *n);
+		while (str[*n] != '\0')
+		{
+			tmp_var[i] = str[*n];
+			printf("%s\n", str);
+			printf("\n\n%c\n\n", tmp_var[i]);
+			i++;
+			*n++;		
+		}
+	}
+	tmp_var[i] = '\0';
+	if (var_exist(tmp_var) == TRUE)
+	{
+		tmp_value = find_var_value(g_data.env, tmp_var);
+		k = 0;
+		while (tmp_value[k])
+		{
+			tmp[*m] = tmp_value[k];
+			k++;
+			*m++;
+		}
+		free(tmp_value);
+	}
+	free(tmp_var);
+}
 
 static void	quotes_replace(t_token *token)
 {
@@ -19,7 +57,7 @@ static void	quotes_replace(t_token *token)
 	int		n;
 	int		m;
 
-	i = 1;
+	i = 0;
 	while (token->cmd[i])
 	{
 		tmp = (char *)malloc(sizeof(char) * ft_strlen(token->cmd[i]) + 1);
@@ -42,9 +80,13 @@ static void	quotes_replace(t_token *token)
 				n++;
 				while (token->cmd[i][n] != '\"')
 				{
-					tmp[m] = token->cmd[i][n];
-					n++;
-					m++;
+					// check_if_var(token->cmd[i], &n, tmp, &m);
+					if (token->cmd[i][n] != '\0')
+					{
+						tmp[m] = token->cmd[i][n];
+						n++;
+						m++;
+					}
 				}
 			}
 			else
