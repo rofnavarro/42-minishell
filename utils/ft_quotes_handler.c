@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/24 19:10:30 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/25 15:25:12 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static void	exit_code_handler(char *str, int *n, char *tmp, int *m)
 		(*m)++;
 		i++;
 	}
+	free(tmp_code);
+	(*n)++;
 }
 
 static void	quotes_replace(t_token *token)
@@ -92,8 +94,8 @@ static void	quotes_replace(t_token *token)
 						n++;
 						if (token->cmd[i][n] == '?')
 							exit_code_handler(token->cmd[i], &n, tmp, &m);
-						else
-							check_if_var(token->cmd[i], &n, tmp, &m);
+							if (token->cmd[i][n] != '\"')
+						check_if_var(token->cmd[i], &n, tmp, &m);
 					}
 					else
 					{
