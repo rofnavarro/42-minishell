@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:11:31 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 15:03:58 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:45:39 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,6 @@ char	*ft_get_cmd_path(t_token *token)
 
 void	ft_cmd_not_found(char *cmd)
 {
-	if (ft_strncmp(cmd, "$?", ft_strlen(cmd)) == 0 && \
-		ft_strlen(cmd) == 2)
-		printf("%d: command not found\n", g_data.exit_code);
-	else
-		printf("%s: command not found\n", cmd);
+	printf("%s: command not found\n", cmd);
 	g_data.exit_code = 127;
 }
