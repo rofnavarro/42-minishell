@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/25 15:25:12 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:10:29 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	check_if_var(char *str, int *n, char *tmp, int *m)
 {
-	char 	*tmp_var;
+	char	*tmp_var;
 	char	*tmp_value;
 	int		i;
 
@@ -41,26 +41,10 @@ static void	check_if_var(char *str, int *n, char *tmp, int *m)
 	}
 	free(tmp_value);
 }
-static void	exit_code_handler(char *str, int *n, char *tmp, int *m)
-{
-	char	*tmp_code;
-	int		i;
-
-	tmp_code = ft_itoa(g_data.exit_code);
-	printf("%s\n", tmp_code);
-	i = 0;
-	while (tmp_code[i] != '\0')
-	{
-		tmp[*m] = tmp_code[i];
-		(*m)++;
-		i++;
-	}
-	free(tmp_code);
-	(*n)++;
-}
 
 static void	quotes_replace(t_token *token)
 {
+	char	*tmp_var;
 	char	*tmp;
 	int		i;
 	int		n;
@@ -80,9 +64,10 @@ static void	quotes_replace(t_token *token)
 				while (token->cmd[i][n] != '\'')
 				{
 					tmp[m] = token->cmd[i][n];
-					n++;
 					m++;
+					n++;
 				}
+				break ;
 			}
 			else if (token->cmd[i][n] == '\"')
 			{
@@ -91,26 +76,58 @@ static void	quotes_replace(t_token *token)
 				{
 					if (token->cmd[i][n] == '$')
 					{
-						n++;
-						if (token->cmd[i][n] == '?')
-							exit_code_handler(token->cmd[i], &n, tmp, &m);
-							if (token->cmd[i][n] != '\"')
-						check_if_var(token->cmd[i], &n, tmp, &m);
+						if (token->cmd[i][n + 1] == '?')
+						{
+							tmp_var = ft_itoa(g_data.exit_code);
+							tmp[m] = '\0';
+							ft_strlcat(tmp, tmp_var, m + \
+										ft_strlen(tmp_var) + 1);
+							m = ft_strlen(tmp);
+							free(tmp_var);
+							n += 2;
+						}
+						else if (token->cmd[i][n] != '\0')
+						{
+							n++;
+							check_if_var(token->cmd[i], &n, tmp, &m);
+						}
 					}
 					else
 					{
 						tmp[m] = token->cmd[i][n];
-						n++;
 						m++;
+						n++;
 					}
 				}
+				break ;
 			}
 			else
 			{
-				tmp[m] = token->cmd[i][n];
-				m++;
+				while (token->cmd[i][n] != '\0')
+				{
+					if (token->cmd[i][n] == '$')
+					{
+						if (token->cmd[i][n + 1] == '?')
+						{
+							tmp_var = ft_itoa(g_data.exit_code);
+							tmp[m] = '\0';
+							ft_strlcat(tmp, tmp_var, m + \
+										ft_strlen(tmp_var) + 1);
+							m = ft_strlen(tmp);
+							free(tmp_var);
+							n += 2;
+						}
+					}
+					else if (token->cmd[i][n] != '\0')
+					{
+						tmp[m] = token->cmd[i][n];
+						m++;
+						n++;
+					}
+					break ;
+				}
 			}
-			n++;
+			tmp[m] = '\0';
 		}
 		tmp[m] = '\0';
 		free(token->cmd[i]);
@@ -130,4 +147,5 @@ void	ft_quotes_handler(void)
 		quotes_replace(aux);
 		aux = aux->next;
 	}
+	free (aux);
 }
