@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/25 21:26:41 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/26 20:14:30 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	ft_heredoc(t_token *token)
 
 	g_data.sa_child_heredoc.sa_handler = &handle_sig_child_heredoc;
 	sigaction(SIGINT, &g_data.sa_child_heredoc, NULL);
-	sigaction(SIGQUIT, &g_data.sa_child_heredoc, NULL);
 	close(g_data.heredoc[0]);
 	delim = ft_strdup(token->next->cmd[0]);
 	input = ft_strdup("");
@@ -89,7 +88,13 @@ void	ft_heredoc(t_token *token)
 	{
 		free(input);
 		input = readline("> ");
-		if (ft_strncmp(input, delim, ft_strlen(delim)))
+		if(!input)
+		{
+			printf("warning: here-document delimited by end-of-file (wanted `%s')\n", delim);
+			exit(278);
+			break ;
+		}
+		else if (ft_strncmp(input, delim, ft_strlen(delim)))
 		{
 			write(g_data.heredoc[1], input, ft_strlen(input));
 			free(input);
@@ -124,29 +129,35 @@ int	ft_token_type_exec(t_token *token)
 			ft_error(1, "");
 			return 0;
 		}
-		//signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		g_data.sa_parent_heredoc.sa_handler = &handle_sig_parent_heredoc;
+		sigaction(SIGINT, &g_data.sa_parent_heredoc, NULL);
 		pid = fork();
 		if (pid == 0)
+		{
+			g_data.sa_child_heredoc.sa_handler = &handle_sig_child_heredoc;
+			sigaction(SIGINT, &g_data.sa_child_heredoc, NULL);
 			ft_heredoc(token);
+		}
 		else
 		{
 			close(g_data.heredoc[1]);
 			waitpid(pid, &wstatus, 0);
+			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
+			{
+			  	wstatus = WEXITSTATUS(wstatus);
+				printf("wstatus: %d\n", wstatus);
+			}
 			if(!WIFSIGNALED(wstatus))
 			{
+				
 				dup2(g_data.heredoc[0], STDIN_FILENO);
 				close(g_data.heredoc[0]);
 				token->type = 7;
 				ft_execute(token);
 			}
-			else{
-				// rl_replace_line("", 0);
+			else
 				close(g_data.heredoc[0]);
-				printf("ola\n");
-				printf("wstatus %d\n", wstatus);
-				// rl_on_new_line();
-				// rl_redisplay();
-			}
 			token->type = 8;
 		}
 	}
@@ -212,8 +223,8 @@ void	ft_execute(t_token *token)
 			}
 		}
 	}
-	// if(token->type == 7)
-	// 	dup2(g_data.stdin_copy, STDIN_FILENO);
+	if(token->type == 7)
+	 	dup2(g_data.stdin_copy, STDIN_FILENO);
 	ft_close_pipes(token);
 	ft_check_std_in_out(token);
 }

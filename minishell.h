@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/24 18:58:42 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/26 20:09:53 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_program
 	struct sigaction	sa_child;
 	struct sigaction	sa_child_heredoc;
 	struct sigaction	sa_parent;
+	struct sigaction	sa_parent_heredoc;
 	int					*pid;
 	int					count_fork;
 	int					aux_sig;
@@ -182,6 +183,7 @@ void		ft_free_child_process(void);
 void		handle_sigint_empty(int sig);
 void		handle_sig_child(int sig);
 void		handle_sig_child_heredoc(int sig);
+void		handle_sig_parent_heredoc(int sig);
 
 //ft_syntax_error.c
 int			ft_check_sintax(void);

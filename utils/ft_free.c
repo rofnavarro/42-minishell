@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/24 19:02:47 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/26 15:50:19 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	ft_free_data(void)
 
 void	ft_free_loop(void)
 {
-	if(g_data.fd_heredoc)
-	{
-		close(g_data.fd_heredoc);
-		g_data.fd_heredoc = 0;
-	}
+	// if(g_data.fd_heredoc)
+	// {
+	// 	close(g_data.fd_heredoc);
+	// 	g_data.fd_heredoc = 0;
+	// }
 	ft_free_token_list(g_data.token_start, 1);
 	free(g_data.cmd);
 	free(g_data.user);
