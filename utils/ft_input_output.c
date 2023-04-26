@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/18 17:55:19 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/25 16:34:57 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ void	ft_open_output_file(t_token *token)
 				O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (g_data.outfile == -1)
 	{
-		perror(NULL);
-		ft_error(1, "open write falhou\n");
-		return ;
+		return (perror(NULL));
+		//return ;
 	}
 	if (token->next->type != EOC)
 		dup2(g_data.outfile, STDOUT_FILENO);
