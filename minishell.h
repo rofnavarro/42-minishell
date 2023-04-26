@@ -86,11 +86,12 @@ typedef struct s_program
 	char				*user;
 	struct sigaction	sa;
 	struct sigaction	sa_child;
+	struct sigaction	sa_child_heredoc;
 	struct sigaction	sa_parent;
 	int					*pid;
 	int					count_fork;
 	int					aux_sig;
-	int					fd_heredoc;
+	int					heredoc[2];
 }	t_program;
 
 //  global variable
@@ -180,7 +181,7 @@ void		ft_free_child_process(void);
 //	ft_signals.c
 void		handle_sigint_empty(int sig);
 void		handle_sig_child(int sig);
-void		handle_sig_parent(int sig);
+void		handle_sig_child_heredoc(int sig);
 
 //ft_syntax_error.c
 int			ft_check_sintax(void);

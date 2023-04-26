@@ -23,10 +23,7 @@ void	ft_execute_token_list(void)
 	g_data.pid = malloc(sizeof(int) * g_data.token_list_size);
 	g_data.fd = malloc(sizeof (int*) * (g_data.token_list_size - 1));
 	while (i < g_data.token_list_size - 1)
-	{
-		g_data.fd[i] = malloc(sizeof(int) * 2);
-		i++;
-	}
+		g_data.fd[i++] = malloc(sizeof(int) * 2);
 	if (ft_check_sintax())
 		return ft_exit();
 	if (!g_data.token_start)
@@ -44,18 +41,11 @@ void	ft_execute_token_list(void)
 		{
 			wstatus = 0;
 			pid_waited = waitpid(-1, &wstatus, 0);
+			//printf("pid waited: %d", pid_waited);
 			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
 			  	wstatus = WEXITSTATUS(wstatus);
-			// if (g_data.aux_sig)
-			// {
-			// 	wstatus = g_data.aux_sig;
-			// 	g_data.aux_sig = 0;
-			// 	g_data.exit_code = wstatus;
-			// }
 			if (pid_waited == g_data.pid[g_data.count_fork - 1])
-			{
 				g_data.exit_code = wstatus;
-			}
 			if(WIFSIGNALED(wstatus))
 			{
 				g_data.exit_code = wstatus;
@@ -75,12 +65,11 @@ void	ft_execute_token_list(void)
 
 int	ft_is_executable(t_token *token)
 {
-	//if (token->type == LESS || token->type == LESS_LESS)
-	if (token->type == LESS)
+	if (token->type == LESS || token->type == LESS_LESS || token->type == 8)
 		return (0);
 	else if (token->prev && (token->prev->type == GREATER
 			|| token->prev->type == GREATER_GREATER
-			|| token->prev->type == LESS_LESS))
+			|| token->prev->type == 8))
 				return (0);
 	return (1);
 }
@@ -90,21 +79,21 @@ void	ft_heredoc(t_token *token)
 	char	*input;
 	char	*delim;
 
-	g_data.sa_child.sa_handler = &handle_sig_child;
-	sigaction(SIGINT, &g_data.sa_child, NULL);
-	sigaction(SIGQUIT, &g_data.sa_child, NULL);
+	g_data.sa_child_heredoc.sa_handler = &handle_sig_child_heredoc;
+	sigaction(SIGINT, &g_data.sa_child_heredoc, NULL);
+	sigaction(SIGQUIT, &g_data.sa_child_heredoc, NULL);
+	close(g_data.heredoc[0]);
 	delim = ft_strdup(token->next->cmd[0]);
 	input = ft_strdup("");
-	g_data.fd_heredoc = open("__heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	while (TRUE)
 	{
 		free(input);
 		input = readline("> ");
 		if (ft_strncmp(input, delim, ft_strlen(delim)))
 		{
-			write(g_data.fd_heredoc, input, ft_strlen(input));
+			write(g_data.heredoc[1], input, ft_strlen(input));
 			free(input);
-			write(g_data.fd_heredoc, "\n", 1);
+			write(g_data.heredoc[1], "\n", 1);
 			input = ft_strdup("");
 		}
 		else
@@ -114,15 +103,8 @@ void	ft_heredoc(t_token *token)
 		}
 	}
 	free(delim);
-	close(g_data.fd_heredoc);
-	open("__heredoc", O_RDONLY);
-	printf("saiu do loop e fechou o arquivo\n");
-	dup2(g_data.fd_heredoc, STDIN_FILENO);
+	close(g_data.heredoc[1]);
 	exit(0);
-	//ft_print_token_list();
-	//printf("separador: %d\n", token->prev->type);
-
-	//token->type = 7;
 }
 
 int	ft_token_type_exec(t_token *token)
@@ -136,22 +118,36 @@ int	ft_token_type_exec(t_token *token)
 		ft_get_input_file(token);
 	else if (token->type == LESS_LESS)
 	{
+		if (pipe(g_data.heredoc) == -1)
+		{
+			perror(NULL);
+			ft_error(1, "");
+			return 0;
+		}
+		//signal(SIGINT, SIG_IGN);
 		pid = fork();
-		g_data.count_fork++;
 		if (pid == 0)
 			ft_heredoc(token);
 		else
 		{
+			close(g_data.heredoc[1]);
 			waitpid(pid, &wstatus, 0);
-			open("__heredoc", O_RDONLY);
-			dup2(g_data.fd_heredoc, STDIN_FILENO);
-			printf("caiu aqui\n");
-			if (token->type == LESS_LESS)
+			if(!WIFSIGNALED(wstatus))
 			{
-				printf("fechou heredoc");
-				close(g_data.fd_heredoc);
-				dup2(g_data.stdin_copy, STDIN_FILENO);
+				dup2(g_data.heredoc[0], STDIN_FILENO);
+				close(g_data.heredoc[0]);
+				token->type = 7;
+				ft_execute(token);
 			}
+			else{
+				// rl_replace_line("", 0);
+				close(g_data.heredoc[0]);
+				printf("ola\n");
+				printf("wstatus %d\n", wstatus);
+				// rl_on_new_line();
+				// rl_redisplay();
+			}
+			token->type = 8;
 		}
 	}
 	else if (token->type == GREATER || token->type == GREATER_GREATER)
@@ -186,6 +182,7 @@ void	ft_execute(t_token *token)
 		return ;
 	if (ft_token_type_exec(token))
 		return ;
+	//printf("%s type %d is executable: %d\n", token->cmd[0], token->type, ft_is_executable(token));
 	if (ft_is_executable(token) && !is_builtin(token->cmd)
 		&& (ft_strncmp(token->cmd[0], "exit", 4) != 0 || ft_strlen(token->cmd[0]) != 4))
 	{
@@ -196,7 +193,7 @@ void	ft_execute(t_token *token)
 			{
 				signal(SIGINT, SIG_IGN);
 				g_data.pid[g_data.count_fork] = fork();
-				//printf("pid: %d\n", g_data.pid[g_data.count_fork]);
+				//printf("pid created: %d\n", g_data.pid[g_data.count_fork]);
 				g_data.count_fork++;
 				if (g_data.pid[g_data.count_fork - 1] < 0)
 				{
@@ -210,17 +207,13 @@ void	ft_execute(t_token *token)
 					else
 						ft_child_process(token, NULL);
 				}
-				// else
-				// {
-				// 	g_data.sa_parent.sa_handler = &handle_sig_parent;
-				// 	sigaction(SIGINT, &g_data.sa_parent, NULL);
-				// 	sigaction(SIGQUIT, &g_data.sa_parent, NULL);
-				// }
 				if (cmd_path)
 					free(cmd_path);
 			}
 		}
 	}
+	// if(token->type == 7)
+	// 	dup2(g_data.stdin_copy, STDIN_FILENO);
 	ft_close_pipes(token);
 	ft_check_std_in_out(token);
 }

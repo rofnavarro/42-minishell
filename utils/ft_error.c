@@ -21,7 +21,9 @@ void	ft_error(int arg, char *msg)
 void	ft_exit(void)
 {
 	if (ft_strncmp(g_data.cmd, "exit", 4) == 0)
+	{
 		g_data.stop = 1;
-	close(g_data.stdin_copy);
-	close(g_data.stdout_copy);
+		close(g_data.stdin_copy);
+		close(g_data.stdout_copy);
+	}
 }
