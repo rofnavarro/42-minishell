@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/27 00:09:58 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:12:51 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ static void	quotes_replace(t_token *token)
 		free(token->cmd[i]);
 		token->cmd[i] = ft_strdup(tmp);
 		free(tmp);
-		printf("\n%d\n", token->cmd[0][0]);
 		if ((token->cmd[i][0] == 10))
 		{
 			lock_value = 0;
