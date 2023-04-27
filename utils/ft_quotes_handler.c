@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/26 19:10:29 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/26 23:35:52 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ static void	quotes_replace(t_token *token)
 {
 	char	*tmp_var;
 	char	*tmp;
+	char	*tmp2;
 	int		i;
 	int		n;
 	int		m;
+	int		k;
 
 	i = 0;
 	while (token->cmd[i])
@@ -116,6 +118,37 @@ static void	quotes_replace(t_token *token)
 							m = ft_strlen(tmp);
 							free(tmp_var);
 							n += 2;
+						}
+						else
+						{
+							k = 0;
+							tmp_var = (char *)malloc(sizeof(char) * (ft_strlen(token->cmd[i]) - n + 1));
+							tmp_var[ft_strlen(token->cmd[i]) - n] = '\0';
+							n++;
+							while (token->cmd[i][n] != '\0')
+							{
+								tmp_var[k] = token->cmd[i][n];
+								n++;
+								k++;
+							}
+							tmp_var[k] = '\0';
+							// printf("\n\n%s\n\n", tmp_var);
+							tmp2 = find_var_value(g_data.env, tmp_var);
+							free(tmp_var);
+							// printf("\n\n%s\n\n", tmp2);
+							if (tmp2 == NULL)
+							{
+								m = 1;
+								free(tmp);
+								free(tmp2);
+								tmp = ft_strdup("\n");
+								break ;
+							}
+							tmp[m] = '\0';
+							ft_strlcat(tmp, tmp2, m + ft_strlen(tmp2) + 1);
+							free(tmp2);
+							m = ft_strlen(tmp);
+							break ;
 						}
 					}
 					else if (token->cmd[i][n] != '\0')
