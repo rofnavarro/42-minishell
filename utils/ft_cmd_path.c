@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:11:31 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/25 19:45:39 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:41:26 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_get_cmd_path(t_token *token)
 			break ;
 		i++;
 	}
-	if (cmd_path == NULL)
+	if (cmd_path == NULL && token->cmd[0][0] != 10)
 		ft_cmd_not_found(token->cmd[0]);
 	return (cmd_path);
 }

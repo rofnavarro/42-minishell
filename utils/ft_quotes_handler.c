@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/27 10:54:41 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:42:33 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ static int	ft_var_handler(char *str, int *n, char **tmp, int *m)
 	k = 0;
 	tmp_var = (char *)malloc(sizeof(char) * (ft_strlen(str) - (*n) + 1));
 	tmp_var[ft_strlen(str) - (*n)] = '\0';
-	(*n)++;
-	while (str[(*n)] != '\0')
-		tmp_var[k++] = str[(*n)++];
+	while (str[++(*n)] != '\0')
+		tmp_var[k++] = str[(*n)];
 	tmp_var[k] = '\0';
 	tmp2 = find_var_value(g_data.env, tmp_var);
 	free(tmp_var);
