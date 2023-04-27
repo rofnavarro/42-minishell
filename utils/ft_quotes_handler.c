@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/27 00:12:51 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:47:29 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	check_if_var(char *str, int *n, char *tmp, int *m)
 	char	*tmp_value;
 	int		i;
 
+	(*n)++;
 	tmp_var = (char *)malloc(sizeof(char) * (ft_strlen(str) - *n + 1));
 	i = 0;
 	while (str[*n] != '\"')
@@ -91,12 +92,21 @@ static void	quotes_replace(t_token *token)
 							free(tmp_var);
 							n += 2;
 						}
-						else if (token->cmd[i][n] != '\0')
-						{
-							n++;
+						else
 							check_if_var(token->cmd[i], &n, tmp, &m);
-						}
 					}
+					// if (token->cmd[i][n] == '\'')
+					// {
+					// 	tmp[m] = '\'';
+					// 	tmp_var = ft_strtrim(token->cmd[i], '\'');
+					// 	m++;
+					// 	tmp[m] = '\0';
+					// 	ft_strlcat(tmp, tmp_var, m + \
+					// 					ft_strlen(tmp_var) + 1);
+					// 	m = ft_strlen(tmp);
+					// 	free(tmp_var);
+					// 	tmp = (char *)malloc(sizeof(char) * ft_strlen())
+					// }
 					else
 					{
 						tmp[m] = token->cmd[i][n];
@@ -104,7 +114,8 @@ static void	quotes_replace(t_token *token)
 						n++;
 					}
 				}
-				break ;
+				tmp[m] = '\0';
+				n++;
 			}
 			else
 			{
@@ -149,7 +160,6 @@ static void	quotes_replace(t_token *token)
 							ft_strlcat(tmp, tmp2, m + ft_strlen(tmp2) + 1);
 							free(tmp2);
 							m = ft_strlen(tmp);
-							break ;
 						}
 					}
 					else if (token->cmd[i][n] != '\0')
@@ -158,7 +168,6 @@ static void	quotes_replace(t_token *token)
 						m++;
 						n++;
 					}
-					break ;
 				}
 			}
 			tmp[m] = '\0';
@@ -167,7 +176,7 @@ static void	quotes_replace(t_token *token)
 		free(token->cmd[i]);
 		token->cmd[i] = ft_strdup(tmp);
 		free(tmp);
-		if ((token->cmd[i][0] == 10))
+		if ((token->cmd[i][0] == 10) && token->cmd[i + 1] != NULL)
 		{
 			lock_value = 0;
 			sup = 0;
