@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/27 16:43:52 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/27 16:45:03 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,5 +233,5 @@ void	ft_execute(t_token *token)
 	 	dup2(g_data.stdin_copy, STDIN_FILENO);
 	ft_close_pipes(token);
 	ft_check_std_in_out(token);
-	//printf("passou aqui\n");
+	printf("passou aqui\n");
 }
