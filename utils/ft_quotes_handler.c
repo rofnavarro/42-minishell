@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/26 23:39:03 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:09:58 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ static void	quotes_replace(t_token *token)
 	char	*tmp_var;
 	char	*tmp;
 	char	*tmp2;
+	char	**new_cmd;
 	int		i;
 	int		n;
 	int		m;
 	int		k;
+	int		lock_value;
+	int		sup;
 
 	i = 0;
 	while (token->cmd[i])
@@ -164,6 +167,23 @@ static void	quotes_replace(t_token *token)
 		free(token->cmd[i]);
 		token->cmd[i] = ft_strdup(tmp);
 		free(tmp);
+		printf("\n%d\n", token->cmd[0][0]);
+		if ((token->cmd[i][0] == 10))
+		{
+			lock_value = 0;
+			sup = 0;
+			new_cmd = ft_env_calloc(ft_env_size(token->cmd) + 1);
+			while (token->cmd[lock_value + sup])
+			{
+				if (lock_value  + sup == i)
+					sup = 1;
+				new_cmd[lock_value] = ft_strdup(token->cmd[lock_value + sup]);
+				lock_value++;
+			}
+			ft_free_matrix(token->cmd);
+			token->cmd = new_cmd;
+			i--;
+		}
 		i++;
 	}
 }

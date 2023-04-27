@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_token_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 01:53:47 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/20 18:00:29 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/26 23:55:30 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_print_token_list(void)
 		while (aux->cmd[i])
 		{
 			printf("cmd[%d]: ", i);
+			printf("  size: %ld  ", ft_strlen(aux->cmd[i]));
 			printf("%s\n", aux->cmd[i]);
 			i++;
 		}
