@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/27 16:08:50 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/27 17:44:15 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int			ft_is_builtin_child(char *input);
 //  utils/ft_error.c
 void		ft_error(int arg, char *msg);
 void		ft_exit(void);
+void	ft_close_fds(void);
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
