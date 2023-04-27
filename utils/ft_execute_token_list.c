@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/26 20:14:30 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/27 16:43:52 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_execute_token_list(void)
 	if (!g_data.token_start)
 		return ;
 	aux = g_data.token_start;
-	while (aux)
+	while (aux && !g_data.aux_sig)
 	{
 		ft_execute(aux);
 		aux = aux->next;
@@ -76,39 +76,38 @@ int	ft_is_executable(t_token *token)
 
 void	ft_heredoc(t_token *token)
 {
-	char	*input;
-	char	*delim;
-
 	g_data.sa_child_heredoc.sa_handler = &handle_sig_child_heredoc;
 	sigaction(SIGINT, &g_data.sa_child_heredoc, NULL);
 	close(g_data.heredoc[0]);
-	delim = ft_strdup(token->next->cmd[0]);
-	input = ft_strdup("");
+	g_data.hd_delim = ft_strdup(token->next->cmd[0]);
+	g_data.input_hd = ft_strdup("");
 	while (TRUE)
 	{
-		free(input);
-		input = readline("> ");
-		if(!input)
+		free(g_data.input_hd);
+		g_data.input_hd = readline("> ");
+		if(!g_data.input_hd)
 		{
-			printf("warning: here-document delimited by end-of-file (wanted `%s')\n", delim);
+			printf("warning: here-document delimited by end-of-file (wanted `%s')\n", g_data.hd_delim);
+			close(g_data.heredoc[1]);
+			ft_heredoc_close_exit();
 			exit(278);
-			break ;
+			//break ;
 		}
-		else if (ft_strncmp(input, delim, ft_strlen(delim)))
+		else if (ft_strncmp(g_data.input_hd, g_data.hd_delim, ft_strlen(g_data.hd_delim)))
 		{
-			write(g_data.heredoc[1], input, ft_strlen(input));
-			free(input);
+			write(g_data.heredoc[1], g_data.input_hd, ft_strlen(g_data.input_hd));
+			free(g_data.input_hd);
 			write(g_data.heredoc[1], "\n", 1);
-			input = ft_strdup("");
+			g_data.input_hd = ft_strdup("");
 		}
 		else
 		{
-			free(input);
+			free(g_data.input_hd);
 			break ;
 		}
 	}
-	free(delim);
 	close(g_data.heredoc[1]);
+	ft_heredoc_close_exit();
 	exit(0);
 }
 
@@ -117,6 +116,8 @@ int	ft_token_type_exec(t_token *token)
 	int pid;
 	int wstatus;
 
+	pid = -1;
+	wstatus = 0;
 	if ((token->type == GREATER || token->type == GREATER_GREATER) && token->cmd[0] == NULL)
 		return (1);
 	if (token->type == LESS)
@@ -135,8 +136,8 @@ int	ft_token_type_exec(t_token *token)
 		pid = fork();
 		if (pid == 0)
 		{
-			g_data.sa_child_heredoc.sa_handler = &handle_sig_child_heredoc;
-			sigaction(SIGINT, &g_data.sa_child_heredoc, NULL);
+			//g_data.sa_child_heredoc.sa_handler = &handle_sig_child_heredoc;
+			//sigaction(SIGINT, &g_data.sa_child_heredoc, NULL);
 			ft_heredoc(token);
 		}
 		else
@@ -148,16 +149,21 @@ int	ft_token_type_exec(t_token *token)
 			  	wstatus = WEXITSTATUS(wstatus);
 				printf("wstatus: %d\n", wstatus);
 			}
-			if(!WIFSIGNALED(wstatus))
+			//if(!WIFSIGNALED(wstatus))
+			if (!g_data.aux_sig)
 			{
-				
 				dup2(g_data.heredoc[0], STDIN_FILENO);
 				close(g_data.heredoc[0]);
 				token->type = 7;
 				ft_execute(token);
+				printf("heredoc não sinalizado\n");	
 			}
 			else
+			{
+				printf("heredoc sinalizado\n");
+				g_data.aux_sig = 0;
 				close(g_data.heredoc[0]);
+			}
 			token->type = 8;
 		}
 	}
@@ -227,4 +233,5 @@ void	ft_execute(t_token *token)
 	 	dup2(g_data.stdin_copy, STDIN_FILENO);
 	ft_close_pipes(token);
 	ft_check_std_in_out(token);
+	//printf("passou aqui\n");
 }

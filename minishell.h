@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/26 20:09:53 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/27 16:08:50 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ typedef struct s_program
 	int					*pid;
 	int					count_fork;
 	int					aux_sig;
+	char				*hd_delim;
+	char				*input_hd;
 	int					heredoc[2];
 }	t_program;
 
@@ -131,6 +133,7 @@ void		ft_free_matrix(char **matrix);
 void		ft_free_data(void);
 void		ft_free_loop(void);
 void		ft_free_matrix_int(int **matrix, int size);
+void		ft_heredoc_close_exit(void);
 
 //  utils/ft_loop.c
 void		ft_loop(void);
