@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/26 23:35:52 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/26 23:39:03 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,8 @@ static void	quotes_replace(t_token *token)
 								k++;
 							}
 							tmp_var[k] = '\0';
-							// printf("\n\n%s\n\n", tmp_var);
 							tmp2 = find_var_value(g_data.env, tmp_var);
 							free(tmp_var);
-							// printf("\n\n%s\n\n", tmp2);
 							if (tmp2 == NULL)
 							{
 								m = 1;
