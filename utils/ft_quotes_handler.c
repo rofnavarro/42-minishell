@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 10:54:33 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:43:24 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,18 @@ void	quotes_replace(t_token *token)
 			}
 			tmp[m] = '\0';
 		}
-		tmp[m] = '\0';
-		free(token->cmd[i]);
-		token->cmd[i] = ft_strdup(tmp);
-		free(tmp);
-		ft_check_empty_token(token, &i);
-		i++;
+		finishe_quote_replace(token, &i, &tmp, &m);
 	}
+}
+
+void	finishe_quote_replace(t_token *token, int *i, char **tmp, int *m)
+{
+	(*tmp)[(*m)] = '\0';
+	free(token->cmd[(*i)]);
+	token->cmd[(*i)] = ft_strdup((*tmp));
+	free((*tmp));
+	ft_check_empty_token(token, i);
+	(*i)++;
 }
 
 void	ft_quotes_handler(void)

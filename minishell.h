@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 11:02:35 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:43:32 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void		ft_close_pipes(t_token *token);
 
 //  utils/ft_quote_handler.c
 void		quotes_replace(t_token *token);
+void	finishe_quote_replace(t_token *token, int *i, char **tmp, int *m);
 void		ft_quotes_handler(void);
 
 //  utils/ft_quote_handler2.c
