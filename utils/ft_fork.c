@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 17:55:20 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 18:05:15 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,44 @@ void	ft_free_child_process(void)
 	rl_clear_history();
 	ft_free_data();
 	ft_close_fds();
+}
+
+void	ft_wait_children(void)
+{
+	int	pid_waited;
+	int	wstatus;
+	int	i;
+
+	if (g_data.count_fork)
+	{
+		i = 0;
+		while (i++ < g_data.count_fork)
+		{
+			pid_waited = waitpid(-1, &wstatus, 0);
+			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
+				wstatus = WEXITSTATUS(wstatus);
+			if (pid_waited == g_data.pid[g_data.count_fork - 1])
+				g_data.exit_code = wstatus;
+			if (WIFSIGNALED(wstatus))
+				ft_signals_exit_code(wstatus);
+		}
+	}
+}
+
+void	ft_fork(char *cmd_path, t_token *token)
+{
+	signal(SIGINT, SIG_IGN);
+	g_data.pid[g_data.count_fork] = fork();
+	if (g_data.pid[g_data.count_fork - 1] < 0)
+		return (ft_error_perror(1, ""));
+	g_data.count_fork++;
+	if (!g_data.pid[g_data.count_fork - 1])
+	{
+		if (cmd_path)
+			ft_child_process(token, cmd_path);
+		else
+			ft_child_process(token, NULL);
+	}
+	if (cmd_path)
+		free(cmd_path);
 }

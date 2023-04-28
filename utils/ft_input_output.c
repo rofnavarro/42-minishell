@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input_output.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 16:52:13 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 18:31:05 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	ft_open_output_file(t_token *token)
 				O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (g_data.outfile == -1)
 		return (perror(NULL));
-	if (token->next->type != EOC)
-		dup2(g_data.outfile, STDOUT_FILENO);
+	dup2(g_data.outfile, STDOUT_FILENO);
 	close(g_data.outfile);
 }
 

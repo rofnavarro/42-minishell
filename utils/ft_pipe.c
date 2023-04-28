@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:12:41 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 17:03:55 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 17:15:33 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,7 @@ void	redirect_from_pipe(int type)
 void	ft_open_pipe(void)
 {
 	if (pipe(g_data.fd[g_data.count_pipes]) == -1)
-	{
-		perror(NULL);
-		ft_error(1, "");
-		return ;
-	}
+		return (ft_error_perror(1, ""));
 	g_data.count_pipes++;
 }
 
