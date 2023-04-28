@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_syntax_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:39:17 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 17:48:28 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 18:55:54 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	ft_check_sintax(void)
 	t_token	*aux;
 	char	*syntax_error;
 
-	if (!g_data.token_start)
-		return (1);
 	aux = g_data.token_start;
 	while (aux)
 	{
