@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 18:11:02 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 20:23:53 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,10 @@ void	ft_error_perror(int arg, char *msg)
 {
 	perror(NULL);
 	ft_error(arg, msg);
+}
+
+void	ft_free_pid_fd(void)
+{
+	free(g_data.pid);
+	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
 }

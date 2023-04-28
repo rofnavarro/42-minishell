@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 18:05:32 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 20:39:51 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void		ft_error(int arg, char *msg);
 void		ft_exit(void);
 void		ft_close_fds(void);
 void		ft_error_perror(int arg, char *msg);
+void		ft_free_pid_fd(void);
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
@@ -150,6 +151,7 @@ void		ft_heredoc_close_exit(void);
 
 //  utils/ft_loop.c
 void		ft_loop(void);
+void		ft_loop_start(void);
 
 //  utils/ft_start.c
 void		get_path(void);
@@ -171,6 +173,7 @@ char		*ft_switch_inside_quotation(char *str);
 //	utils/ft_execute_token_list.c
 void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
+void		ft_execute_start(void);
 
 //	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);
@@ -215,5 +218,9 @@ void		ft_heredoc_child(t_token *token);
 void		ft_write_heredoc(void);
 void		ft_heredoc_eof(void);
 void		ft_heredoc_parent(int pid, t_token *token);
+
+//ft_executable.c
+int			ft_check_slash(char *str);
+int			ft_is_executable(t_token *token);
 
 #endif
