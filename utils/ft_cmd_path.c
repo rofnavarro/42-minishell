@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:11:31 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 15:03:58 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:41:26 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,13 @@ char	*ft_get_cmd_path(t_token *token)
 			break ;
 		i++;
 	}
-	if (cmd_path == NULL)
+	if (cmd_path == NULL && token->cmd[0][0] != 10)
 		ft_cmd_not_found(token->cmd[0]);
 	return (cmd_path);
 }
 
 void	ft_cmd_not_found(char *cmd)
 {
-	if (ft_strncmp(cmd, "$?", ft_strlen(cmd)) == 0 && \
-		ft_strlen(cmd) == 2)
-		printf("%d: command not found\n", g_data.exit_code);
-	else
-		printf("%s: command not found\n", cmd);
+	printf("%s: command not found\n", cmd);
 	g_data.exit_code = 127;
 }

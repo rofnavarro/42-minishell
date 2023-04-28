@@ -68,6 +68,7 @@ void	ft_print_token_list(void)
 		while (aux->cmd[i])
 		{
 			printf("cmd[%d]: ", i);
+			// printf("  size: %ld  ", ft_strlen(aux->cmd[i]));
 			printf("%s\n", aux->cmd[i]);
 			i++;
 		}

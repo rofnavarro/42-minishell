@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/07 17:09:09 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:51:52 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,10 @@ static void	ft_find_print_var(char *dollar_var)
 
 static void	ft_echo_class(char **cmd, int i)
 {
-	char	*tmp;
-
-	if (cmd[i][0] == '\'')
-	{
-		tmp = ft_strtrim(cmd[i], "'");
-		printf("%s", tmp);
-		free(tmp);
-	}
-	else if (cmd[i][0] == '$' && cmd[i][1] == '?')
-		printf("%d", g_data.exit_code);
-	else if (cmd[i][0] == '$' && ft_isprint(cmd[i][1]) != 0)
+	if (cmd[i][0] == '$' && ft_isprint(cmd[i][1]) != 0)
 		ft_find_print_var(cmd[i]);
+	else if (cmd[i][0] == '\n')
+		return ;
 	else
 		printf("%s", cmd[i]);
 }

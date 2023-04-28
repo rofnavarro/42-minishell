@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+         #
+#    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/04/28 17:42:33 by rinacio          ###   ########.fr        #
+#    Updated: 2023/04/28 10:55:18 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,18 +32,20 @@ SRC							=			minishell.c \
 															ft_builtin_pwd.c \
 															ft_builtin.c \
 															ft_check_quotes.c \
+															ft_cmd_path.c \
 															ft_error.c \
 															ft_execute_token_list.c \
+															ft_fork.c \
 															ft_free.c \
+															ft_input_output.c \
 															ft_loop.c \
+															ft_pipe.c \
+															ft_quotes_handler.c \
+															ft_quotes_handler2.c \
+															ft_signals.c \
 															ft_start.c \
 															ft_strtok.c \
 															ft_token_list.c \
-															ft_cmd_path.c \
-															ft_input_output.c \
-															ft_pipe.c \
-															ft_fork.c \
-															ft_signals.c \
 															ft_signals_aux.c \
 															ft_syntax_error.c \
 															ft_heredoc.c \
