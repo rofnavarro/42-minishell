@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
 /*   Updated: 2023/04/28 16:52:33 by rinacio          ###   ########.fr       */
@@ -50,6 +50,12 @@ void	ft_free_loop(void)
 	ft_free_token_list(g_data.token_start, 1);
 	free(g_data.cmd);
 	free(g_data.user);
+}
+
+void	ft_free_pointers(char *ptr1, char *ptr2)
+{
+	free(ptr1);
+	free(ptr2);
 }
 
 void	ft_heredoc_close_exit(void)

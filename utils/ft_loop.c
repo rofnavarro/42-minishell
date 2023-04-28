@@ -30,6 +30,8 @@ void	ft_loop(void)
 			free(g_data.cmd_token);
 			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>>;"), " ");
 		}
+		ft_quotes_handler();
+		// ft_print_token_list();
 		if (!g_data.token_start)
 			continue ;
 		ft_execute_token_list();

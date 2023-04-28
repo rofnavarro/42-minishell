@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 19:26:02 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 15:22:16 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:31:09 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_export(char **cmd)
 {
 	if (g_data.export == NULL)
 		get_export(g_data.env);
-	if (!cmd[1])
+	if (cmd[1] == NULL)
 		ft_print_export();
 	else
 	{
