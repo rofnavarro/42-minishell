@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/27 16:45:03 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 16:37:38 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_execute_token_list(void)
 {
 	t_token	*aux;
-	int		wstatus;
 	int		i = 0;
 
 	g_data.count_pipes = 0;
@@ -34,14 +33,35 @@ void	ft_execute_token_list(void)
 		ft_execute(aux);
 		aux = aux->next;
 	}
-	if (g_data.count_fork)
-	{		
-		int pid_waited;
-		for(int i = 0; i < g_data.count_fork; i++)
+	wait_children();
+	free(g_data.pid);
+	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
+}
+
+int	ft_is_executable(t_token *token)
+{
+	if (token->type == LESS || token->type == LESS_LESS || token->type == 8)
+		return (0);
+	else if (token->prev && (token->prev->type == GREATER
+			|| token->prev->type == GREATER_GREATER
+			|| token->prev->type == 8))
+				return (0);
+	return (1);
+}
+
+void	wait_children(void)
+{
+	int pid_waited;
+	int	wstatus;
+	int	i;
+
+		if (g_data.count_fork)
+	{
+		i = 0;		
+		while(i < g_data.count_fork)
 		{
 			wstatus = 0;
 			pid_waited = waitpid(-1, &wstatus, 0);
-			//printf("pid waited: %d", pid_waited);
 			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
 			  	wstatus = WEXITSTATUS(wstatus);
 			if (pid_waited == g_data.pid[g_data.count_fork - 1])
@@ -57,21 +77,9 @@ void	ft_execute_token_list(void)
 					printf("\n");
 				}
 			}
+			i++;
 		}
 	}
-	free(g_data.pid);
-	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
-}
-
-int	ft_is_executable(t_token *token)
-{
-	if (token->type == LESS || token->type == LESS_LESS || token->type == 8)
-		return (0);
-	else if (token->prev && (token->prev->type == GREATER
-			|| token->prev->type == GREATER_GREATER
-			|| token->prev->type == 8))
-				return (0);
-	return (1);
 }
 
 void	ft_heredoc(t_token *token)
@@ -91,7 +99,6 @@ void	ft_heredoc(t_token *token)
 			close(g_data.heredoc[1]);
 			ft_heredoc_close_exit();
 			exit(278);
-			//break ;
 		}
 		else if (ft_strncmp(g_data.input_hd, g_data.hd_delim, ft_strlen(g_data.hd_delim)))
 		{
@@ -135,11 +142,7 @@ int	ft_token_type_exec(t_token *token)
 		sigaction(SIGINT, &g_data.sa_parent_heredoc, NULL);
 		pid = fork();
 		if (pid == 0)
-		{
-			//g_data.sa_child_heredoc.sa_handler = &handle_sig_child_heredoc;
-			//sigaction(SIGINT, &g_data.sa_child_heredoc, NULL);
 			ft_heredoc(token);
-		}
 		else
 		{
 			close(g_data.heredoc[1]);
@@ -149,18 +152,18 @@ int	ft_token_type_exec(t_token *token)
 			  	wstatus = WEXITSTATUS(wstatus);
 				printf("wstatus: %d\n", wstatus);
 			}
-			//if(!WIFSIGNALED(wstatus))
 			if (!g_data.aux_sig)
 			{
 				dup2(g_data.heredoc[0], STDIN_FILENO);
 				close(g_data.heredoc[0]);
 				token->type = 7;
 				ft_execute(token);
-				printf("heredoc não sinalizado\n");	
+				wait_children();
+				//printf("heredoc não sinalizado\n");	
 			}
 			else
 			{
-				printf("heredoc sinalizado\n");
+				//printf("heredoc sinalizado\n");
 				g_data.aux_sig = 0;
 				close(g_data.heredoc[0]);
 			}
@@ -233,5 +236,4 @@ void	ft_execute(t_token *token)
 	 	dup2(g_data.stdin_copy, STDIN_FILENO);
 	ft_close_pipes(token);
 	ft_check_std_in_out(token);
-	printf("passou aqui\n");
 }

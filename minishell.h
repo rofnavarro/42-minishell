@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/27 17:44:15 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:32:18 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ char		*ft_switch_inside_quotation(char *str);
 //	utils/ft_execute_token_list.c
 void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
+void		wait_children(void);
 
 //	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);
