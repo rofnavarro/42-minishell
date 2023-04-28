@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
 /*   Updated: 2023/04/28 16:52:33 by rinacio          ###   ########.fr       */
@@ -17,7 +17,7 @@ void	ft_free_matrix(char **matrix)
 	int	i;
 
 	i = -1;
-	while (matrix[++i])
+	while (matrix[++i] != NULL)
 		free(matrix[i]);
 	free(matrix);
 }
@@ -41,6 +41,8 @@ void	ft_free_data(void)
 		ft_free_matrix(g_data.env);
 	if (g_data.path != NULL)
 		ft_free_matrix(g_data.path);
+	if (g_data.export != NULL)
+		ft_free_matrix(g_data.export);
 }
 
 void	ft_free_loop(void)

@@ -27,6 +27,8 @@ SRC							=			minishell.c \
 															ft_builtin_echo.c \
 															ft_builtin_env.c \
 															ft_builtin_env2.c \
+															ft_builtin_export.c \
+															ft_builtin_export2.c \
 															ft_builtin_pwd.c \
 															ft_builtin.c \
 															ft_check_quotes.c \

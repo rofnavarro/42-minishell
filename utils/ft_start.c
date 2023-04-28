@@ -49,6 +49,7 @@ static void	get_env(char **envp)
 void	ft_start(char **envp)
 {
 	get_env(envp);
+	get_export(g_data.env);
 	get_path();
 	g_data.stdin_copy = dup(STDIN_FILENO);
 	g_data.stdout_copy = dup(STDOUT_FILENO);

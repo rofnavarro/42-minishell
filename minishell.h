@@ -71,6 +71,7 @@ typedef struct s_program
 	char				*cmd_token;
 	int					cmd_type;
 	char				**env;
+	char				**export;
 	char				**path;
 	int					status;
 	int					stop;
@@ -117,6 +118,15 @@ int			ft_env_size(char **env);
 char		**ft_env_calloc(int size);
 void		ft_print_env(char *cmd);
 char		*find_var_value(char **env, char *var);
+
+//  utils/ft_builtin_export.c
+void		ft_sort(char **export);
+void		ft_add_prefix(char **export);
+void		ft_print_export(void);
+void		get_export(char **env);
+
+//  utils/ft_builtin_export2.c
+void		ft_export(char **token);
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);
