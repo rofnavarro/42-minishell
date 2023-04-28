@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 10:54:30 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:02:35 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void		ft_free_child_process(void);
 void		ft_free_matrix(char **matrix);
 void		ft_free_data(void);
 void		ft_free_loop(void);
+void		ft_free_pointers(char *ptr1, char *ptr2);
 
 //	utils/ft_input_output.c
 void		ft_open_output_file(t_token *token);

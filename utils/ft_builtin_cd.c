@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/24 18:27:48 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:02:06 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ static void	ft_check_cd_path(char *input_path)
 	buff = NULL;
 	path = getcwd(buff, 0);
 	ft_export_add_env(path, "PWD=");
-	free(buff);
-	free(path);
+	ft_free_pointers(buff, path);
 	g_data.exit_code = 0;
 }
 
@@ -66,8 +65,7 @@ static void	ft_cd_home(void)
 	}
 	ft_export_add_env(path, "PWD=");
 	ft_free_matrix(home);
-	free(buff);
-	free(path);
+	ft_free_pointers(buff, path);
 	g_data.exit_code = 0;
 }
 
