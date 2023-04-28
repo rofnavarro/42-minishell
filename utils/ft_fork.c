@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 16:02:17 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:22:58 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_exec_child_builtin(t_token *token, char *cmd_path)
 
 void	ft_free_child_process(void)
 {
+	ft_free_pid_fd();
 	ft_free_loop();
 	rl_clear_history();
 	ft_free_data();
@@ -89,7 +90,7 @@ void	ft_fork(char *cmd_path, t_token *token)
 {
 	signal(SIGINT, SIG_IGN);
 	g_data.pid[g_data.count_fork] = fork();
-	if (g_data.pid[g_data.count_fork - 1] < 0)
+	if (g_data.pid[g_data.count_fork] < 0)
 		return (ft_error_perror(1, ""));
 	g_data.count_fork++;
 	if (!g_data.pid[g_data.count_fork - 1])
