@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 15:17:16 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:05:32 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,26 @@ typedef struct s_program
 	int					stop;
 	int					exit_code;
 	t_token				*token_start;
-	int					fd[2][2];
+	int					token_list_size;
+	int					**fd;
 	int					count_pipes;
 	int					infile;
 	int					outfile;
 	int					stdin_copy;
 	int					stdout_copy;
 	char				*user;
+	char				*rl_text;
 	struct sigaction	sa;
 	struct sigaction	sa_child;
+	struct sigaction	sa_child_heredoc;
+	struct sigaction	sa_parent;
+	struct sigaction	sa_parent_heredoc;
+	int					*pid;
+	int					count_fork;
 	int					aux_sig;
+	char				*hd_delim;
+	char				*input_hd;
+	int					heredoc[2];
 }	t_program;
 
 //  global variable
@@ -128,11 +138,15 @@ int			ft_is_builtin_child(char *input);
 //  utils/ft_error.c
 void		ft_error(int arg, char *msg);
 void		ft_exit(void);
+void		ft_close_fds(void);
+void		ft_error_perror(int arg, char *msg);
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
 void		ft_free_data(void);
 void		ft_free_loop(void);
+void		ft_free_matrix_int(int **matrix, int size);
+void		ft_heredoc_close_exit(void);
 
 //  utils/ft_loop.c
 void		ft_loop(void);
@@ -177,12 +191,29 @@ void		ft_close_pipes(t_token *token);
 
 //	utils/ft_fork.c
 void		ft_child_process(t_token *token, char *cmd_path);
-void		ft_parent_process(int pid);
 void		ft_exec_child_builtin(t_token *token, char *cmd_path);
 void		ft_free_child_process(void);
+void		ft_wait_children(void);
+void		ft_fork(char *cmd_path, t_token *token);
 
 //	ft_signals.c
 void		handle_sigint_empty(int sig);
 void		handle_sig_child(int sig);
+void		handle_sig_child_heredoc(int sig);
+void		handle_sig_parent_heredoc(int sig);
+
+// ft_signals_aux.c
+void		ft_signals_exit_code(int wstatus);
+void		ft_signal_setup(void);
+
+//ft_syntax_error.c
+int			ft_check_sintax(void);
+
+//ft_heredoc.c
+void		ft_execute_heredoc(t_token *token);
+void		ft_heredoc_child(t_token *token);
+void		ft_write_heredoc(void);
+void		ft_heredoc_eof(void);
+void		ft_heredoc_parent(int pid, t_token *token);
 
 #endif

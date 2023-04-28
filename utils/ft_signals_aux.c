@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_signals_aux.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 18:11:02 by rinacio          ###   ########.fr       */
+/*   Created: 2023/04/28 17:42:00 by rinacio           #+#    #+#             */
+/*   Updated: 2023/04/28 17:43:07 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_error(int arg, char *msg)
+void	ft_signals_exit_code(int wstatus)
 {
-	g_data.exit_code = arg;
-	printf("%s\n", msg);
+	g_data.exit_code = wstatus;
+	if (g_data.exit_code == 131)
+		printf("Quit (core dumped)\n");
+	if (g_data.exit_code == 2)
+	{
+		g_data.exit_code = 130;
+		printf("\n");
+	}
 }
 
-void	ft_exit(void)
+void	ft_signal_setup(void)
 {
-	g_data.stop = 1;
-	ft_close_fds();
-}
-
-void	ft_close_fds(void)
-{
-	close(g_data.stdin_copy);
-	close(g_data.stdout_copy);
-	close(STDERR_FILENO);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-}
-
-void	ft_error_perror(int arg, char *msg)
-{
-	perror(NULL);
-	ft_error(arg, msg);
+	signal(SIGQUIT, SIG_IGN);
+	g_data.sa.sa_handler = &handle_sigint_empty;
+	g_data.sa.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &g_data.sa, NULL);
 }

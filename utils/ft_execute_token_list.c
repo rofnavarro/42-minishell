@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 14:11:10 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:52:46 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,104 +15,103 @@
 void	ft_execute_token_list(void)
 {
 	t_token	*aux;
+	int		i;
 
+	g_data.count_pipes = 0;
+	g_data.count_fork = 0;
+	g_data.pid = malloc(sizeof(int) * g_data.token_list_size);
+	g_data.fd = malloc(sizeof(int *) * (g_data.token_list_size - 1));
+	i = 0;
+	while (i < g_data.token_list_size - 1)
+		g_data.fd[i++] = malloc(sizeof(int) * 2);
+	if (ft_check_sintax())
+		return (ft_exit());
 	if (!g_data.token_start)
 		return ;
 	aux = g_data.token_start;
-	while (aux)
+	while (aux && !g_data.aux_sig)
 	{
 		ft_execute(aux);
 		aux = aux->next;
 	}
+	ft_wait_children();
+	free(g_data.pid);
+	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
 }
 
 int	ft_is_executable(t_token *token)
 {
-	if (token->type == LESS || token->type == LESS_LESS)
+	if (ft_strncmp(token->cmd[0], "exit", 4) == 0
+		&& ft_strlen(token->cmd[0]) == 4)
+	{
+		ft_exit();
+		return (0);
+	}
+	if (token->type == LESS || token->type == LESS_LESS || token->type == 8)
 		return (0);
 	else if (token->prev && (token->prev->type == GREATER
 			|| token->prev->type == GREATER_GREATER
-			|| token->prev->type == LESS_LESS))
+			|| token->prev->type == 8))
 		return (0);
 	return (1);
 }
 
-void	ft_heredoc(t_token *token)
+int	ft_token_type_exec(t_token *token)
 {
-	char	*input;
-	char	*aux;
-	char	*next_line;
-
-	input = ft_strdup("");
-	next_line = ft_strdup("");
-	while (ft_strncmp(next_line, token->next->cmd[0], ft_strlen(token->cmd[0])))
+	if ((token->type == GREATER || token->type == GREATER_GREATER)
+		&& token->cmd[0] == NULL)
 	{
-		aux = ft_strdup(input);
-		free(next_line);
-		next_line = readline("> ");
-		if (ft_strncmp(next_line, token->next->cmd[0],
-				ft_strlen(token->cmd[0])))
-		{
-			free(input);
-			input = ft_strjoin(aux, next_line);
-			free(aux);
-			aux = ft_strdup(input);
-			free(input);
-			input = ft_strjoin(aux, "\n");
-			free(aux);
-		}
+		if (token->type == GREATER)
+			g_data.outfile = open(token->next->cmd[0],
+					O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		else
-			free(aux);
+			g_data.outfile = open(token->next->cmd[0],
+					O_CREAT | O_WRONLY | O_APPEND, 0777);
+		if (g_data.outfile == -1)
+			perror(NULL);
+		return (1);
 	}
-	free(next_line);
-	if (!ft_strncmp(token->cmd[0], "cat", ft_strlen(token->cmd[0])))
-		printf("%s", input);
-	free(input);
-}
-
-void	ft_token_type_exec(t_token *token)
-{
 	if (token->type == LESS)
 		ft_get_input_file(token);
 	else if (token->type == LESS_LESS)
-		ft_heredoc(token);
+		ft_execute_heredoc(token);
 	else if (token->type == GREATER || token->type == GREATER_GREATER)
 		ft_open_output_file(token);
 	else if (token->type == PIPE)
 		ft_open_pipe();
-	if (token->cmd[0] == NULL)
-		return ;
+	if (token->cmd[0] == NULL && (token->type != GREATER
+			|| token->type != GREATER_GREATER))
+		return (0);
+	return (0);
 }
 
-	// printf("\n------------- Token list -------------\n");
-	// ft_print_token_list();
-	// printf("\n--------------------------------------\n\n");	
+int	ft_check_slash(char *str)
+{
+	char	**str_split;
+	int		result;
+
+	str_split = ft_split(str, '/');
+	if (str_split[1])
+		result = 1;
+	else
+		result = 0;
+	ft_free_matrix(str_split);
+	return (result);
+}
+
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
-	int		pid;
 
-	ft_token_type_exec(token);
-	if (ft_is_executable(token) && !is_builtin(token->cmd)
-		&& ft_strncmp(token->cmd[0], "exit", ft_strlen(token->cmd[0])) != 0)
+	cmd_path = NULL;
+	if ((!token->cmd[0] && token->type == 6) || ft_token_type_exec(token))
+		return ;
+	if (ft_is_executable(token) && !is_builtin(token->cmd))
 	{
-		cmd_path = ft_get_cmd_path(token);
-		if (cmd_path)
-		{
-			g_data.sa_child.sa_handler = &handle_sig_child;
-			sigaction(SIGINT, &g_data.sa_child, NULL);
-			sigaction(SIGQUIT, &g_data.sa_child, NULL);
-			pid = fork();
-			if (pid < 0)
-			{
-				perror(NULL);
-				return (ft_error(1, ""));
-			}
-			if (!pid)
-				ft_child_process(token, cmd_path);
-			ft_parent_process(pid);
-			free(cmd_path);
-		}
+		if (!ft_check_slash(token->cmd[0]))
+			cmd_path = ft_get_cmd_path(token);
+		if (ft_check_slash(token->cmd[0]) || cmd_path)
+			ft_fork(cmd_path, token);
 	}
 	ft_close_pipes(token);
 	ft_check_std_in_out(token);
