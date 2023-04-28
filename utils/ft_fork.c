@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/27 17:47:22 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:55:20 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,12 @@ void	ft_child_process(t_token *token, char *cmd_path)
 	else if (cmd_path)
 	{
 		if (execve(cmd_path, token->cmd, g_data.env) == -1)
-		{
-			perror(NULL);
-			ft_error(1, "");
-			return ;
-		}
+			return (ft_error_perror(1, ""));
 	}
 	if (!cmd_path)
 	{
 		if (execve(token->cmd[0], token->cmd, g_data.env) == -1)
-		{
-			perror(NULL);
-			ft_error(1, "");
-			return ;
-		}		
+			return (ft_error_perror(1, ""));
 	}
 }
 

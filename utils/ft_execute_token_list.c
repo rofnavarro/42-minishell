@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 16:37:38 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 17:58:32 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 void	ft_execute_token_list(void)
 {
 	t_token	*aux;
-	int		i = 0;
+	int		i;
 
 	g_data.count_pipes = 0;
 	g_data.count_fork = 0;
 	g_data.pid = malloc(sizeof(int) * g_data.token_list_size);
-	g_data.fd = malloc(sizeof (int*) * (g_data.token_list_size - 1));
+	g_data.fd = malloc(sizeof(int *) * (g_data.token_list_size - 1));
+	i = 0;
 	while (i < g_data.token_list_size - 1)
 		g_data.fd[i++] = malloc(sizeof(int) * 2);
 	if (ft_check_sintax())
-		return ft_exit();
+		return (ft_exit());
 	if (!g_data.token_start)
 		return ;
 	aux = g_data.token_start;
@@ -51,7 +52,7 @@ int	ft_is_executable(t_token *token)
 
 void	wait_children(void)
 {
-	int pid_waited;
+	int	pid_waited;
 	int	wstatus;
 	int	i;
 
@@ -135,7 +136,7 @@ int	ft_token_type_exec(t_token *token)
 		{
 			perror(NULL);
 			ft_error(1, "");
-			return 0;
+			return (0);
 		}
 		signal(SIGQUIT, SIG_IGN);
 		g_data.sa_parent_heredoc.sa_handler = &handle_sig_parent_heredoc;
@@ -149,7 +150,7 @@ int	ft_token_type_exec(t_token *token)
 			waitpid(pid, &wstatus, 0);
 			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
 			{
-			  	wstatus = WEXITSTATUS(wstatus);
+				wstatus = WEXITSTATUS(wstatus);
 				printf("wstatus: %d\n", wstatus);
 			}
 			if (!g_data.aux_sig)
@@ -159,11 +160,9 @@ int	ft_token_type_exec(t_token *token)
 				token->type = 7;
 				ft_execute(token);
 				wait_children();
-				//printf("heredoc não sinalizado\n");	
 			}
 			else
 			{
-				//printf("heredoc sinalizado\n");
 				g_data.aux_sig = 0;
 				close(g_data.heredoc[0]);
 			}
@@ -198,11 +197,10 @@ void	ft_execute(t_token *token)
 	char	*cmd_path;
 
 	cmd_path = NULL;
-	if(!token->cmd[0] && token->type == 6)
+	if (!token->cmd[0] && token->type == 6)
 		return ;
 	if (ft_token_type_exec(token))
 		return ;
-	//printf("%s type %d is executable: %d\n", token->cmd[0], token->type, ft_is_executable(token));
 	if (ft_is_executable(token) && !is_builtin(token->cmd)
 		&& (ft_strncmp(token->cmd[0], "exit", 4) != 0 || ft_strlen(token->cmd[0]) != 4))
 	{
@@ -213,7 +211,6 @@ void	ft_execute(t_token *token)
 			{
 				signal(SIGINT, SIG_IGN);
 				g_data.pid[g_data.count_fork] = fork();
-				//printf("pid created: %d\n", g_data.pid[g_data.count_fork]);
 				g_data.count_fork++;
 				if (g_data.pid[g_data.count_fork - 1] < 0)
 				{
@@ -232,8 +229,8 @@ void	ft_execute(t_token *token)
 			}
 		}
 	}
-	if(token->type == 7)
-	 	dup2(g_data.stdin_copy, STDIN_FILENO);
+	if (token->type == 7)
+		dup2(g_data.stdin_copy, STDIN_FILENO);
 	ft_close_pipes(token);
 	ft_check_std_in_out(token);
 }

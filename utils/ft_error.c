@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:26:18 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/27 17:47:04 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:54:56 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,10 @@ void	ft_close_fds(void)
 	close(STDERR_FILENO);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
-	printf("\n\nfechou tudo\n\n");
+}
+
+void	ft_error_perror(int arg, char *msg)
+{
+	perror(NULL);
+	ft_error(arg, msg);
 }

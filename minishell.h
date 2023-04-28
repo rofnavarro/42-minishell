@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 16:32:18 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 17:53:37 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ int			ft_is_builtin_child(char *input);
 //  utils/ft_error.c
 void		ft_error(int arg, char *msg);
 void		ft_exit(void);
-void	ft_close_fds(void);
+void		ft_close_fds(void);
+void		ft_error_perror(int arg, char *msg);
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
