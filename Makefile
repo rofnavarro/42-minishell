@@ -46,6 +46,9 @@ SRC							=			minishell.c \
 															ft_start.c \
 															ft_strtok.c \
 															ft_token_list.c \
+															ft_signals_aux.c \
+															ft_syntax_error.c \
+															ft_heredoc.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)
