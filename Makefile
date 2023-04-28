@@ -6,7 +6,7 @@
 #    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/04/23 14:22:32 by rferrero         ###   ########.fr        #
+#    Updated: 2023/04/28 10:55:18 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC							=			minishell.c \
 															ft_loop.c \
 															ft_pipe.c \
 															ft_quotes_handler.c \
+															ft_quotes_handler2.c \
 															ft_signals.c \
 															ft_start.c \
 															ft_strtok.c \

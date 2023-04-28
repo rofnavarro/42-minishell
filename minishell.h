@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/23 14:21:24 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:54:30 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,14 @@ void		ft_open_pipe(void);
 void		ft_close_pipes(t_token *token);
 
 //  utils/ft_quote_handler.c
+void		quotes_replace(t_token *token);
 void		ft_quotes_handler(void);
+
+//  utils/ft_quote_handler2.c
+void		ft_exit_code_handler(int *n, char *tmp, int *m);
+void		ft_check_empty_token(t_token *token, int *i);
+void		check_if_var(char *str, int *n, char *tmp, int *m);
+int			ft_var_handler(char *str, int *n, char **tmp, int *m);
 
 //	ft_signals.c
 void		handle_sigint_empty(int sig);
