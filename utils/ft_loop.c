@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
 /*   Updated: 2023/04/28 20:37:29 by rinacio          ###   ########.fr       */
@@ -31,7 +31,7 @@ void	ft_loop(void)
 			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>>;"), " ");
 		}
 		ft_quotes_handler();
-		// ft_print_token_list();
+		ft_print_token_list();
 		if (!g_data.token_start)
 			continue ;
 		ft_execute_token_list();
