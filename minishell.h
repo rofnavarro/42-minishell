@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 20:59:46 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:39:51 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void		ft_error(int arg, char *msg);
 void		ft_exit(void);
 void		ft_close_fds(void);
 void		ft_error_perror(int arg, char *msg);
+void		ft_free_pid_fd(void);
 
 //  utils/ft_free.c
 void		ft_free_matrix(char **matrix);
@@ -153,6 +154,7 @@ void		ft_heredoc_close_exit(void);
 
 //  utils/ft_loop.c
 void		ft_loop(void);
+void		ft_loop_start(void);
 
 //  utils/ft_start.c
 void		get_path(void);
@@ -171,14 +173,15 @@ char		**ft_token_quotes(char **cmd);
 int			ft_check_quotes(char *arg);
 char		*ft_switch_inside_quotation(char *str);
 
+//	utils/ft_execute_token_list.c
+void		ft_execute_token_list(void);
+void		ft_execute(t_token *token);
+void		ft_execute_start(void);
+
 //	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);
 char		*ft_get_cmd_path(t_token *token);
 void		ft_cmd_not_found(char *cmd);
-
-//	utils/ft_execute_token_list.c
-void		ft_execute_token_list(void);
-void		ft_execute(t_token *token);
 
 //	utils/ft_fork.c
 void		ft_child_process(t_token *token, char *cmd_path);
@@ -235,5 +238,9 @@ void		ft_heredoc_child(t_token *token);
 void		ft_write_heredoc(void);
 void		ft_heredoc_eof(void);
 void		ft_heredoc_parent(int pid, t_token *token);
+
+//ft_executable.c
+int			ft_check_slash(char *str);
+int			ft_is_executable(t_token *token);
 
 #endif

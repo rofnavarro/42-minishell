@@ -17,17 +17,15 @@ void	ft_execute_token_list(void)
 	t_token	*aux;
 	int		i;
 
-	g_data.count_pipes = 0;
-	g_data.count_fork = 0;
-	g_data.pid = malloc(sizeof(int) * g_data.token_list_size);
-	g_data.fd = malloc(sizeof(int *) * (g_data.token_list_size - 1));
 	i = 0;
+	ft_execute_start();
 	while (i < g_data.token_list_size - 1)
 		g_data.fd[i++] = malloc(sizeof(int) * 2);
 	if (ft_check_sintax())
+	{
+		ft_free_pid_fd();
 		return (ft_exit());
-	if (!g_data.token_start)
-		return ;
+	}
 	aux = g_data.token_start;
 	while (aux && !g_data.aux_sig)
 	{
@@ -35,25 +33,20 @@ void	ft_execute_token_list(void)
 		aux = aux->next;
 	}
 	ft_wait_children();
-	free(g_data.pid);
-	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
+	ft_free_pid_fd();
 }
 
-int	ft_is_executable(t_token *token)
+void	ft_execute_start(void)
 {
-	if (ft_strncmp(token->cmd[0], "exit", 4) == 0
-		&& ft_strlen(token->cmd[0]) == 4)
+	g_data.count_pipes = 0;
+	g_data.count_fork = 0;
+	g_data.pid = malloc(sizeof(int) * g_data.token_list_size);
+	g_data.fd = malloc(sizeof(int *) * (g_data.token_list_size - 1));
+	if (!g_data.pid || !g_data.fd)
 	{
-		ft_exit();
-		return (0);
+		ft_free_pid_fd();
+		return (ft_exit());
 	}
-	if (token->type == LESS || token->type == LESS_LESS || token->type == 8)
-		return (0);
-	else if (token->prev && (token->prev->type == GREATER
-			|| token->prev->type == GREATER_GREATER
-			|| token->prev->type == 8))
-		return (0);
-	return (1);
 }
 
 int	ft_token_type_exec(t_token *token)
@@ -83,20 +76,6 @@ int	ft_token_type_exec(t_token *token)
 			|| token->type != GREATER_GREATER))
 		return (0);
 	return (0);
-}
-
-int	ft_check_slash(char *str)
-{
-	char	**str_split;
-	int		result;
-
-	str_split = ft_split(str, '/');
-	if (str_split[1])
-		result = 1;
-	else
-		result = 0;
-	ft_free_matrix(str_split);
-	return (result);
 }
 
 void	ft_execute(t_token *token)
