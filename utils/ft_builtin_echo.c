@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_echo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 22:34:37 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 00:52:00 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ static void	ft_echo_class(char **cmd, int i)
 		return ;
 	else
 		printf("%s", cmd[i]);
+}
+
+int	ft_echo_n(t_token *token)
+{
+	if (token->cmd[0] && token->cmd[1])
+	{		
+		if (!ft_strncmp(token->cmd[0], "echo", 4)
+			&& ft_strlen(token->cmd[0]) == 4
+			&& !ft_strncmp(token->cmd[1], "-n", 2)
+			&& ft_strlen(token->cmd[1]) == 2)
+		{
+			ft_echo(token->cmd);
+			return (1);
+		}
+	}
+	return (0);
 }
 
 void	ft_echo(char **cmd)

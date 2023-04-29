@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 20:49:53 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 00:43:38 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_execute(t_token *token)
 	cmd_path = NULL;
 	if ((!token->cmd[0] && token->type == 6) || ft_token_type_exec(token))
 		return ;
-	if (ft_is_executable(token) && !is_builtin(token->cmd))
+	if (ft_is_executable(token) && !ft_echo_n(token) && !is_builtin(token->cmd))
 	{
 		if (!ft_check_slash(token->cmd[0]))
 			cmd_path = ft_get_cmd_path(token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executable.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 20:28:08 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 20:28:40 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 01:03:00 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ int	ft_is_executable(t_token *token)
 	else if (token->prev && (token->prev->type == GREATER
 			|| token->prev->type == GREATER_GREATER
 			|| token->prev->type == 8))
+		return (0);
+	else if (ft_is_builtin_parent(token->cmd[0])
+		&& (token->type == PIPE || (token->prev
+				&& token->prev->type == PIPE)))
 		return (0);
 	return (1);
 }
