@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 19:43:32 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:59:46 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ void		ft_free_data(void);
 void		ft_free_loop(void);
 void		ft_free_matrix_int(int **matrix, int size);
 void		ft_free_pointers(char *ptr1, char *ptr2);
+
+//  utils/ft_free2.c
 void		ft_heredoc_close_exit(void);
 
 //  utils/ft_loop.c
@@ -198,7 +200,7 @@ void		ft_close_pipes(t_token *token);
 
 //  utils/ft_quote_handler.c
 void		quotes_replace(t_token *token);
-void	finishe_quote_replace(t_token *token, int *i, char **tmp, int *m);
+void		finishe_quote_replace(t_token *token, int *i, char **tmp, int *m);
 void		ft_quotes_handler(void);
 
 //  utils/ft_quote_handler2.c
@@ -213,7 +215,6 @@ void		ft_exec_child_builtin(t_token *token, char *cmd_path);
 void		ft_free_child_process(void);
 void		ft_wait_children(void);
 void		ft_fork(char *cmd_path, t_token *token);
-
 
 //	ft_signals.c
 void		handle_sigint_empty(int sig);
@@ -234,6 +235,5 @@ void		ft_heredoc_child(t_token *token);
 void		ft_write_heredoc(void);
 void		ft_heredoc_eof(void);
 void		ft_heredoc_parent(int pid, t_token *token);
-
 
 #endif

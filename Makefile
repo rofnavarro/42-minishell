@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/04/28 10:55:18 by rferrero         ###   ########.fr        #
+#    Updated: 2023/04/28 20:59:41 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC							=			minishell.c \
 															ft_execute_token_list.c \
 															ft_fork.c \
 															ft_free.c \
+															ft_free2.c \
 															ft_input_output.c \
 															ft_loop.c \
 															ft_pipe.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:01:41 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 16:52:33 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 20:59:50 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,4 @@ void	ft_free_pointers(char *ptr1, char *ptr2)
 {
 	free(ptr1);
 	free(ptr2);
-}
-
-void	ft_heredoc_close_exit(void)
-{
-	free(g_data.hd_delim);
-	close(g_data.stdin_copy);
-	close(g_data.stdout_copy);
-	ft_free_loop();
-	ft_free_data();
-	rl_clear_history();
-	free(g_data.pid);
-	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
 }

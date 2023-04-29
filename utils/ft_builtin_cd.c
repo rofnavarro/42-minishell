@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 11:02:06 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:56:59 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_cd(char **cmd)
 	if ((ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])) == 0) && !cmd[1] && \
 		ft_strlen(cmd[0]) == ft_strlen("cd"))
 		ft_cd_home();
-	else
+	else if (ft_strlen(cmd[0]) == ft_strlen("cd"))
 	{
 		if (ft_strncmp(cmd[1], "~", ft_strlen(cmd[1])) == 0)
 			ft_cd_home();
