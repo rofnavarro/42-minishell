@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 20:22:54 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/28 23:04:19 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	quotes_replace(t_token *token)
 				n++;
 				while (token->cmd[i][n] != '\'')
 					tmp[m++] = token->cmd[i][n++];
-				break ;
+				n++;
 			}
 			else if (token->cmd[i][n] == '\"')
 			{
@@ -44,33 +44,34 @@ void	quotes_replace(t_token *token)
 						if (token->cmd[i][n + 1] == '?')
 							ft_exit_code_handler(&n, tmp, &m);
 						else
+						{
 							check_if_var(token->cmd[i], &n, tmp, &m);
+							break ;
+						}
 					}
-					else
-						tmp[m++] = token->cmd[i][n++];
+					tmp[m] = token->cmd[i][n];
+					m++;
+					n++;
 				}
-				tmp[m] = '\0';
 				n++;
 			}
 			else
 			{
-				while (token->cmd[i][n] != '\0')
+				if (token->cmd[i][n] == '$')
 				{
-					if (token->cmd[i][n] == '$')
+					if (token->cmd[i][n + 1] == '?')
+						ft_exit_code_handler(&n, tmp, &m);
+					else
 					{
-						if (token->cmd[i][n + 1] == '?')
-							ft_exit_code_handler(&n, tmp, &m);
-						else
-						{
-							if (ft_var_handler(token->cmd[i], &n, &tmp, &m) == TRUE)
-								break ;
-						}
+						if (ft_var_handler(token->cmd[i], &n, &tmp, &m) == TRUE)
+							break ;
 					}
-					else if (token->cmd[i][n] != '\0')
-						tmp[m++] = token->cmd[i][n++];
 				}
+				else
+					tmp[m] = token->cmd[i][n];
+				m++;
+				n++;
 			}
-			tmp[m] = '\0';
 		}
 		finishe_quote_replace(token, &i, &tmp, &m);
 	}
