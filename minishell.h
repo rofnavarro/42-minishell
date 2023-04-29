@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 20:39:51 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 00:56:06 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,11 @@ extern t_program	g_data;
 
 //  utils/ft_builtin_cd.c
 void		ft_cd(char **cmd);
+int			ft_is_builtin_parent(char *input);
 
 //  utils/ft_builtin_echo.c
 void		ft_echo(char **cmd);
+int			ft_echo_n(t_token *token);
 
 //  utils/ft_builtin_env.c
 int			var_exist(char *variable);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 20:54:13 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 00:55:25 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_var_assigned(char *str)
 	return (FALSE);
 }
 
-static int	ft_is_builtin_parent(char *input)
+int	ft_is_builtin_parent(char *input)
 {
 	if ((ft_strncmp(input, "export", ft_strlen(input)) == 0 && \
 		ft_strlen(input) == ft_strlen("export")) || \

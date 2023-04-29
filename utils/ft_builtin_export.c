@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:11:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/19 15:22:18 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 00:35:12 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	get_export(char **env)
 	i = -1;
 	while (env[++i])
 		g_data.export[i] = ft_strdup(env[i]);
-	ft_sort(g_data.export);
+	if (ft_env_size(env) < 500)
+		ft_sort(g_data.export);
 	ft_add_prefix(g_data.export);
 	ft_put_value_quotes(g_data.export);
 }
