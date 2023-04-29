@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 20:22:58 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/28 21:14:55 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_wait_children(void)
 	int	wstatus;
 	int	i;
 
+	wstatus = 0;
 	if (g_data.count_fork)
 	{
 		i = 0;
