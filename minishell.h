@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 15:23:01 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 20:18:33 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,8 +213,8 @@ void		ft_quotes_handler(void);
 
 //  utils/ft_quote_handler2.c
 void		ft_check_empty_token(t_token *token, int *i);
-void		check_if_var(char *str, int *n, char *tmp, int *m);
-int			ft_var_handler(char *str, int *n, char **tmp, int *m);
+void		check_if_var(char *str, int *n, char *tmp, int *m, int type_quotes);
+int			ft_var_handler(char *str, int *n, char **tmp, int *m, int type_quotes);
 void		ft_single_quotes(int *n, int *m, char *cmd, char **tmp);
 
 //  utils/ft_quote_handler3.c

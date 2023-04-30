@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:35:38 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 15:22:26 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 20:17:31 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_check_empty_token(t_token *token, int *i)
 	}
 }
 
-void	check_if_var(char *str, int *n, char *tmp, int *m)
+void	check_if_var(char *str, int *n, char *tmp, int *m, int quote_type)
 {
 	char	*tmp_var;
 	char	*tmp_value;
@@ -53,9 +53,9 @@ void	check_if_var(char *str, int *n, char *tmp, int *m)
 	(*n)++;
 	tmp_var = (char *)malloc(sizeof(char) * (ft_strlen(str) - *n + 1));
 	i = 0;
-	while (str[*n] != '\"')
+	while (str[(*n)] != '\"')
 	{
-		if (str[*n] == '\'')
+		if (str[(*n)] == '\'' || str[(*n)] > 96 || str[(*n)] == ' ')
 			break ;
 		tmp_var[i++] = str[(*n)++];
 	}
@@ -71,7 +71,7 @@ void	check_if_var(char *str, int *n, char *tmp, int *m)
 	free(tmp_value);
 }
 
-int	ft_var_handler(char *str, int *n, char **tmp, int *m)
+int	ft_var_handler(char *str, int *n, char **tmp, int *m, int quote_type)
 {
 	int		k;
 	char	*tmp2;
@@ -81,7 +81,13 @@ int	ft_var_handler(char *str, int *n, char **tmp, int *m)
 	tmp_var = (char *)malloc(sizeof(char) * (ft_strlen(str) - (*n) + 1));
 	tmp_var[ft_strlen(str) - (*n)] = '\0';
 	while (str[++(*n)] != '\0')
+	{
+		if (str[(*n)] == '}')
+			break ;
+		if (str[(*n)] == '\"' && quote_type == 2)
+			break ;
 		tmp_var[k++] = str[(*n)];
+	}
 	tmp_var[k] = '\0';
 	tmp2 = find_var_value(g_data.env, tmp_var);
 	free(tmp_var);
