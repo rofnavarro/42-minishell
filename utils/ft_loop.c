@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 04:17:51 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 06:16:27 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	ft_check_eof_cmd(void)
 {
 	if (!g_data.cmd)
 	{
+		printf("exit\n");
 		ft_free_loop();
 		return (1);
 	}
