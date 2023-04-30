@@ -6,13 +6,13 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:35:38 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 02:35:42 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 03:21:14 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_aux(int *n, int *m, char *cmd, char **tmp)
+void	ft_single_quotes(int *n, int *m, char *cmd, char **tmp)
 {
 	(*n)++;
 	while (cmd[(*n)] != '\'')
