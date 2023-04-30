@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 17:08:02 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:36:17 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void	ft_exec_child_builtin(t_token *token, char *cmd_path)
 	if (ft_strncmp(token->cmd[0], "env",
 			ft_strlen(token->cmd[0])) == 0 && token->cmd[1] == NULL)
 		ft_print_env(token->cmd[0]);
-	else if (ft_strncmp(token->cmd[0], "pwd", ft_strlen(token->cmd[0])) == 0 && \
-				token->cmd[1] == NULL)
+	else if (ft_strncmp(token->cmd[0], "pwd", ft_strlen(token->cmd[0])) == 0)
 		ft_pwd(token->cmd[0]);
 	else if (ft_strncmp(token->cmd[0], "echo", ft_strlen(token->cmd[0])) == 0)
 		ft_echo(token->cmd);
