@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 11:55:51 by rferrero          #+#    #+#              #
-#    Updated: 2023/02/18 17:11:48 by rferrero         ###   ########.fr        #
+#    Updated: 2023/04/30 15:48:14 by rinacio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC				=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c \
 					ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c \
 					ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
 					ft_tolower.c ft_toupper.c get_next_line.c ft_strjoin_free.c \
-					ft_substr_free.c
+					ft_substr_free.c ft_atoi_quotes.c
 
 OBJ				= 	$(SRC:.c=.o)
 
