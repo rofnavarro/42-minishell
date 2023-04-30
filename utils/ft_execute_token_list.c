@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 03:14:04 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 05:17:53 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_execute_token_list(void)
 	if (ft_check_sintax())
 	{
 		ft_free_pid_fd();
-		return (ft_exit());
+		return ;
 	}
 	aux = g_data.token_start;
 	while (aux && !g_data.aux_sig)
