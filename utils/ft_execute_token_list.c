@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 00:43:38 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 03:14:04 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,17 @@ void	ft_execute(t_token *token)
 	{
 		if (!ft_check_slash(token->cmd[0]))
 			cmd_path = ft_get_cmd_path(token);
-		if (ft_check_slash(token->cmd[0]) || cmd_path)
+		else
+		{
+			if (access(token->cmd[0], X_OK) != 0)
+			{
+				perror(token->cmd[0]);
+				g_data.exit_code = 127;
+				return ;
+			}
+			ft_fork(cmd_path, token);
+		}
+		if (cmd_path)
 			ft_fork(cmd_path, token);
 	}
 	ft_close_pipes(token);
