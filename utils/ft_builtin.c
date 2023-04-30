@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 17:25:51 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:28:30 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	is_builtin(char **str)
 		}
 		else if (ft_strncmp(str[0], "unset", ft_strlen(str[0])) == 0)
 		{
+			if (!str[1])
+				return (TRUE);
 			ft_remove_var_env(str);
 			get_export(g_data.env);
 		}
