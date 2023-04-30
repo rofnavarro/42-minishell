@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 20:28:08 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 06:18:03 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 06:22:25 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_is_number(char *arg)
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]) && arg[i] != '-'
-			&& arg[i] != '+')
+			&& arg[i] != '+' && arg[i] != '\"')
 			return (0);
 		i++;
 	}
