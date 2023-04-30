@@ -3,14 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 23:04:19 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 02:35:37 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ft_aux_2(int *n, int *m, char *cmd, char **tmp)
+{
+	(*n)++;
+	while (cmd[(*n)] != '\"')
+	{
+		if (cmd[(*n)] == '$')
+		{
+			if (cmd[(*n) + 1] == '?')
+				ft_exit_code_handler(n, *tmp, m);
+			else
+			{
+				check_if_var(cmd, n, *tmp, m);
+				break ;
+			}
+		}
+		(*tmp)[(*m)] = cmd[(*n)];
+		(*m)++;
+		(*n)++;
+	}
+	(*n)++;
+}
+
+int	ft_aux_3(int *n, int *m, char *cmd, char **tmp)
+{
+	if (cmd[(*n)] == '$')
+	{
+		if (cmd[(*n) + 1] == '?')
+			ft_exit_code_handler(n, *tmp, m);
+		else
+		{
+			if (ft_var_handler(cmd, n, tmp, m) == TRUE)
+				return (1);
+		}
+	}
+	else
+		(*tmp)[(*m)] = cmd[(*n)];
+	(*m)++;
+	(*n)++;
+	return (0);
+}
 
 void	quotes_replace(t_token *token)
 {
@@ -28,49 +69,13 @@ void	quotes_replace(t_token *token)
 		while (token->cmd[i][n])
 		{
 			if (token->cmd[i][n] == '\'')
-			{
-				n++;
-				while (token->cmd[i][n] != '\'')
-					tmp[m++] = token->cmd[i][n++];
-				n++;
-			}
+				ft_aux(&n, &m, token->cmd[i], &tmp);
 			else if (token->cmd[i][n] == '\"')
-			{
-				n++;
-				while (token->cmd[i][n] != '\"')
-				{
-					if (token->cmd[i][n] == '$')
-					{
-						if (token->cmd[i][n + 1] == '?')
-							ft_exit_code_handler(&n, tmp, &m);
-						else
-						{
-							check_if_var(token->cmd[i], &n, tmp, &m);
-							break ;
-						}
-					}
-					tmp[m] = token->cmd[i][n];
-					m++;
-					n++;
-				}
-				n++;
-			}
+				ft_aux_2(&n, &m, token->cmd[i], &tmp);
 			else
 			{
-				if (token->cmd[i][n] == '$')
-				{
-					if (token->cmd[i][n + 1] == '?')
-						ft_exit_code_handler(&n, tmp, &m);
-					else
-					{
-						if (ft_var_handler(token->cmd[i], &n, &tmp, &m) == TRUE)
-							break ;
-					}
-				}
-				else
-					tmp[m] = token->cmd[i][n];
-				m++;
-				n++;
+				if (ft_aux_3(&n, &m, token->cmd[i], &tmp))
+					break ;
 			}
 		}
 		finishe_quote_replace(token, &i, &tmp, &m);

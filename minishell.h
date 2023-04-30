@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 00:56:06 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 02:36:02 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ void		ft_exit_code_handler(int *n, char *tmp, int *m);
 void		ft_check_empty_token(t_token *token, int *i);
 void		check_if_var(char *str, int *n, char *tmp, int *m);
 int			ft_var_handler(char *str, int *n, char **tmp, int *m);
+void		ft_aux(int *n, int *m, char *cmd, char **tmp);
 
 //	utils/ft_fork.c
 void		ft_child_process(t_token *token, char *cmd_path);
