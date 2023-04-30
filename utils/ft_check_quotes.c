@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:02:23 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/19 18:55:26 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 03:56:56 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,28 @@
 
 int	ft_check_quotes(char *arg)
 {
-	int	count_single;
-	int	count_double;
-	int	i;
+	int		count;
+	char	quote;
+	int		i;
 
 	i = 0;
-	count_single = 0;
-	count_double = 0;
+	quote = '\0';
+	count = 0;
 	while (arg[i])
 	{
-		if (arg[i] == '\"')
-			count_double++;
-		else if (arg[i] == '\'')
-			count_single++;
+		if (arg[i] == '\"' || arg[i] == '\'')
+		{
+			if (quote == '\0')
+			{
+				quote = arg[i];
+				count++;
+			}
+			else if (arg[i] == quote)
+				count++;
+		}
 		i++;
 	}
-	if (count_single % 2 || count_double % 2)
+	if (count % 2)
 		return (1);
 	return (0);
 }
