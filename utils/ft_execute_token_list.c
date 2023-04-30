@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 05:17:53 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:26:29 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,15 @@ int	ft_token_type_exec(t_token *token)
 	return (0);
 }
 
+int	ft_is_export_wo_arg(t_token *token)
+{
+	if ((ft_strncmp(token->cmd[0], "export", ft_strlen(token->cmd[0])) == 0
+			&& ft_strlen(token->cmd[0]) == ft_strlen("export"))
+		&& !token->cmd[1])
+		return (1);
+	return (0);
+}
+
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
@@ -85,7 +94,8 @@ void	ft_execute(t_token *token)
 	cmd_path = NULL;
 	if ((!token->cmd[0] && token->type == 6) || ft_token_type_exec(token))
 		return ;
-	if (ft_is_executable(token) && !ft_echo_n(token) && !is_builtin(token->cmd))
+	if (ft_is_executable(token) && !ft_echo_n(token) && (!is_builtin(token->cmd)
+			|| ft_is_export_wo_arg(token)))
 	{
 		if (!ft_check_slash(token->cmd[0]))
 			cmd_path = ft_get_cmd_path(token);
@@ -99,7 +109,7 @@ void	ft_execute(t_token *token)
 			}
 			ft_fork(cmd_path, token);
 		}
-		if (cmd_path)
+		if (cmd_path || ft_is_export_wo_arg(token))
 			ft_fork(cmd_path, token);
 	}
 	ft_close_pipes(token);

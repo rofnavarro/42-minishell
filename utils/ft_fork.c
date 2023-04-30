@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 05:50:01 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:08:02 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_child_process(t_token *token, char *cmd_path)
 		redirect_to_pipe();
 	if (token->prev && token->prev->type == PIPE)
 		redirect_from_pipe(token->type);
-	if (ft_is_builtin_child(token->cmd[0]) == TRUE)
+	if (ft_is_builtin_child(token->cmd[0]) || ft_is_export_wo_arg(token))
 		ft_exec_child_builtin(token, cmd_path);
 	else if (cmd_path)
 	{
@@ -50,6 +50,8 @@ void	ft_exec_child_builtin(t_token *token, char *cmd_path)
 		ft_pwd(token->cmd[0]);
 	else if (ft_strncmp(token->cmd[0], "echo", ft_strlen(token->cmd[0])) == 0)
 		ft_echo(token->cmd);
+	else if (ft_strncmp(token->cmd[0], "export", ft_strlen(token->cmd[0])) == 0)
+		ft_export(token->cmd);
 	free(cmd_path);
 	ft_free_child_process();
 	exit (0);

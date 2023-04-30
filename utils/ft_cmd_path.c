@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:11:31 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 20:39:50 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:25:05 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ char	*ft_get_cmd_path(t_token *token)
 			break ;
 		i++;
 	}
-	if (cmd_path == NULL && token->cmd[0][0] != 10)
+	if (cmd_path == NULL && token->cmd[0][0] != 10
+			&& !ft_is_export_wo_arg(token))
 		ft_cmd_not_found(token->cmd[0]);
 	return (cmd_path);
 }

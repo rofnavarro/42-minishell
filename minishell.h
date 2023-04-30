@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 04:15:19 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 16:51:03 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ char		*ft_switch_inside_quotation(char *str);
 void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
 void		ft_execute_start(void);
+int			ft_is_export_wo_arg(t_token *token);
 
 //	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);

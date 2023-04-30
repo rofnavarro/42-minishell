@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 05:51:28 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:25:51 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_builtin(char **str)
 				get_export(g_data.env);
 			}
 			else if (str[1] == NULL || is_var_assigned(str[1]) == FALSE)
-				ft_export(str);
+				return (TRUE);
 		}
 		else if (ft_strncmp(str[0], "unset", ft_strlen(str[0])) == 0)
 		{
