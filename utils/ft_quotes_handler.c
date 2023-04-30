@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 20:17:20 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 20:26:41 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ int	ft_no_quotes(int *n, int *m, char *cmd, char **tmp)
 	}
 	while (cmd[(*n)] != '\0')
 	{
+		if (cmd[(*n)] == '\'' || cmd[(*n)] == '\"')
+		{
+			(*n)++;
+			continue ;	
+		}
 		(*tmp)[(*m)] = cmd[(*n)];
 		(*m)++;
 		(*n)++;
