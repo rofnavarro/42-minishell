@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/29 22:41:02 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:24:55 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	ft_double_quotes(int *n, int *m, char *cmd, char **tmp)
 		{
 			if (cmd[(*n) + 1] == '?')
 				ft_exit_code_handler(n, *tmp, m);
+			else if (ft_strange_chars(cmd[(*n) + 1]) == 0)
+			{
+				(*tmp)[(*m)] = cmd[(*n)];
+				(*m)++;
+				(*n)++;
+			}
 			else
 			{
 				check_if_var(cmd, n, *tmp, m);
