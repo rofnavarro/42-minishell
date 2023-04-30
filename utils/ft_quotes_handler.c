@@ -38,7 +38,7 @@ int	ft_no_quotes(int *n, int *m, char *cmd, char **tmp)
 {
 	if (cmd[(*n)] == '$')
 	{
-		if (cmd[((*n) + 1)] == '?')
+		if (cmd[(*n) + 1] == '?')
 			ft_exit_code_handler(n, *tmp, m);
 		else
 		{
