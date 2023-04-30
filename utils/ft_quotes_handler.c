@@ -6,13 +6,13 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 02:35:37 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 03:22:04 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_aux_2(int *n, int *m, char *cmd, char **tmp)
+void	ft_double_quotes(int *n, int *m, char *cmd, char **tmp)
 {
 	(*n)++;
 	while (cmd[(*n)] != '\"')
@@ -34,7 +34,7 @@ void	ft_aux_2(int *n, int *m, char *cmd, char **tmp)
 	(*n)++;
 }
 
-int	ft_aux_3(int *n, int *m, char *cmd, char **tmp)
+int	ft_no_quotes(int *n, int *m, char *cmd, char **tmp)
 {
 	if (cmd[(*n)] == '$')
 	{
@@ -69,12 +69,12 @@ void	quotes_replace(t_token *token)
 		while (token->cmd[i][n])
 		{
 			if (token->cmd[i][n] == '\'')
-				ft_aux(&n, &m, token->cmd[i], &tmp);
+				ft_single_quotes(&n, &m, token->cmd[i], &tmp);
 			else if (token->cmd[i][n] == '\"')
-				ft_aux_2(&n, &m, token->cmd[i], &tmp);
+				ft_double_quotes(&n, &m, token->cmd[i], &tmp);
 			else
 			{
-				if (ft_aux_3(&n, &m, token->cmd[i], &tmp))
+				if (ft_no_quotes(&n, &m, token->cmd[i], &tmp))
 					break ;
 			}
 		}
