@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 20:56:59 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:33:07 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	ft_cd(char **cmd)
 	char	*buff;
 	char	*old_path;
 
+	if (cmd[2])
+		return(ft_error(1, "cd: too many arguments"));
 	buff = NULL;
 	old_path = getcwd(buff, 0);
 	ft_export_add_env(old_path, "OLDPWD=");
