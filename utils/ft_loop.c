@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 00:35:33 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 02:36:15 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_loop(void)
 			g_data.cmd_token = ft_strtrim(ft_strtok(NULL, "|<<>>;"), " ");
 		}
 		ft_quotes_handler();
-		//ft_print_token_list();
 		if (!g_data.token_start)
 			continue ;
 		ft_execute_token_list();

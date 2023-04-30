@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:35:38 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 20:22:35 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/04/30 02:35:42 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ft_aux(int *n, int *m, char *cmd, char **tmp)
+{
+	(*n)++;
+	while (cmd[(*n)] != '\'')
+		(*tmp)[((*m)++)] = cmd[((*n)++)];
+	(*n)++;
+}
 
 void	ft_exit_code_handler(int *n, char *tmp, int *m)
 {
