@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 03:20:52 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 04:15:19 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ void		ft_heredoc_close_exit(void);
 //  utils/ft_loop.c
 void		ft_loop(void);
 void		ft_loop_start(void);
+int			ft_check_empty_line(void);
+int			ft_check_eof_cmd(void);
 
 //  utils/ft_start.c
 void		get_path(void);
