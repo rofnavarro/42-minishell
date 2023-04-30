@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 04:14:48 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 04:17:51 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_check_empty_line(void)
 	return (0);
 }
 
-int ft_check_eof_cmd(void)
+int	ft_check_eof_cmd(void)
 {
 	if (!g_data.cmd)
 	{
