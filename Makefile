@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/04/28 20:33:36 by rinacio          ###   ########.fr        #
+#    Updated: 2023/04/30 15:23:24 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC							=			minishell.c \
 															ft_start.c \
 															ft_quotes_handler.c \
 															ft_quotes_handler2.c \
+															ft_quotes_handler3.c \
 															ft_signals_aux.c \
 															ft_signals.c \
 															ft_strtok.c \

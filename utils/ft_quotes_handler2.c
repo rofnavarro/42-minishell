@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_handler2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:35:38 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 03:21:14 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 15:22:26 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,6 @@ void	ft_single_quotes(int *n, int *m, char *cmd, char **tmp)
 	while (cmd[(*n)] != '\'')
 		(*tmp)[((*m)++)] = cmd[((*n)++)];
 	(*n)++;
-}
-
-void	ft_exit_code_handler(int *n, char *tmp, int *m)
-{
-	char	*tmp_var;
-
-	tmp_var = ft_itoa(g_data.exit_code);
-	tmp[*m] = '\0';
-	ft_strlcat(tmp, tmp_var, (*m) + \
-				ft_strlen(tmp_var) + 1);
-	*m = ft_strlen(tmp);
-	free(tmp_var);
-	(*n) += 2;
 }
 
 void	ft_check_empty_token(t_token *token, int *i)
