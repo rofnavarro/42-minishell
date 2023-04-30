@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 20:28:08 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 16:16:26 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/04/30 16:18:10 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	ft_check_exit(t_token *token)
 	if (token->cmd[1])
 	{
 		if (!ft_is_number(token->cmd[1]) || (!ft_atoi_quotes(token->cmd[1])
-			&& (ft_strncmp(token->cmd[1], "0", 1)
-			|| ft_strlen(token->cmd[1]) != 1)))
-				ft_error(2, "exit: numeric argument required");
+				&& (ft_strncmp(token->cmd[1], "0", 1)
+					|| ft_strlen(token->cmd[1]) != 1)))
+			ft_error(2, "exit: numeric argument required");
 		else
 			g_data.exit_code = ft_atoi_quotes(token->cmd[1]) % 256;
 	}
