@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:16:15 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 20:26:41 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:59:46 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_double_quotes(int *n, int *m, char *cmd, char **tmp)
 	(*n)++;
 	while (cmd[(*n)] != '\"')
 	{
-		if (cmd[(*n)] == '$')
+		if (cmd[(*n)] == '$' && ft_strlen(cmd) > 3)
 		{
 			if (cmd[(*n) + 1] == '?')
 				ft_exit_code_handler(n, *tmp, m);
@@ -53,7 +53,7 @@ void	ft_double_quotes(int *n, int *m, char *cmd, char **tmp)
 
 int	ft_no_quotes(int *n, int *m, char *cmd, char **tmp)
 {
-	if (cmd[(*n)] == '$')
+	if (cmd[(*n)] == '$' && ft_strlen(cmd) > 1)
 	{
 		if (cmd[(*n) + 1] == '?')
 			ft_exit_code_handler(n, *tmp, m);
