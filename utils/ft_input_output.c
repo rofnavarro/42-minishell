@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input_output.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 18:31:05 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/01 03:19:20 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,19 @@ void	ft_open_output_file(t_token *token)
 	close(g_data.outfile);
 }
 
-void	ft_get_input_file(t_token *token)
+char	**ft_new_cmd(t_token *token)
 {
 	int		i;
 	char	**new_cmd;
 
+	free(token->cmd);
+	token->cmd = (char **)malloc(sizeof(char *) * 2);
 	token->cmd[0] = ft_strdup(token->next->cmd[0]);
 	token->cmd[1] = NULL;
 	i = 0;
 	while (token->next->cmd[i])
 		i++;
-	new_cmd = (char **)malloc(i * sizeof(char *));
+	new_cmd = (char **)malloc((i + 1) * sizeof(char *));
 	i = 0;
 	free(token->next->cmd[0]);
 	while (token->next->cmd[i + 1])
@@ -48,8 +50,15 @@ void	ft_get_input_file(t_token *token)
 	new_cmd[i] = NULL;
 	free(token->next->cmd[i + 1]);
 	free(token->next->cmd);
-	token->next->cmd = new_cmd;
+	return (new_cmd);
+}
+
+void	ft_get_input_file(t_token *token)
+{
+	token->next->cmd = ft_new_cmd(token);
+	token->type = 9;
 	ft_open_input_file(token);
+	ft_redirect_infile();
 }
 
 void	ft_open_input_file(t_token *token)
@@ -59,14 +68,19 @@ void	ft_open_input_file(t_token *token)
 	{
 		if (access(token->cmd[0], F_OK) == 0)
 		{
-			perror(token->cmd[0]);
-			return (ft_error(1, ""));
+			g_data.exit_code = 1;
+			return (perror(token->cmd[0]));
 		}
 		g_data.infile = open("/dev/null", O_RDONLY);
-		perror(token->cmd[0]);
-		ft_error(1, "");
-		return ;
-	}	
+		g_data.exit_code = 1;
+		return (perror(token->cmd[0]));
+	}
+}
+
+void	ft_redirect_infile(void)
+{
+	dup2(g_data.infile, STDIN_FILENO);
+	close(g_data.infile);
 }
 
 void	ft_check_std_in_out(t_token *token)

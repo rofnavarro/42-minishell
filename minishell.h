@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 20:18:33 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/01 02:23:21 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,9 +196,10 @@ void		ft_free_child_process(void);
 
 //	utils/ft_input_output.c
 void		ft_open_output_file(t_token *token);
-void		ft_get_input_file(t_token *token);
 void		ft_open_input_file(t_token *token);
 void		ft_check_std_in_out(t_token *token);
+void		ft_redirect_infile(void);
+void		ft_get_input_file(t_token *token);
 
 //	utils/ft_pipe.c
 void		redirect_to_pipe(void);

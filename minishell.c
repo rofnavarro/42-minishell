@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:19:46 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 06:14:25 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/01 04:19:57 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_loop();
 	rl_clear_history();
 	ft_free_data();
-	printf("Minishell closed!\n");
 	ft_close_fds();
 	return (g_data.exit_code);
 }

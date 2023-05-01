@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 17:26:29 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/01 02:28:31 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,19 @@ int	ft_token_type_exec(t_token *token)
 		return (1);
 	}
 	if (token->type == LESS)
-		ft_get_input_file(token);
+	{
+		if (token->cmd[0])
+		{			
+			ft_open_input_file(token->next);
+			ft_redirect_infile();
+			return (0);
+		}
+		else
+		{
+			ft_get_input_file(token);
+			return (1);
+		}
+	}
 	else if (token->type == LESS_LESS)
 		ft_execute_heredoc(token);
 	else if (token->type == GREATER || token->type == GREATER_GREATER)
