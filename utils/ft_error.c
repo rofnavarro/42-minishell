@@ -15,7 +15,9 @@
 void	ft_error(int arg, char *msg)
 {
 	g_data.exit_code = arg;
+	dup2(STDERR_FILENO, STDOUT_FILENO);
 	printf("%s\n", msg);
+	dup2(g_data.stdout_copy, STDOUT_FILENO);
 }
 
 void	ft_exit(void)

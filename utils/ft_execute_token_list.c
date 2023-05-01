@@ -105,7 +105,11 @@ void	ft_execute(t_token *token)
 
 	cmd_path = NULL;
 	if ((!token->cmd[0] && token->type == 6) || ft_token_type_exec(token))
+	{
+		ft_close_pipes(token);
+		ft_check_std_in_out(token);
 		return ;
+	}
 	if (ft_is_executable(token) && !ft_echo_n(token) && (!is_builtin(token->cmd)
 			|| ft_is_export_wo_arg(token)))
 	{
