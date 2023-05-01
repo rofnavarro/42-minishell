@@ -30,8 +30,8 @@ static void	ft_check_cd_path(char *input_path)
 
 	if (chdir(input_path) == -1)
 	{
-		perror(NULL);
-		return ;
+		g_data.exit_code = 1;
+		return (perror(NULL));
 	}
 	buff = NULL;
 	path = getcwd(buff, 0);
@@ -60,8 +60,8 @@ static void	ft_cd_home(void)
 	path = getcwd(buff, 0);
 	if (path == NULL || chdir(home[1]) == -1)
 	{
-		perror(NULL);
-		return ;
+		g_data.exit_code = 1;
+		return (perror(NULL));
 	}
 	ft_export_add_env(path, "PWD=");
 	ft_free_matrix(home);
