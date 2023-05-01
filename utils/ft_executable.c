@@ -41,20 +41,39 @@ int	ft_is_number(char *arg)
 	return (1);
 }
 
+int	too_long_exit_arg(char *str)
+{
+	long long	nmbr;
+	int			n;
+
+	if (ft_strlen(str) > 20)
+		return (0);
+	if (ft_strncmp(str, "-9223372036854775808", 21) == 0)
+		return (1);
+	nmbr = 0;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str)
+	{
+		n = *str - '0';
+		if (nmbr > (9223372036854775807 - n) / 10)
+			return (0);
+		nmbr = nmbr * 10 + n;
+		str++;
+	}
+	return (1);
+}
+
 void	ft_check_exit(t_token *token)
 {
 	if (token->cmd[1] && token->cmd[2])
 	{
-		ft_error(2, "exit: too many arguments");
+		ft_error(1, "exit: too many arguments");
 		return ;
 	}
-	if (token->cmd[1] && !ft_strncmp(token->cmd[1], "-9223372036854775808", 20))
-		g_data.exit_code = 0;
 	else if (token->cmd[1])
 	{
-		if (!ft_is_number(token->cmd[1]) || (!ft_atoi_quotes(token->cmd[1])
-				&& (ft_strncmp(token->cmd[1], "0", 1)
-					|| (ft_strlen(token->cmd[1]) != 1))))
+		if (!ft_is_number(token->cmd[1]) || !too_long_exit_arg(token->cmd[1]))
 			ft_error(2, "exit: numeric argument required");
 		else
 			g_data.exit_code = ft_atoi_quotes(token->cmd[1]) % 256;
