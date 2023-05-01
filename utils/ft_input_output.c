@@ -68,11 +68,10 @@ void	ft_open_input_file(t_token *token)
 	{
 		if (access(token->cmd[0], F_OK) == 0)
 		{
-			g_data.exit_code = 1;
+			g_data.infile = open("/dev/null", O_RDONLY);
 			return (perror(token->cmd[0]));
 		}
 		g_data.infile = open("/dev/null", O_RDONLY);
-		g_data.exit_code = 1;
 		return (perror(token->cmd[0]));
 	}
 }
@@ -87,9 +86,9 @@ void	ft_check_std_in_out(t_token *token)
 {
 	if (token->type == SEMICOLON || token->type == EOC)
 	{
-		if (STDIN_FILENO != 0)
+		if (ttyname(STDIN_FILENO) != ttyname(g_data.stdin_copy))
 			dup2(g_data.stdin_copy, STDIN_FILENO);
-		if (STDOUT_FILENO != 1)
+		if (ttyname(STDOUT_FILENO) != ttyname(g_data.stdout_copy))
 			dup2(g_data.stdin_copy, STDOUT_FILENO);
 	}
 }
