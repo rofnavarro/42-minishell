@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 03:19:20 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/01 16:12:56 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	ft_check_std_in_out(t_token *token)
 {
 	if (token->type == SEMICOLON || token->type == EOC)
 	{
-		if (!isatty(STDIN_FILENO))
+		if (STDIN_FILENO != 0)
 			dup2(g_data.stdin_copy, STDIN_FILENO);
-		if (!isatty(STDOUT_FILENO))
+		if (STDOUT_FILENO != 1)
 			dup2(g_data.stdin_copy, STDOUT_FILENO);
 	}
 }
