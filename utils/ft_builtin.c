@@ -91,7 +91,7 @@ int	is_builtin(char **str)
 		else if (ft_strncmp(str[0], "echo", ft_strlen(str[0])) == 0)
 			ft_echo(str);
 		else if (ft_strncmp(str[0], "pwd", ft_strlen(str[0])) == 0)
-			ft_pwd(str);
+			ft_pwd(str[0]);
 		return (TRUE);
 	}
 	return (FALSE);
