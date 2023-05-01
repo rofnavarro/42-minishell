@@ -26,17 +26,35 @@ int	is_var_assigned(char *str)
 	return (FALSE);
 }
 
-int	ft_is_builtin_parent(char *input)
+
+//tester//
+int ft_is_builtin_parent(char *input)
 {
 	if ((ft_strncmp(input, "export", ft_strlen(input)) == 0 && \
 		ft_strlen(input) == ft_strlen("export")) || \
 		ft_strncmp(input, "unset", ft_strlen(input)) == 0 && \
 		ft_strlen(input) == ft_strlen("unset") || \
 		ft_strncmp(input, "cd", ft_strlen(input)) == 0 && \
-		ft_strlen(input) == ft_strlen("cd"))
+		ft_strlen(input) == ft_strlen("cd") || \
+		ft_strncmp(input, "echo", ft_strlen(input)) == 0 && \
+		ft_strlen(input) == ft_strlen("echo") || \
+		ft_strncmp(input, "pwd", ft_strlen(input)) == 0 && \
+		ft_strlen(input) == ft_strlen("pwd"))
 		return (TRUE);
-	return (FALSE);
+	return (FALSE);	
 }
+
+// int	ft_is_builtin_parent(char *input)
+// {
+// 	if ((ft_strncmp(input, "export", ft_strlen(input)) == 0 && \
+// 		ft_strlen(input) == ft_strlen("export")) || \
+// 		ft_strncmp(input, "unset", ft_strlen(input)) == 0 && \
+// 		ft_strlen(input) == ft_strlen("unset") || \
+// 		ft_strncmp(input, "cd", ft_strlen(input)) == 0 && \
+// 		ft_strlen(input) == ft_strlen("cd"))
+// 		return (TRUE);
+// 	return (FALSE);
+// }
 
 int	ft_is_builtin_child(char *input)
 {
@@ -70,7 +88,40 @@ int	is_builtin(char **str)
 		}
 		else if (ft_strncmp(str[0], "cd", ft_strlen(str[0])) == 0)
 			ft_cd(str);
+		else if (ft_strncmp(str[0], "echo", ft_strlen(str[0])) == 0)
+			ft_echo(str);
+		else if (ft_strncmp(str[0], "pwd", ft_strlen(str[0])) == 0)
+			ft_pwd(str);
 		return (TRUE);
 	}
 	return (FALSE);
 }
+
+
+// int	is_builtin(char **str)
+// {
+// 	if (ft_is_builtin_parent(str[0]) == TRUE)
+// 	{
+// 		if (ft_strncmp(str[0], "export", ft_strlen(str[0])) == 0)
+// 		{
+// 			if (str[1] && is_var_assigned(str[1]) == TRUE)
+// 			{
+// 				ft_add_var_env(str);
+// 				get_export(g_data.env);
+// 			}
+// 			else if (str[1] == NULL || is_var_assigned(str[1]) == FALSE)
+// 				return (TRUE);
+// 		}
+// 		else if (ft_strncmp(str[0], "unset", ft_strlen(str[0])) == 0)
+// 		{
+// 			if (!str[1])
+// 				return (TRUE);
+// 			ft_remove_var_env(str);
+// 			get_export(g_data.env);
+// 		}
+// 		else if (ft_strncmp(str[0], "cd", ft_strlen(str[0])) == 0)
+// 			ft_cd(str);
+// 		return (TRUE);
+// 	}
+// 	return (FALSE);
+// }

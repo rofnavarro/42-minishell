@@ -129,5 +129,5 @@ void	ft_execute(t_token *token)
 			ft_fork(cmd_path, token);
 	}
 	ft_close_pipes(token);
-	ft_check_std_in_out(token);
+	//ft_check_std_in_out(token);
 }
