@@ -17,13 +17,13 @@ void	ft_execute_heredoc(t_token *token)
 	int	pid;
 
 	if (pipe(g_data.heredoc) == -1)
-		return (ft_error_perror(1, ""));
+		return (ft_error_perror(1));
 	signal(SIGQUIT, SIG_IGN);
 	g_data.sa_parent_heredoc.sa_handler = &handle_sig_parent_heredoc;
 	sigaction(SIGINT, &g_data.sa_parent_heredoc, NULL);
 	pid = fork();
 	if (pid < 0)
-		return (ft_error_perror(1, ""));
+		return (ft_error_perror(1));
 	if (pid == 0)
 		ft_heredoc_child(token);
 	else

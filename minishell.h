@@ -141,7 +141,7 @@ int			ft_is_builtin_child(char *input);
 void		ft_error(int arg, char *msg);
 void		ft_exit(void);
 void		ft_close_fds(void);
-void		ft_error_perror(int arg, char *msg);
+void		ft_error_perror(int arg);
 void		ft_free_pid_fd(void);
 
 //  utils/ft_free.c
