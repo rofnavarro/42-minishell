@@ -31,12 +31,12 @@ void	ft_child_process(t_token *token, char *cmd_path)
 	else if (cmd_path)
 	{
 		if (execve(cmd_path, token->cmd, g_data.env) == -1)
-			return (ft_error_perror(1, ""));
+			return (ft_error_perror(1));
 	}
 	if (!cmd_path)
 	{
 		if (execve(token->cmd[0], token->cmd, g_data.env) == -1)
-			return (ft_error_perror(1, ""));
+			return (ft_error_perror(1));
 	}
 }
 
@@ -93,7 +93,7 @@ void	ft_fork(char *cmd_path, t_token *token)
 	signal(SIGINT, SIG_IGN);
 	g_data.pid[g_data.count_fork] = fork();
 	if (g_data.pid[g_data.count_fork] < 0)
-		return (ft_error_perror(1, ""));
+		return (ft_error_perror(1));
 	g_data.count_fork++;
 	if (!g_data.pid[g_data.count_fork - 1])
 	{

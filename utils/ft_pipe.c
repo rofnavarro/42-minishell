@@ -34,7 +34,7 @@ void	redirect_from_pipe(int type)
 void	ft_open_pipe(void)
 {
 	if (pipe(g_data.fd[g_data.count_pipes]) == -1)
-		return (ft_error_perror(1, ""));
+		return (ft_error_perror(1));
 	g_data.count_pipes++;
 }
 

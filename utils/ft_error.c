@@ -35,10 +35,10 @@ void	ft_close_fds(void)
 	close(STDOUT_FILENO);
 }
 
-void	ft_error_perror(int arg, char *msg)
+void	ft_error_perror(int arg)
 {
 	perror(NULL);
-	ft_error(arg, msg);
+	g_data.exit_code = arg;
 }
 
 void	ft_free_pid_fd(void)
