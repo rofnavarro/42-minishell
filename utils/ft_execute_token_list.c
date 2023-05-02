@@ -36,6 +36,25 @@ void	ft_execute_token_list(void)
 	ft_free_pid_fd();
 }
 
+void	handle_redirections(void)
+{
+	t_token	*aux;
+
+	aux = g_data.token_start;
+	while (aux)
+	{
+		if(aux->type == LESS)
+		{
+			ft_open_input_file(aux->next);
+			ft_redirect_infile();
+		}
+		else if (aux->type == GREATER
+			|| aux->type == GREATER_GREATER)
+			ft_open_output_file(aux);
+		aux = aux->next;
+	}
+}
+
 void	ft_execute_start(void)
 {
 	g_data.count_pipes = 0;
@@ -47,6 +66,7 @@ void	ft_execute_start(void)
 		ft_free_pid_fd();
 		return (ft_exit());
 	}
+	handle_redirections();
 }
 
 int	ft_token_type_exec(t_token *token)
@@ -67,11 +87,7 @@ int	ft_token_type_exec(t_token *token)
 	if (token->type == LESS)
 	{
 		if (token->cmd[0])
-		{			
-			ft_open_input_file(token->next);
-			ft_redirect_infile();
 			return (0);
-		}
 		else
 		{
 			ft_get_input_file(token);
@@ -80,8 +96,6 @@ int	ft_token_type_exec(t_token *token)
 	}
 	else if (token->type == LESS_LESS)
 		ft_execute_heredoc(token);
-	else if (token->type == GREATER || token->type == GREATER_GREATER)
-		ft_open_output_file(token);
 	else if (token->type == PIPE)
 		ft_open_pipe();
 	if (token->cmd[0] == NULL && (token->type != GREATER
