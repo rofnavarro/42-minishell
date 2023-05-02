@@ -43,6 +43,8 @@ void	ft_loop_start(void)
 	ft_signal_setup();
 	g_data.token_list_size = 0;
 	g_data.user = find_var_value(g_data.env, "USER");
+	if(!g_data.user)
+		g_data.user = ft_strdup("unkwown");
 	g_data.rl_text = ft_strjoin(g_data.user, ":$ ");
 	g_data.cmd = readline(g_data.rl_text);
 	free(g_data.rl_text);
