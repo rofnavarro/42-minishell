@@ -81,3 +81,12 @@ char	*ft_switch_inside_quotation(char *str)
 	}
 	return (str);
 }
+
+void	ft_handle_inclosed_quotes(void)
+{
+	char	*read;
+
+	read = readline("> ");
+	g_data.cmd = ft_strjoin_free(g_data.cmd, read);
+	free(read);
+}
