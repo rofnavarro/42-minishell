@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 02:28:31 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/03 17:02:07 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	handle_redirections(void)
 		{
 			if (aux->next->cmd[1])
 				aux->cmd = ft_check_args_after_redirection(aux);
-			if (!ft_open_input_file(aux->next));
+			if (!ft_open_input_file(aux->next))
 				ft_redirect_infile();
 		}
 		else if (aux->type == GREATER
