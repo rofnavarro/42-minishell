@@ -45,8 +45,10 @@ void	handle_redirections(void)
 	{
 		if(aux->type == LESS)
 		{
-			ft_open_input_file(aux->next);
-			ft_redirect_infile();
+			if (aux->next->cmd[1])
+				aux->cmd = ft_check_args_after_redirection(aux);
+			if (!ft_open_input_file(aux->next));
+				ft_redirect_infile();
 		}
 		else if (aux->type == GREATER
 			|| aux->type == GREATER_GREATER)
