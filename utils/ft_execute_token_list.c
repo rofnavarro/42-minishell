@@ -19,6 +19,8 @@ void	ft_execute_token_list(void)
 
 	i = 0;
 	ft_execute_start();
+	if (handle_redirections())
+		return ;
 	while (i < g_data.token_list_size - 1)
 		g_data.fd[i++] = malloc(sizeof(int) * 2);
 	if (ft_check_sintax())
@@ -36,7 +38,7 @@ void	ft_execute_token_list(void)
 	ft_free_pid_fd();
 }
 
-void	handle_redirections(void)
+int	handle_redirections(void)
 {
 	t_token	*aux;
 
@@ -47,12 +49,25 @@ void	handle_redirections(void)
 		{
 			if (aux->next->cmd[1])
 				aux->cmd = ft_check_args_after_redirection(aux);
-			if (!ft_open_input_file(aux->next))
-				ft_redirect_infile();
+			if (ft_open_input_file(aux->next))
+			{
+				g_data.exit_code = 1;
+				return (1);
+			}
+			ft_redirect_infile();
+			return (0);
+			// if (!ft_open_input_file(aux->next))
+			// 	ft_redirect_infile();
 		}
 		else if (aux->type == GREATER
 			|| aux->type == GREATER_GREATER)
-			ft_open_output_file(aux);
+		{
+			if (ft_open_output_file(aux))
+			{
+				g_data.exit_code = 1;
+				return (1);	
+			}
+		}
 		aux = aux->next;
 	}
 }
@@ -68,7 +83,6 @@ void	ft_execute_start(void)
 		ft_free_pid_fd();
 		return (ft_exit());
 	}
-	handle_redirections();
 }
 
 int	ft_token_type_exec(t_token *token)

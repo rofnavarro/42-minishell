@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	ft_open_output_file(t_token *token)
+int	ft_open_output_file(t_token *token)
 {
 	if (token->type == GREATER)
 		g_data.outfile = open(token->next->cmd[0],
@@ -21,9 +21,13 @@ void	ft_open_output_file(t_token *token)
 		g_data.outfile = open(token->next->cmd[0],
 				O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (g_data.outfile == -1)
-		return (perror(NULL));
+	{
+		perror(NULL);
+		return (1);
+	}
 	dup2(g_data.outfile, STDOUT_FILENO);
 	close(g_data.outfile);
+	return (0);
 }
 
 char	**ft_new_cmd(t_token *token)

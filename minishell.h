@@ -196,12 +196,12 @@ void		ft_exec_child_builtin(t_token *token, char *cmd_path);
 void		ft_free_child_process(void);
 
 //	utils/ft_input_output.c
-void		ft_open_output_file(t_token *token);
+int			ft_open_output_file(t_token *token);
 int			ft_open_input_file(t_token *token);
 void		ft_check_std_in_out(t_token *token);
 void		ft_redirect_infile(void);
 void		ft_get_input_file(t_token *token);
-void		handle_redirections(void);
+int			handle_redirections(void);
 char		**ft_check_args_after_redirection(t_token *token);
 
 //	utils/ft_pipe.c
