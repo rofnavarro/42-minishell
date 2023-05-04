@@ -52,12 +52,10 @@ int	handle_redirections(void)
 			if (ft_open_input_file(aux->next))
 			{
 				g_data.exit_code = 1;
+				dup2(g_data.stdin_copy, STDIN_FILENO);
 				return (1);
 			}
 			ft_redirect_infile();
-			return (0);
-			// if (!ft_open_input_file(aux->next))
-			// 	ft_redirect_infile();
 		}
 		else if (aux->type == GREATER
 			|| aux->type == GREATER_GREATER)
@@ -65,11 +63,13 @@ int	handle_redirections(void)
 			if (ft_open_output_file(aux))
 			{
 				g_data.exit_code = 1;
+				dup2(g_data.stdout_copy, STDOUT_FILENO);
 				return (1);	
 			}
 		}
 		aux = aux->next;
 	}
+	return (0);
 }
 
 void	ft_execute_start(void)
