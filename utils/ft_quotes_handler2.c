@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:35:38 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/04 21:13:37 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:18:25 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void	check_if_var(char *str, int *n, char *tmp, int *m)
 			tmp[(*m)++] = tmp_value[i++];
 	}
 	else
-		tmp[(0)] = '\0';
+		tmp[(*m)] = '\0';
 	free(tmp_value);
 }
