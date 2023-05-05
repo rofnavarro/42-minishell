@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 02:13:46 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:55:19 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_wait_children(void)
 			else if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
 				wstatus = WEXITSTATUS(wstatus);
 			if (pid_waited == g_data.pid[g_data.count_fork - 1]
-				&& g_data.exit_code  != 130 && g_data.exit_code != 131)
+				&& g_data.exit_code != 130 && g_data.exit_code != 131)
 				g_data.exit_code = wstatus;
 		}
 	}

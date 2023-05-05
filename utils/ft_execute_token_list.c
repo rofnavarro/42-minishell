@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/03 17:02:07 by coder            ###   ########.fr       */
+/*   Updated: 2023/05/04 20:49:20 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	handle_redirections(void)
 	aux = g_data.token_start;
 	while (aux)
 	{
-		if(aux->type == LESS)
+		if (aux->type == LESS)
 		{
 			if (aux->next->cmd[1])
 				aux->cmd = ft_check_args_after_redirection(aux);
@@ -64,7 +64,7 @@ int	handle_redirections(void)
 			{
 				g_data.exit_code = 1;
 				dup2(g_data.stdout_copy, STDOUT_FILENO);
-				return (1);	
+				return (1);
 			}
 		}
 		aux = aux->next;

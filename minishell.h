@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/01 02:23:21 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:59:09 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,13 +217,18 @@ void		ft_quotes_handler(void);
 
 //  utils/ft_quote_handler2.c
 void		ft_check_empty_token(t_token *token, int *i);
-void		check_if_var(char *str, int *n, char *tmp, int *m, int type_quotes);
-int			ft_var_handler(char *str, int *n, char **tmp, int *m, int type_quotes);
+void		check_if_var(char *str, int *n, char *tmp, int *m);
 void		ft_single_quotes(int *n, int *m, char *cmd, char **tmp);
 
 //  utils/ft_quote_handler3.c
 void		ft_exit_code_handler(int *n, char *tmp, int *m);
 int			ft_strange_chars(int c);
+
+//  utils/ft_quote_handler4.c
+void		ft_double_quotes(int *n, int *m, char *cmd, char **tmp);
+void		ft_handle_dolar_on_double(char *str, int *n, char **tmp, int *m);
+void		ft_no_quotes(int *n, int *m, char *cmd, char **tmp);
+void		ft_handle_dolar_no_quotes(char *str, int *n, char **tmp, int *m);
 
 //	utils/ft_fork.c
 void		ft_child_process(t_token *token, char *cmd_path);

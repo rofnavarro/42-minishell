@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:43:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 06:16:27 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:54:36 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_loop_start(void)
 	ft_signal_setup();
 	g_data.token_list_size = 0;
 	g_data.user = find_var_value(g_data.env, "USER");
-	if(!g_data.user)
+	if (!g_data.user)
 		g_data.user = ft_strdup("unkwown");
 	g_data.rl_text = ft_strjoin(g_data.user, ":$ ");
 	g_data.cmd = readline(g_data.rl_text);

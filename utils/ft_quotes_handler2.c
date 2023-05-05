@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:35:38 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 20:17:31 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:01:59 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_check_empty_token(t_token *token, int *i)
 	}
 }
 
-void	check_if_var(char *str, int *n, char *tmp, int *m, int quote_type)
+void	check_if_var(char *str, int *n, char *tmp, int *m)
 {
 	char	*tmp_var;
 	char	*tmp_value;
@@ -55,7 +55,7 @@ void	check_if_var(char *str, int *n, char *tmp, int *m, int quote_type)
 	i = 0;
 	while (str[(*n)] != '\"')
 	{
-		if (str[(*n)] == '\'' || str[(*n)] > 96 || str[(*n)] == ' ')
+		if (ft_break_chars(str[(*n)]) == TRUE)
 			break ;
 		tmp_var[i++] = str[(*n)++];
 	}
@@ -68,40 +68,14 @@ void	check_if_var(char *str, int *n, char *tmp, int *m, int quote_type)
 		while (tmp_value[i] != '\0')
 			tmp[(*m)++] = tmp_value[i++];
 	}
+	else
+		tmp[(*m)] = '\0';
 	free(tmp_value);
 }
 
-int	ft_var_handler(char *str, int *n, char **tmp, int *m, int quote_type)
+static int	ft_break_chars(char c)
 {
-	int		k;
-	char	*tmp2;
-	char	*tmp_var;
-
-	k = 0;
-	tmp_var = (char *)malloc(sizeof(char) * (ft_strlen(str) - (*n) + 1));
-	tmp_var[ft_strlen(str) - (*n)] = '\0';
-	while (str[++(*n)] != '\0')
-	{
-		if (str[(*n)] == '}')
-			break ;
-		if (str[(*n)] == '\"' && quote_type == 2)
-			break ;
-		tmp_var[k++] = str[(*n)];
-	}
-	tmp_var[k] = '\0';
-	tmp2 = find_var_value(g_data.env, tmp_var);
-	free(tmp_var);
-	if (tmp2 == NULL)
-	{
-		*m = 1;
-		free(*tmp);
-		free(tmp2);
-		*tmp = ft_strdup("\n");
+	if (c == '\'' || c > 96 || c == ' ' || c == '}')
 		return (TRUE);
-	}
-	*tmp[*m] = '\0';
-	ft_strlcat(*tmp, tmp2, (*m) + ft_strlen(tmp2) + 1);
-	free(tmp2);
-	*m = ft_strlen(*tmp);
 	return (FALSE);
 }
