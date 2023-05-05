@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:49:11 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/04 21:18:46 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/04 23:26:56 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_handle_dolar_no_quotes(char *str, int *n, char **tmp, int *m)
 	{
 		if (str[(*n) + 1] == '{')
 		{
+		printf("cmd = %s, i = %d\n", str, (*n));
 			(*n)++;
 			check_if_var(str, n, *tmp, m);
 			if (str[(*n)] == '}')
