@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:02:23 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/30 03:56:56 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:50:25 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,13 @@ char	*ft_switch_inside_quotation(char *str)
 		i++;
 	}
 	return (str);
+}
+
+void	ft_handle_inclosed_quotes(void)
+{
+	char	*read;
+
+	read = readline("> ");
+	g_data.cmd = ft_strjoin_free(g_data.cmd, read);
+	free(read);
 }

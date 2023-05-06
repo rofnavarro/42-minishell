@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:17:06 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 02:13:46 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:55:19 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	ft_child_process(t_token *token, char *cmd_path)
 	else if (cmd_path)
 	{
 		if (execve(cmd_path, token->cmd, g_data.env) == -1)
-			return (ft_error_perror(1));
+			return (perror(NULL));
 	}
 	if (!cmd_path)
 	{
 		if (execve(token->cmd[0], token->cmd, g_data.env) == -1)
-			return (ft_error_perror(1));
+			return (perror(NULL));
 	}
 }
 
@@ -72,18 +72,23 @@ void	ft_wait_children(void)
 	int	i;
 
 	wstatus = 0;
+	g_data.exit_code = 0;
 	if (g_data.count_fork)
 	{
 		i = 0;
 		while (i++ < g_data.count_fork)
 		{
 			pid_waited = waitpid(-1, &wstatus, 0);
-			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
-				wstatus = WEXITSTATUS(wstatus);
-			if (pid_waited == g_data.pid[g_data.count_fork - 1])
-				g_data.exit_code = wstatus;
 			if (WIFSIGNALED(wstatus))
+			{
+				g_data.exit_code = WTERMSIG(wstatus);
 				ft_signals_exit_code(wstatus);
+			}
+			else if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
+				wstatus = WEXITSTATUS(wstatus);
+			if (pid_waited == g_data.pid[g_data.count_fork - 1]
+				&& g_data.exit_code != 130 && g_data.exit_code != 131)
+				g_data.exit_code = wstatus;
 		}
 	}
 }

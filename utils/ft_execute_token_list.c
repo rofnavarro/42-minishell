@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 02:28:31 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:49:20 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_execute_token_list(void)
 
 	i = 0;
 	ft_execute_start();
+	if (handle_redirections())
+		return ;
 	while (i < g_data.token_list_size - 1)
 		g_data.fd[i++] = malloc(sizeof(int) * 2);
 	if (ft_check_sintax())
@@ -36,23 +38,38 @@ void	ft_execute_token_list(void)
 	ft_free_pid_fd();
 }
 
-void	handle_redirections(void)
+int	handle_redirections(void)
 {
 	t_token	*aux;
 
 	aux = g_data.token_start;
 	while (aux)
 	{
-		if(aux->type == LESS)
+		if (aux->type == LESS)
 		{
-			ft_open_input_file(aux->next);
+			if (aux->next->cmd[1])
+				aux->cmd = ft_check_args_after_redirection(aux);
+			if (ft_open_input_file(aux->next))
+			{
+				g_data.exit_code = 1;
+				dup2(g_data.stdin_copy, STDIN_FILENO);
+				return (1);
+			}
 			ft_redirect_infile();
 		}
 		else if (aux->type == GREATER
 			|| aux->type == GREATER_GREATER)
-			ft_open_output_file(aux);
+		{
+			if (ft_open_output_file(aux))
+			{
+				g_data.exit_code = 1;
+				dup2(g_data.stdout_copy, STDOUT_FILENO);
+				return (1);
+			}
+		}
 		aux = aux->next;
 	}
+	return (0);
 }
 
 void	ft_execute_start(void)
@@ -66,7 +83,6 @@ void	ft_execute_start(void)
 		ft_free_pid_fd();
 		return (ft_exit());
 	}
-	handle_redirections();
 }
 
 int	ft_token_type_exec(t_token *token)

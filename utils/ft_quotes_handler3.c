@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:50:00 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 20:18:47 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/04 20:51:30 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_exit_code_handler(int *n, char *tmp, int *m)
 
 int	ft_strange_chars(int c)
 {
-	if (c == '$' || c ==  '`' ||  c == '\\' || c == '!')
+	if (c == '$' || c == '\'' || c == '\\' || c == '!' || c == '\"')
 		return (0);
 	else
 		return (c);
