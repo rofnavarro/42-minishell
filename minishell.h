@@ -176,7 +176,7 @@ char		**ft_token_quotes(char **cmd);
 //	utils/ft_check_quotes.c
 int			ft_check_quotes(char *arg);
 char		*ft_switch_inside_quotation(char *str);
-void		ft_handle_inclosed_quotes(void);
+void		ft_handle_unclosed_quotes(void);
 
 //	utils/ft_execute_token_list.c
 void		ft_execute_token_list(void);
