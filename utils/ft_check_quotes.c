@@ -82,7 +82,7 @@ char	*ft_switch_inside_quotation(char *str)
 	return (str);
 }
 
-void	ft_handle_inclosed_quotes(void)
+void	ft_handle_unclosed_quotes(void)
 {
 	char	*read;
 

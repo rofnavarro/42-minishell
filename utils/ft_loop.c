@@ -20,7 +20,7 @@ void	ft_loop(void)
 		if (ft_check_eof_cmd())
 			break ;
 		while (ft_check_quotes(g_data.cmd))
-			ft_handle_inclosed_quotes();
+			ft_handle_unclosed_quotes();
 		add_history(g_data.cmd);
 		g_data.cmd = ft_switch_inside_quotation(g_data.cmd);
 		g_data.cmd_token = ft_strtrim(ft_strtok(g_data.cmd, "|<<>>;"), " ");

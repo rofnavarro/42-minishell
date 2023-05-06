@@ -72,10 +72,10 @@ void	ft_wait_children(void)
 	int	i;
 
 	wstatus = 0;
-	g_data.exit_code = 0;
 	if (g_data.count_fork)
 	{
 		i = 0;
+		g_data.exit_code = 0;
 		while (i++ < g_data.count_fork)
 		{
 			pid_waited = waitpid(-1, &wstatus, 0);
