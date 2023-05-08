@@ -61,8 +61,6 @@ void	ft_get_input_file(t_token *token)
 {
 	token->next->cmd = ft_new_cmd(token);
 	token->type = 9;
-	//ft_open_input_file(token);
-	//ft_redirect_infile();
 }
 
 int	ft_open_input_file(t_token *token)

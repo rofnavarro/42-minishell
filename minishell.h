@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/04 21:18:55 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:22:44 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,18 +122,29 @@ void		ft_print_env(char *cmd);
 char		*find_var_value(char **env, char *var);
 
 //  utils/ft_builtin_export.c
-void		ft_sort(char **export);
-void		ft_add_prefix(char **export);
-void		ft_print_export(void);
-void		get_export(char **env);
+void		ft_export(char **cmd);
+void		exportation(char *cmd);
 
 //  utils/ft_builtin_export2.c
-void		ft_export(char **token);
+void		ft_print_export(void);
+void		ft_add_export(char *variable);
+int			var_exist_export(char *var);
+void		replace_var_export(char *var);
+
+
+//  utils/ft_builtin_export3.c
+void		ft_sort(char **export);
+void		ft_add_prefix(char **export);
+void		ft_handle_export_quotes(char **export, int j);
+void		ft_put_value_quotes_matrix(char **export);
+void		get_export(char **env);
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);
 
 //  utils/ft_builtin.c
+int			is_var_assigned(char *str);
+int			ft_is_builtin_parent(char *input);
 int			is_builtin(char **str);
 int			ft_is_builtin_child(char *input);
 
@@ -183,6 +194,7 @@ void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
 void		ft_execute_start(void);
 int			ft_is_export_wo_arg(t_token *token);
+int			ft_next_pipe(t_token *token);
 
 //	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);
@@ -201,7 +213,7 @@ int			ft_open_input_file(t_token *token);
 void		ft_check_std_in_out(t_token *token);
 void		ft_redirect_infile(void);
 void		ft_get_input_file(t_token *token);
-int			handle_redirections(void);
+int			handle_redirections(t_token *token);
 char		**ft_check_args_after_redirection(t_token *token);
 
 //	utils/ft_pipe.c

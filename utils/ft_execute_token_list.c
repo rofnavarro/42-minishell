@@ -19,7 +19,7 @@ void	ft_execute_token_list(void)
 
 	i = 0;
 	ft_execute_start();
-	if (handle_redirections())
+	if (handle_redirections(g_data.token_start))
 		return ;
 	while (i < g_data.token_list_size - 1)
 		g_data.fd[i++] = malloc(sizeof(int) * 2);
@@ -38,11 +38,11 @@ void	ft_execute_token_list(void)
 	ft_free_pid_fd();
 }
 
-int	handle_redirections(void)
+int	handle_redirections(t_token *token)
 {
 	t_token	*aux;
 
-	aux = g_data.token_start;
+	aux = token;
 	while (aux)
 	{
 		if (aux->type == LESS)
@@ -67,6 +67,8 @@ int	handle_redirections(void)
 				return (1);
 			}
 		}
+		else if (aux->type == PIPE)
+			break ;
 		aux = aux->next;
 	}
 	return (0);
@@ -85,8 +87,31 @@ void	ft_execute_start(void)
 	}
 }
 
+int	ft_next_pipe(t_token *token)
+{
+	t_token	*aux;
+
+	if(token->next)
+		aux = token->next;
+	else
+		return (0);
+	while (aux)
+	{
+		if(aux->type == LESS || aux->type == LESS_LESS
+			|| aux->type == GREATER || aux->type == LESS)
+				aux = aux->next;
+		else if (aux->type == PIPE)
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
 int	ft_token_type_exec(t_token *token)
 {
+	if (ft_next_pipe(token))
+		ft_open_pipe();
 	if ((token->type == GREATER || token->type == GREATER_GREATER)
 		&& token->cmd[0] == NULL)
 	{
@@ -112,7 +137,7 @@ int	ft_token_type_exec(t_token *token)
 	}
 	else if (token->type == LESS_LESS)
 		ft_execute_heredoc(token);
-	else if (token->type == PIPE)
+	else if ((token->type == PIPE && (!token->prev || token->prev->type != LESS)) || ft_next_pipe(token))
 		ft_open_pipe();
 	if (token->cmd[0] == NULL && (token->type != GREATER
 			|| token->type != GREATER_GREATER))
@@ -132,7 +157,6 @@ int	ft_is_export_wo_arg(t_token *token)
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
-
 	cmd_path = NULL;
 	if ((!token->cmd[0] && token->type == 6) || ft_token_type_exec(token))
 	{

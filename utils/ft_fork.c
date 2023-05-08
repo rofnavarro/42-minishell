@@ -22,10 +22,13 @@ void	ft_child_process(t_token *token, char *cmd_path)
 		dup2(g_data.infile, STDIN_FILENO);
 		close(g_data.infile);
 	}
-	if (token->type == PIPE)
+	if (token->type == PIPE || ft_next_pipe(token))
 		redirect_to_pipe();
 	if (token->prev && token->prev->type == PIPE)
+	{
 		redirect_from_pipe(token->type);
+		handle_redirections(token);
+	}
 	if (ft_is_builtin_child(token->cmd[0]) || ft_is_export_wo_arg(token))
 		ft_exec_child_builtin(token, cmd_path);
 	else if (cmd_path)
