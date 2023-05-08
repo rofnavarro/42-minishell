@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 17:28:30 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/08 16:08:10 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,13 @@ int	is_builtin(char **str)
 {
 	if (ft_is_builtin_parent(str[0]) == TRUE)
 	{
-		if (ft_strncmp(str[0], "export", ft_strlen(str[0])) == 0)
-		{
-			if (str[1] && is_var_assigned(str[1]) == TRUE)
-			{
-				ft_add_var_env(str);
-				get_export(g_data.env);
-			}
-			else if (str[1] == NULL || is_var_assigned(str[1]) == FALSE)
-				return (TRUE);
-		}
+		if (ft_strncmp(str[0], "export", ft_strlen(str[0])) == 0 && str[1])
+			ft_export(str);
 		else if (ft_strncmp(str[0], "unset", ft_strlen(str[0])) == 0)
 		{
 			if (!str[1])
 				return (TRUE);
 			ft_remove_var_env(str);
-			get_export(g_data.env);
 		}
 		else if (ft_strncmp(str[0], "cd", ft_strlen(str[0])) == 0)
 			ft_cd(str);
