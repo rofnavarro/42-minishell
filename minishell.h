@@ -183,6 +183,7 @@ void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
 void		ft_execute_start(void);
 int			ft_is_export_wo_arg(t_token *token);
+int			ft_next_pipe(t_token *token);
 
 //	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);
@@ -201,7 +202,7 @@ int			ft_open_input_file(t_token *token);
 void		ft_check_std_in_out(t_token *token);
 void		ft_redirect_infile(void);
 void		ft_get_input_file(t_token *token);
-int			handle_redirections(void);
+int			handle_redirections(t_token *token);
 char		**ft_check_args_after_redirection(t_token *token);
 
 //	utils/ft_pipe.c
