@@ -22,7 +22,7 @@ int	ft_open_output_file(t_token *token)
 				O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (g_data.outfile == -1)
 	{
-		perror(NULL);
+		perror(token->cmd[0]);
 		return (1);
 	}
 	dup2(g_data.outfile, STDOUT_FILENO);
@@ -137,10 +137,4 @@ char	**ft_check_args_after_redirection(t_token *token)
 	}
 	new_cmd[j] = NULL;
 	return (new_cmd);
-	//guarda cmd do token atual em uma variavel temporaria -> conta comandos
-	// da free no token->cmd
-	// aloca nova token->cmd de comando com espaco igual a token->next->cmd size -1 mais token->cmd size
-	//copia variavel temporaria
-	//copia token->next
-	//free variavel temporaria
 }

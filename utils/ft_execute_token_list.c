@@ -19,16 +19,26 @@ void	ft_execute_token_list(void)
 
 	i = 0;
 	ft_execute_start();
-	if (handle_redirections(g_data.token_start))
-		return ;
-	while (i < g_data.token_list_size - 1)
-		g_data.fd[i++] = malloc(sizeof(int) * 2);
 	if (ft_check_sintax())
 	{
 		ft_free_pid_fd();
 		return ;
 	}
-	aux = g_data.token_start;
+	while (i < g_data.token_list_size - 1)
+		g_data.fd[i++] = malloc(sizeof(int) * 2);
+	if (handle_redirections(g_data.token_start) == 2)
+	{
+		aux = ft_next_pipe(g_data.token_start);
+		if (!aux)
+		{
+			ft_free_pid_fd();
+			return ;
+		}
+		ft_open_pipe();
+		//redirect_from_pipe(6);
+	}
+	else
+		aux = g_data.token_start;
 	while (aux && !g_data.aux_sig)
 	{
 		ft_execute(aux);
@@ -52,14 +62,20 @@ int	handle_redirections(t_token *token)
 			if (ft_open_input_file(aux->next))
 			{
 				g_data.exit_code = 1;
-				dup2(g_data.stdin_copy, STDIN_FILENO);
+				if (ft_strncmp("echo", token->cmd[0], 4) == 0 && ft_strlen(token->cmd[0]) == 4)
+				{
+					dup2(g_data.stdin_copy, STDIN_FILENO);
+					return (2);
+				}
+				ft_redirect_infile();
 				return (1);
 			}
 			ft_redirect_infile();
 		}
-		else if (aux->type == GREATER
-			|| aux->type == GREATER_GREATER)
+		else if (aux->type == GREATER || aux->type == GREATER_GREATER)
 		{
+			if (aux->next->cmd[1])
+				aux->cmd = ft_check_args_after_redirection(aux);
 			if (ft_open_output_file(aux))
 			{
 				g_data.exit_code = 1;
@@ -87,25 +103,25 @@ void	ft_execute_start(void)
 	}
 }
 
-int	ft_next_pipe(t_token *token)
+t_token *ft_next_pipe(t_token *token)
 {
 	t_token	*aux;
 
 	if(token->next)
 		aux = token->next;
 	else
-		return (0);
+		return (NULL);
 	while (aux)
 	{
 		if(aux->type == LESS || aux->type == LESS_LESS
 			|| aux->type == GREATER || aux->type == LESS)
 				aux = aux->next;
 		else if (aux->type == PIPE)
-			return (1);
+			return (aux->next);
 		else
-			return (0);
+			return (NULL);
 	}
-	return (0);
+	return (NULL);
 }
 
 int	ft_token_type_exec(t_token *token)
@@ -157,6 +173,7 @@ int	ft_is_export_wo_arg(t_token *token)
 void	ft_execute(t_token *token)
 {
 	char	*cmd_path;
+
 	cmd_path = NULL;
 	if ((!token->cmd[0] && token->type == 6) || ft_token_type_exec(token))
 	{
