@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:10:56 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/09 16:38:49 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:41:54 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	ft_remove_var_export(char *var)
 	j = 0;
 	while (g_data.export[++i + j])
 	{
-		if (ft_strncmp(new_var, g_data.export[i + j], ft_strlen(new_var)) == 0 && \
-			(g_data.export[i + j][ft_strlen(new_var)] == '=' || \
-			g_data.export[i + j][ft_strlen(new_var)] == '\0'))
+		if (ft_strncmp(new_var, g_data.export[i + j], ft_strlen(new_var)) == 0
+			&& (g_data.export[i + j][ft_strlen(new_var)] == '='
+			|| g_data.export[i + j][ft_strlen(new_var)] == '\0'))
 			j = 1;
 		if (g_data.export[i + j] == NULL)
 			break ;
