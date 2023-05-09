@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:14:59 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/08 16:08:10 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:21:58 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	is_builtin(char **str)
 		{
 			if (!str[1])
 				return (TRUE);
-			ft_remove_var_env(str);
+			ft_unset_handler(str);
 		}
 		else if (ft_strncmp(str[0], "cd", ft_strlen(str[0])) == 0)
 			ft_cd(str);

@@ -6,7 +6,7 @@
 #    By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 13:12:03 by rferrero          #+#    #+#              #
-#    Updated: 2023/05/08 17:15:34 by rferrero         ###   ########.fr        #
+#    Updated: 2023/05/09 16:22:30 by rferrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC							=			minishell.c \
 															ft_builtin_export.c \
 															ft_builtin_export2.c \
 															ft_builtin_export3.c \
+															ft_builtin_unset.c \
 															ft_builtin_pwd.c \
 															ft_builtin.c \
 															ft_check_quotes.c \

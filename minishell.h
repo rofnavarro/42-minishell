@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/08 17:22:44 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:23:57 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int			ft_echo_n(t_token *token);
 //  utils/ft_builtin_env.c
 int			var_exist(char *variable);
 void		ft_add_var_env(char **new_variable);
-void		ft_remove_var_env(char **new_variable);
+void		ft_remove_var_env(char *new_variable);
 
 //  utils/ft_builtin_env2.c
 int			ft_env_size(char **env);
@@ -124,6 +124,7 @@ char		*find_var_value(char **env, char *var);
 //  utils/ft_builtin_export.c
 void		ft_export(char **cmd);
 void		exportation(char *cmd);
+void		ft_remove_var_export(char *var);
 
 //  utils/ft_builtin_export2.c
 void		ft_print_export(void);
@@ -141,6 +142,9 @@ void		get_export(char **env);
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);
+
+//  utils/ft_builtin_unset.c
+void		ft_unset_handler(char **str);
 
 //  utils/ft_builtin.c
 int			is_var_assigned(char *str);

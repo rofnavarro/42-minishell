@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/12 01:51:06 by coder            ###   ########.fr       */
+/*   Updated: 2023/05/09 16:27:03 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,19 @@ void	ft_add_var_env(char **variable)
 	g_data.exit_code = 0;
 }
 
-void	ft_remove_var_env(char **variable)
+void	ft_remove_var_env(char *variable)
 {
 	int		i;
 	int		j;
 	char	**new_env;
 
-	if (!variable[0] || ft_strlen(variable[0]) < 5 || var_exist(variable[0]))
-		return ;
 	new_env = ft_env_calloc(ft_env_size(g_data.env) + 1);
 	i = -1;
 	j = 0;
 	while (g_data.env[++i + j])
 	{
-		if (ft_strncmp(variable[1], g_data.env[i + j], \
-			ft_strlen(variable[1])) == 0)
+		if (ft_strncmp(variable, g_data.env[i + j], \
+			ft_strlen(variable)) == 0 && g_data.env[i+j][ft_strlen(variable)] == '=')
 			j = 1;
 		if (g_data.env[i + j] == NULL)
 			break ;
@@ -109,5 +107,4 @@ void	ft_remove_var_env(char **variable)
 	}
 	ft_free_matrix(g_data.env);
 	g_data.env = new_env;
-	g_data.exit_code = 0;
 }
