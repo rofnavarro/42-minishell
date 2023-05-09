@@ -82,7 +82,7 @@ void	ft_wait_children(void)
 		while (i++ < g_data.count_fork)
 		{
 			pid_waited = waitpid(-1, &wstatus, 0);
-			if (WIFSIGNALED(wstatus))
+			if (WIFSIGNALED(wstatus) && wstatus != 13)
 			{
 				g_data.exit_code = WTERMSIG(wstatus);
 				ft_signals_exit_code(wstatus);
