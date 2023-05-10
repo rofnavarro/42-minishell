@@ -289,4 +289,9 @@ int			handle_output(t_token *token, t_token *aux);
 t_token		*ft_find_aux(void);
 void		ft_free_restore_std(void);
 
+//ft_utils3.c
+int			ft_greater(t_token *token);
+int			ft_less(t_token *token);
+int			ft_prev_pipe(t_token *token);
+
 #endif

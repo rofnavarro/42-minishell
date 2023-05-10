@@ -84,41 +84,21 @@ int	ft_token_type_exec(t_token *token)
 {
 	if (token->prev && token->prev->type == PIPE)
 	{
-		g_data.end_loop = 0;
-		if (handle_redirections(token) == 2)
-		{
-			g_data.end_loop = 1;
+		if (ft_prev_pipe(token))
 			return (1);
-		}
 	}
-	if (token->type != PIPE && token->type != GREATER && token->type != GREATER_GREATER && ft_next_pipe(token))
+	if (token->type != PIPE && token->type != GREATER && \
+		token->type != GREATER_GREATER && ft_next_pipe(token))
 		ft_open_pipe();
 	if ((token->type == GREATER || token->type == GREATER_GREATER)
 		&& token->cmd[0] == NULL)
-	{
-		if (token->type == GREATER)
-			g_data.outfile = open(token->next->cmd[0],
-					O_CREAT | O_WRONLY | O_TRUNC, 0777);
-		else
-			g_data.outfile = open(token->next->cmd[0],
-					O_CREAT | O_WRONLY | O_APPEND, 0777);
-		if (g_data.outfile == -1)
-			perror(NULL);
-		return (1);
-	}
+		return (ft_greater(token));
 	if (token->type == LESS)
-	{
-		if (token->cmd[0])
-			return (0);
-		else
-		{
-			ft_get_input_file(token);
-			return (1);
-		}
-	}
+		return (ft_less(token));
 	else if (token->type == LESS_LESS)
 		ft_execute_heredoc(token);
-	else if ((token->type == PIPE && (!token->prev || token->prev->type != LESS)))
+	else if ((token->type == PIPE && \
+		(!token->prev || token->prev->type != LESS)))
 		ft_open_pipe();
 	if (token->cmd[0] == NULL && (token->type != GREATER
 			|| token->type != GREATER_GREATER))
