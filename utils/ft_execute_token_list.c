@@ -19,10 +19,13 @@ void	ft_execute_token_list(void)
 
 	i = 0;
 	ft_execute_start();
-	if (ft_check_sintax())
-		return ;
 	while (i < g_data.token_list_size - 1)
 		g_data.fd[i++] = malloc(sizeof(int) * 2);
+	if (ft_check_sintax())
+	{
+		ft_free_pid_fd();
+		return ;
+	}
 	aux = ft_find_aux();
 	if (!aux)
 		return (ft_free_restore_std());
