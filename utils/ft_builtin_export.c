@@ -89,7 +89,6 @@ void	ft_remove_var_export(char *var)
 
 	new_export = ft_env_calloc(ft_env_size(g_data.export) + 1);
 	new_var = ft_strjoin("declare -x ", var);
-	printf("%s\n", new_var);
 	i = -1;
 	j = 0;
 	while (g_data.export[++i + j])

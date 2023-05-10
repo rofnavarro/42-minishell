@@ -31,3 +31,14 @@ void	ft_signal_setup(void)
 	g_data.sa.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &g_data.sa, NULL);
 }
+
+int	ft_check_if_signaled(int wstatus)
+{
+	if (WIFSIGNALED(wstatus) && wstatus != 13)
+	{
+		g_data.exit_code = WTERMSIG(wstatus);
+		ft_signals_exit_code(wstatus);
+		return (1);
+	}
+	return (0);
+}

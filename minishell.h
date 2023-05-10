@@ -168,6 +168,8 @@ void		ft_free_pointers(char *ptr1, char *ptr2);
 
 //  utils/ft_free2.c
 void		ft_heredoc_close_exit(void);
+void		ft_free_child_process(void);
+void		ft_close_check_std(t_token *token);
 
 //  utils/ft_loop.c
 void		ft_loop(void);
@@ -207,7 +209,6 @@ void		ft_cmd_not_found(char *cmd);
 void		ft_child_process(t_token *token, char *cmd_path);
 void		ft_parent_process(int pid);
 void		ft_exec_child_builtin(t_token *token, char *cmd_path);
-void		ft_free_child_process(void);
 
 //	utils/ft_input_output.c
 int			ft_open_output_file(t_token *token);
@@ -246,9 +247,9 @@ void		ft_handle_dolar_no_quotes(char *str, int *n, char **tmp, int *m);
 //	utils/ft_fork.c
 void		ft_child_process(t_token *token, char *cmd_path);
 void		ft_exec_child_builtin(t_token *token, char *cmd_path);
-void		ft_free_child_process(void);
 void		ft_wait_children(void);
 void		ft_fork(char *cmd_path, t_token *token);
+void		ft_check_pipe_redirection_child(t_token *token, char *cmd_path);
 
 //	ft_signals.c
 void		handle_sigint_empty(int sig);
@@ -259,6 +260,7 @@ void		handle_sig_parent_heredoc(int sig);
 // ft_signals_aux.c
 void		ft_signals_exit_code(int wstatus);
 void		ft_signal_setup(void);
+int			ft_check_if_signaled(int wstatus);
 
 //ft_syntax_error.c
 int			ft_check_sintax(void);
@@ -275,9 +277,16 @@ int			ft_check_slash(char *str);
 int			ft_is_executable(t_token *token);
 
 //ft_utils.c
+char		**ft_get_tmp(t_token *token, int *j, int i);
 char		**ft_check_args_after_redirection(t_token *token);
 char		**ft_new_cmd(t_token *token);
 int			ft_is_export_wo_arg(t_token *token);
 t_token		*ft_next_pipe(t_token *token);
+
+//ft_utils2.c
+int			handle_input(t_token *token, t_token *aux);
+int			handle_output(t_token *token, t_token *aux);
+t_token		*ft_find_aux(void);
+void		ft_free_restore_std(void);
 
 #endif

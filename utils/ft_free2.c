@@ -23,3 +23,18 @@ void	ft_heredoc_close_exit(void)
 	free(g_data.pid);
 	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
 }
+
+void	ft_free_child_process(void)
+{
+	ft_free_pid_fd();
+	ft_free_loop();
+	rl_clear_history();
+	ft_free_data();
+	ft_close_fds();
+}
+
+void	ft_close_check_std(t_token *token)
+{
+	ft_close_pipes(token);
+	ft_check_std_in_out(token);
+}

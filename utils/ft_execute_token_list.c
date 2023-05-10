@@ -26,20 +26,9 @@ void	ft_execute_token_list(void)
 	}
 	while (i < g_data.token_list_size - 1)
 		g_data.fd[i++] = malloc(sizeof(int) * 2);
-	if (handle_redirections(g_data.token_start) == 2)
-	{
-		aux = ft_next_pipe(g_data.token_start);
-		if (!aux)
-		{
-			ft_free_pid_fd();
-			dup2(g_data.stdin_copy, STDIN_FILENO);
-			dup2(g_data.stdout_copy, STDOUT_FILENO);
-			return ;
-		}
-		ft_open_pipe();
-	}
-	else
-		aux = g_data.token_start;
+	aux = ft_find_aux();
+	if (!aux)
+		return (ft_free_restore_std());
 	g_data.end_loop = 0;
 	while (aux && !g_data.aux_sig)
 	{
@@ -54,39 +43,22 @@ void	ft_execute_token_list(void)
 int	handle_redirections(t_token *token)
 {
 	t_token	*aux;
+	int		code;
 
 	aux = token;
 	while (aux)
 	{
 		if (aux->type == LESS)
 		{
-			if (aux->next->cmd[1])
-				aux->cmd = ft_check_args_after_redirection(aux);
-			if (ft_open_input_file(aux->next))
-			{
-				g_data.exit_code = 1;
-				if (ft_strncmp("echo", token->cmd[0], 4) == 0 && ft_strlen(token->cmd[0]) == 4)
-				{
-					dup2(g_data.stdin_copy, STDIN_FILENO);
-					return (2);
-				}
-				ft_redirect_infile();
-				if (aux->next->type == PIPE)
-					return (1);
-				return (2);
-			}
-			ft_redirect_infile();
+			code = handle_input(token, aux);
+			if (code)
+				return (code);
 		}
 		else if (aux->type == GREATER || aux->type == GREATER_GREATER)
 		{
-			if (aux->next->cmd[1])
-				aux->cmd = ft_check_args_after_redirection(aux);
-			if (ft_open_output_file(aux))
-			{
-				g_data.exit_code = 1;
-				dup2(g_data.stdout_copy, STDOUT_FILENO);
-				return (2);
-			}
+			code = handle_output(token, aux);
+			if (code)
+				return (code);
 		}
 		else if (aux->type == PIPE)
 			break ;
@@ -160,11 +132,7 @@ void	ft_execute(t_token *token)
 
 	cmd_path = NULL;
 	if ((!token->cmd[0] && token->type == 6) || ft_token_type_exec(token))
-	{
-		ft_close_pipes(token);
-		ft_check_std_in_out(token);
-		return ;
-	}
+		return (ft_close_check_std(token));
 	if (ft_is_executable(token) && !ft_echo_n(token) && (!is_builtin(token->cmd)
 			|| ft_is_export_wo_arg(token)))
 	{
@@ -183,6 +151,5 @@ void	ft_execute(t_token *token)
 		if (cmd_path || ft_is_export_wo_arg(token))
 			ft_fork(cmd_path, token);
 	}
-	ft_close_pipes(token);
-	ft_check_std_in_out(token);
+	ft_close_check_std(token);
 }

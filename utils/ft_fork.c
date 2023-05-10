@@ -17,6 +17,23 @@ void	ft_child_process(t_token *token, char *cmd_path)
 	g_data.sa_child.sa_handler = &handle_sig_child;
 	sigaction(SIGINT, &g_data.sa_child, NULL);
 	sigaction(SIGQUIT, &g_data.sa_child, NULL);
+	ft_check_pipe_redirection_child(token, cmd_path);
+	if (ft_is_builtin_child(token->cmd[0]) || ft_is_export_wo_arg(token))
+		ft_exec_child_builtin(token, cmd_path);
+	else if (cmd_path)
+	{
+		if (execve(cmd_path, token->cmd, g_data.env) == -1)
+			return (perror(NULL));
+	}
+	if (!cmd_path)
+	{
+		if (execve(token->cmd[0], token->cmd, g_data.env) == -1)
+			return (perror(NULL));
+	}
+}
+
+void	ft_check_pipe_redirection_child(t_token *token, char *cmd_path)
+{
 	if (token->prev && token->prev->type == LESS)
 	{
 		dup2(g_data.infile, STDIN_FILENO);
@@ -34,18 +51,6 @@ void	ft_child_process(t_token *token, char *cmd_path)
 			ft_free_child_process();
 			exit (1);
 		}
-	}
-	if (ft_is_builtin_child(token->cmd[0]) || ft_is_export_wo_arg(token))
-		ft_exec_child_builtin(token, cmd_path);
-	else if (cmd_path)
-	{
-		if (execve(cmd_path, token->cmd, g_data.env) == -1)
-			return (perror(NULL));
-	}
-	if (!cmd_path)
-	{
-		if (execve(token->cmd[0], token->cmd, g_data.env) == -1)
-			return (perror(NULL));
 	}
 }
 
@@ -66,15 +71,6 @@ void	ft_exec_child_builtin(t_token *token, char *cmd_path)
 	exit (g_data.exit_code);
 }
 
-void	ft_free_child_process(void)
-{
-	ft_free_pid_fd();
-	ft_free_loop();
-	rl_clear_history();
-	ft_free_data();
-	ft_close_fds();
-}
-
 void	ft_wait_children(void)
 {
 	int	pid_waited;
@@ -89,12 +85,8 @@ void	ft_wait_children(void)
 		while (i++ < g_data.count_fork)
 		{
 			pid_waited = waitpid(-1, &wstatus, 0);
-			if (WIFSIGNALED(wstatus) && wstatus != 13)
-			{
-				g_data.exit_code = WTERMSIG(wstatus);
-				ft_signals_exit_code(wstatus);
-			}
-			else if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
+			if (!ft_check_if_signaled(wstatus)
+				&& WIFEXITED(wstatus) && WEXITSTATUS(wstatus))
 				wstatus = WEXITSTATUS(wstatus);
 			if (pid_waited == g_data.pid[g_data.count_fork - 1]
 				&& g_data.exit_code != 130 && g_data.exit_code != 131)

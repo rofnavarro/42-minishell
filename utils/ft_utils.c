@@ -16,32 +16,12 @@ char	**ft_check_args_after_redirection(t_token *token)
 {
 	int		i;
 	int		j;
-	char	**tmp;
 	char	**new_cmd;
 
 	i = 0;
 	while (token->next->cmd[i])
 		i++;
-	j = 0;
-	while (token->cmd[j])
-		j++;
-	tmp = (char **)malloc(sizeof(char *) * (j + 1));
-	j = 0;
-	while (token-> cmd[j])
-	{
-		tmp[j] = ft_strdup(token->cmd[j]);
-		j++;
-	}
-	tmp[j] = NULL;
-	ft_free_matrix(token->cmd);
-	new_cmd = (char **)malloc(sizeof(char *) * (j + i));
-	j = 0;
-	while (tmp[j])
-	{
-		new_cmd[j] = ft_strdup(tmp[j]);
-		j++;
-	}
-	ft_free_matrix(tmp);
+	new_cmd = ft_get_tmp(token, &j, i);
 	i = 1;
 	while (token->next->cmd[i])
 	{
@@ -50,6 +30,34 @@ char	**ft_check_args_after_redirection(t_token *token)
 		i++;
 	}
 	new_cmd[j] = NULL;
+	return (new_cmd);
+}
+
+char	**ft_get_tmp(t_token *token, int *j, int i)
+{
+	char	**tmp;
+	char	**new_cmd;
+
+	*j = 0;
+	while (token->cmd[(*j)])
+		(*j)++;
+	tmp = (char **)malloc(sizeof(char *) * (*j + 1));
+	*j = 0;
+	while (token-> cmd[(*j)])
+	{
+		tmp[(*j)] = ft_strdup(token->cmd[(*j)]);
+		(*j)++;
+	}
+	tmp[(*j)] = NULL;
+	ft_free_matrix(token->cmd);
+	new_cmd = (char **)malloc(sizeof(char *) * (*j + i));
+	*j = 0;
+	while (tmp[(*j)])
+	{
+		new_cmd[(*j)] = ft_strdup(tmp[(*j)]);
+		(*j)++;
+	}
+	ft_free_matrix(tmp);
 	return (new_cmd);
 }
 
