@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:25:37 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/09 16:42:46 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:07:53 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,5 @@ void	ft_remove_var_env(char *variable)
 	}
 	ft_free_matrix(g_data.env);
 	g_data.env = new_env;
+	g_data.exit_code = 0;
 }
