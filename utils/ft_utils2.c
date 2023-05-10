@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_input_output.c                                  :+:      :+:    :+:   */
+/*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 16:12:56 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/10 22:31:52 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	handle_input(t_token *token, t_token *aux)
 	if (ft_open_input_file(aux->next))
 	{
 		g_data.exit_code = 1;
-		if (ft_strncmp("echo", token->cmd[0], 4) == 0
+		if (token->cmd[0] && ft_strncmp("echo", token->cmd[0], 4) == 0
 			&& ft_strlen(token->cmd[0]) == 4)
 		{
 			dup2(g_data.stdin_copy, STDIN_FILENO);
