@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:10:56 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/09 17:17:37 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:04:07 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	check_export_validation(char *str)
 	if (str[0] == '=')
 	{
 		printf("minishell: export: '%s': not a valid identifier\n", str);
+		g_data.exit_code = 1;
 		return (FALSE);
 	}
 	while (str[i] != '\0' && str[i] != '=')
@@ -44,6 +45,7 @@ int	check_export_validation(char *str)
 		if (ft_isalpha(str[i]) == 0)
 		{
 			printf("minishell: export: '%s': not a valid identifier\n", str);
+			g_data.exit_code = 1;
 			return (FALSE);
 		}
 		i++;
@@ -75,6 +77,7 @@ void	exportation(char *cmd)
 		else
 			ft_add_export(cmd);
 	}
+	g_data.exit_code = 0;
 }
 
 void	ft_remove_var_export(char *var)
