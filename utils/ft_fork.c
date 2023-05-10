@@ -22,12 +22,18 @@ void	ft_child_process(t_token *token, char *cmd_path)
 		dup2(g_data.infile, STDIN_FILENO);
 		close(g_data.infile);
 	}
-	if (token->type == PIPE || ft_next_pipe(token))
+	if (token->type == PIPE || (ft_next_pipe(token)
+			&& token->type != GREATER && token->type != GREATER_GREATER))
 		redirect_to_pipe();
 	if (token->prev && token->prev->type == PIPE)
 	{
 		redirect_from_pipe(token->type);
-		handle_redirections(token);
+		if (handle_redirections(token) == 2)
+		{
+			free(cmd_path);
+			ft_free_child_process();
+			exit (1);
+		}
 	}
 	if (ft_is_builtin_child(token->cmd[0]) || ft_is_export_wo_arg(token))
 		ft_exec_child_builtin(token, cmd_path);
@@ -45,6 +51,7 @@ void	ft_child_process(t_token *token, char *cmd_path)
 
 void	ft_exec_child_builtin(t_token *token, char *cmd_path)
 {
+	g_data.exit_code = 0;
 	if (ft_strncmp(token->cmd[0], "env",
 			ft_strlen(token->cmd[0])) == 0 && token->cmd[1] == NULL)
 		ft_print_env(token->cmd[0]);
@@ -56,7 +63,7 @@ void	ft_exec_child_builtin(t_token *token, char *cmd_path)
 		ft_export(token->cmd);
 	free(cmd_path);
 	ft_free_child_process();
-	exit (0);
+	exit (g_data.exit_code);
 }
 
 void	ft_free_child_process(void)
@@ -92,6 +99,8 @@ void	ft_wait_children(void)
 			if (pid_waited == g_data.pid[g_data.count_fork - 1]
 				&& g_data.exit_code != 130 && g_data.exit_code != 131)
 				g_data.exit_code = wstatus;
+			if (wstatus == 13)
+				g_data.exit_code = 1;
 		}
 	}
 }

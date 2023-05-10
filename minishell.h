@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/08 17:22:44 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:23:57 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_program
 	char				*hd_delim;
 	char				*input_hd;
 	int					heredoc[2];
+	int					end_loop;
 }	t_program;
 
 //  global variable
@@ -113,7 +114,7 @@ int			ft_echo_n(t_token *token);
 //  utils/ft_builtin_env.c
 int			var_exist(char *variable);
 void		ft_add_var_env(char **new_variable);
-void		ft_remove_var_env(char **new_variable);
+void		ft_remove_var_env(char *new_variable);
 
 //  utils/ft_builtin_env2.c
 int			ft_env_size(char **env);
@@ -124,13 +125,13 @@ char		*find_var_value(char **env, char *var);
 //  utils/ft_builtin_export.c
 void		ft_export(char **cmd);
 void		exportation(char *cmd);
+void		ft_remove_var_export(char *var);
 
 //  utils/ft_builtin_export2.c
 void		ft_print_export(void);
 void		ft_add_export(char *variable);
 int			var_exist_export(char *var);
 void		replace_var_export(char *var);
-
 
 //  utils/ft_builtin_export3.c
 void		ft_sort(char **export);
@@ -141,6 +142,9 @@ void		get_export(char **env);
 
 //  utils/ft_builtin_pwd.c
 void		ft_pwd(char *str);
+
+//  utils/ft_builtin_unset.c
+void		ft_unset_handler(char **str);
 
 //  utils/ft_builtin.c
 int			is_var_assigned(char *str);
@@ -193,8 +197,6 @@ void		ft_handle_unclosed_quotes(void);
 void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
 void		ft_execute_start(void);
-int			ft_is_export_wo_arg(t_token *token);
-t_token		*ft_next_pipe(t_token *token);
 
 //	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);
@@ -214,7 +216,6 @@ void		ft_check_std_in_out(t_token *token);
 void		ft_redirect_infile(void);
 void		ft_get_input_file(t_token *token);
 int			handle_redirections(t_token *token);
-char		**ft_check_args_after_redirection(t_token *token);
 
 //	utils/ft_pipe.c
 void		redirect_to_pipe(void);
@@ -272,5 +273,11 @@ void		ft_heredoc_parent(int pid, t_token *token);
 //ft_executable.c
 int			ft_check_slash(char *str);
 int			ft_is_executable(t_token *token);
+
+//ft_utils.c
+char		**ft_check_args_after_redirection(t_token *token);
+char		**ft_new_cmd(t_token *token);
+int			ft_is_export_wo_arg(t_token *token);
+t_token		*ft_next_pipe(t_token *token);
 
 #endif

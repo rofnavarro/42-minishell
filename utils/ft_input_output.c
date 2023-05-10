@@ -22,39 +22,13 @@ int	ft_open_output_file(t_token *token)
 				O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (g_data.outfile == -1)
 	{
-		perror(token->cmd[0]);
+		g_data.outfile = open("/dev/null", O_WRONLY);
+		perror(token->next->cmd[0]);
 		return (1);
 	}
 	dup2(g_data.outfile, STDOUT_FILENO);
 	close(g_data.outfile);
 	return (0);
-}
-
-char	**ft_new_cmd(t_token *token)
-{
-	int		i;
-	char	**new_cmd;
-
-	free(token->cmd);
-	token->cmd = (char **)malloc(sizeof(char *) * 2);
-	token->cmd[0] = ft_strdup(token->next->cmd[0]);
-	token->cmd[1] = NULL;
-	i = 0;
-	while (token->next->cmd[i])
-		i++;
-	new_cmd = (char **)malloc((i + 1) * sizeof(char *));
-	i = 0;
-	free(token->next->cmd[0]);
-	while (token->next->cmd[i + 1])
-	{
-		new_cmd[i] = ft_strdup(token->next->cmd[i + 1]);
-		free(token->next->cmd[i + 1]);
-		i++;
-	}
-	new_cmd[i] = NULL;
-	free(token->next->cmd[i + 1]);
-	free(token->next->cmd);
-	return (new_cmd);
 }
 
 void	ft_get_input_file(t_token *token)
@@ -96,45 +70,11 @@ void	ft_check_std_in_out(t_token *token)
 		if (ttyname(STDOUT_FILENO) != ttyname(g_data.stdout_copy))
 			dup2(g_data.stdin_copy, STDOUT_FILENO);
 	}
-}
-
-char	**ft_check_args_after_redirection(t_token *token)
-{
-	int		i;
-	int		j;
-	char	**tmp;
-	char	**new_cmd;
-
-	i = 0;
-	while (token->next->cmd[i])
-		i++;		
-	j = 0;
-	while (token->cmd[j])
-		j++;
-	tmp = (char **)malloc(sizeof(char *) * (j + 1));
-	j = 0;
-	while (token-> cmd[j])
+	else if (token->prev && (token->prev->type == GREATER
+			|| token->prev->type == GREATER_GREATER)
+		&& (token->type == PIPE))
 	{
-		tmp[j] = ft_strdup(token->cmd[j]);
-		j++;
+		if (ttyname(STDOUT_FILENO) != ttyname(g_data.stdout_copy))
+			dup2(g_data.stdin_copy, STDOUT_FILENO);
 	}
-	tmp[j] = NULL;
-	ft_free_matrix(token->cmd);
-	new_cmd = (char **)malloc(sizeof(char *) * (j + i));	
-	j = 0;
-	while (tmp[j])
-	{
-		new_cmd[j] = ft_strdup(tmp[j]);
-		j++;
-	}
-	ft_free_matrix(tmp);
-	i = 1;
-	while (token->next->cmd[i])
-	{
-		new_cmd[j] = ft_strdup(token->next->cmd[i]);
-		j++;
-		i++;
-	}
-	new_cmd[j] = NULL;
-	return (new_cmd);
 }
