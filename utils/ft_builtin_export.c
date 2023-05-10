@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:10:56 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/10 09:04:07 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/10 23:08:59 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	ft_export(char **cmd)
 		while (cmd[++i])
 			exportation(cmd[i]);
 	}
-	ft_sort(g_data.export);
+	if (ft_env_size(g_data.export) < 500)
+		ft_sort(g_data.export);
 }
 
 int	check_export_validation(char *str)
