@@ -55,6 +55,7 @@ SRC							=			minishell.c \
 															ft_strtok.c \
 															ft_syntax_error.c \
 															ft_token_list.c \
+															ft_utils.c \
 															)
 
 OBJ							=			$(SRC:%.c=%.o)

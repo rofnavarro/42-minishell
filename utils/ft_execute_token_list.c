@@ -32,19 +32,22 @@ void	ft_execute_token_list(void)
 		if (!aux)
 		{
 			ft_free_pid_fd();
+			dup2(g_data.stdin_copy, STDIN_FILENO);
+			dup2(g_data.stdout_copy, STDOUT_FILENO);
 			return ;
 		}
 		ft_open_pipe();
-		//redirect_from_pipe(6);
 	}
 	else
 		aux = g_data.token_start;
+	g_data.end_loop = 0;
 	while (aux && !g_data.aux_sig)
 	{
 		ft_execute(aux);
 		aux = aux->next;
 	}
-	ft_wait_children();
+	if (!g_data.end_loop)
+		ft_wait_children();
 	ft_free_pid_fd();
 }
 
@@ -68,7 +71,9 @@ int	handle_redirections(t_token *token)
 					return (2);
 				}
 				ft_redirect_infile();
-				return (1);
+				if (aux->next->type == PIPE)
+					return (1);
+				return (2);
 			}
 			ft_redirect_infile();
 		}
@@ -80,7 +85,7 @@ int	handle_redirections(t_token *token)
 			{
 				g_data.exit_code = 1;
 				dup2(g_data.stdout_copy, STDOUT_FILENO);
-				return (1);
+				return (2);
 			}
 		}
 		else if (aux->type == PIPE)
@@ -103,30 +108,18 @@ void	ft_execute_start(void)
 	}
 }
 
-t_token *ft_next_pipe(t_token *token)
-{
-	t_token	*aux;
-
-	if(token->next)
-		aux = token->next;
-	else
-		return (NULL);
-	while (aux)
-	{
-		if(aux->type == LESS || aux->type == LESS_LESS
-			|| aux->type == GREATER || aux->type == LESS)
-				aux = aux->next;
-		else if (aux->type == PIPE)
-			return (aux->next);
-		else
-			return (NULL);
-	}
-	return (NULL);
-}
-
 int	ft_token_type_exec(t_token *token)
 {
-	if (ft_next_pipe(token))
+	if (token->prev && token->prev->type == PIPE)
+	{
+		g_data.end_loop = 0;
+		if (handle_redirections(token) == 2)
+		{
+			g_data.end_loop = 1;
+			return (1);
+		}
+	}
+	if (token->type != PIPE && token->type != GREATER && token->type != GREATER_GREATER && ft_next_pipe(token))
 		ft_open_pipe();
 	if ((token->type == GREATER || token->type == GREATER_GREATER)
 		&& token->cmd[0] == NULL)
@@ -153,20 +146,11 @@ int	ft_token_type_exec(t_token *token)
 	}
 	else if (token->type == LESS_LESS)
 		ft_execute_heredoc(token);
-	else if ((token->type == PIPE && (!token->prev || token->prev->type != LESS)) || ft_next_pipe(token))
+	else if ((token->type == PIPE && (!token->prev || token->prev->type != LESS)))
 		ft_open_pipe();
 	if (token->cmd[0] == NULL && (token->type != GREATER
 			|| token->type != GREATER_GREATER))
 		return (0);
-	return (0);
-}
-
-int	ft_is_export_wo_arg(t_token *token)
-{
-	if ((ft_strncmp(token->cmd[0], "export", ft_strlen(token->cmd[0])) == 0
-			&& ft_strlen(token->cmd[0]) == ft_strlen("export"))
-		&& !token->cmd[1])
-		return (1);
 	return (0);
 }
 

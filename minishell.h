@@ -97,6 +97,7 @@ typedef struct s_program
 	char				*hd_delim;
 	char				*input_hd;
 	int					heredoc[2];
+	int					end_loop;
 }	t_program;
 
 //  global variable
@@ -131,7 +132,6 @@ void		ft_print_export(void);
 void		ft_add_export(char *variable);
 int			var_exist_export(char *var);
 void		replace_var_export(char *var);
-
 
 //  utils/ft_builtin_export3.c
 void		ft_sort(char **export);
@@ -197,8 +197,6 @@ void		ft_handle_unclosed_quotes(void);
 void		ft_execute_token_list(void);
 void		ft_execute(t_token *token);
 void		ft_execute_start(void);
-int			ft_is_export_wo_arg(t_token *token);
-t_token		*ft_next_pipe(t_token *token);
 
 //	utils/ft_cmd_path.c
 char		*ft_test_path(int i, t_token *token);
@@ -218,7 +216,6 @@ void		ft_check_std_in_out(t_token *token);
 void		ft_redirect_infile(void);
 void		ft_get_input_file(t_token *token);
 int			handle_redirections(t_token *token);
-char		**ft_check_args_after_redirection(t_token *token);
 
 //	utils/ft_pipe.c
 void		redirect_to_pipe(void);
@@ -276,5 +273,11 @@ void		ft_heredoc_parent(int pid, t_token *token);
 //ft_executable.c
 int			ft_check_slash(char *str);
 int			ft_is_executable(t_token *token);
+
+//ft_utils.c
+char		**ft_check_args_after_redirection(t_token *token);
+char		**ft_new_cmd(t_token *token);
+int			ft_is_export_wo_arg(t_token *token);
+t_token		*ft_next_pipe(t_token *token);
 
 #endif
