@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_echo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:19:30 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/30 00:52:00 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/10 16:19:35 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_echo(char **cmd)
 	int		i;
 	char	*tmp;
 
-	if (ft_strlen(cmd[0]) == 4 && cmd[1] == NULL)
+	if (ft_strlen(cmd[0]) == 4 && (cmd[1] == NULL || cmd[1][0] == '\0'))
 	{
 		printf("\n");
 		return ;
