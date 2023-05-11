@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_token_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/04 20:49:20 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:18:05 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	handle_redirections(t_token *token)
 			if (code)
 				return (code);
 		}
+		else if (aux->type == LESS_LESS)
+			ft_execute_heredoc(token);
 		else if (aux->type == GREATER || aux->type == GREATER_GREATER)
 		{
 			code = handle_output(token, aux);
@@ -95,8 +97,8 @@ int	ft_token_type_exec(t_token *token)
 		return (ft_greater(token));
 	if (token->type == LESS)
 		return (ft_less(token));
-	else if (token->type == LESS_LESS)
-		ft_execute_heredoc(token);
+	// else if (token->type == LESS_LESS)
+	// 	ft_execute_heredoc(token);
 	else if ((token->type == PIPE && \
 		(!token->prev || token->prev->type != LESS)))
 		ft_open_pipe();

@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 20:28:08 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 02:05:20 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/11 17:56:25 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ int	ft_is_executable(t_token *token)
 		ft_check_exit(token);
 		return (0);
 	}
-	if (token->type == LESS_LESS || token->type == 8
-		|| (token->prev && token->prev->type == LESS))
+	if ((token->prev && token->prev->type == LESS))
 		return (0);
 	else if (token->prev && (token->prev->type == GREATER
 			|| token->prev->type == GREATER_GREATER

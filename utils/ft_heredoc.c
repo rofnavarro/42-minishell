@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rinacio <rinacio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:47:26 by rinacio           #+#    #+#             */
-/*   Updated: 2023/04/28 17:45:56 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/11 17:54:52 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	ft_heredoc_parent(int pid, t_token *token)
 		dup2(g_data.heredoc[0], STDIN_FILENO);
 		close(g_data.heredoc[0]);
 		token->type = 7;
-		ft_execute(token);
-		ft_wait_children();
+		//ft_execute(token);
+		//ft_wait_children();
 	}
 	else
 	{
