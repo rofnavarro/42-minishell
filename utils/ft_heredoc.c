@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:47:26 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/11 22:34:15 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/12 00:50:03 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_execute_heredoc(t_token *token)
 	}
 	if (pipe(g_data.heredoc) == -1)
 		return (ft_error_perror(1));
-	ft_check_args_after_redirection(token);
+	token->cmd = ft_check_args_after_redirection(token);
 	signal(SIGQUIT, SIG_IGN);
 	g_data.sa_parent_heredoc.sa_handler = &handle_sig_parent_heredoc;
 	sigaction(SIGINT, &g_data.sa_parent_heredoc, NULL);
@@ -86,6 +86,7 @@ void	ft_heredoc_child(t_token *token)
 
 void	ft_write_heredoc(void)
 {
+	g_data.input_hd = heredoc_var_replace(g_data.input_hd);
 	write(g_data.heredoc[1], g_data.input_hd, ft_strlen(g_data.input_hd));
 	free(g_data.input_hd);
 	write(g_data.heredoc[1], "\n", 1);

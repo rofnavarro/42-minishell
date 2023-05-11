@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/11 22:52:21 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/12 00:50:31 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,20 @@ int	ft_prev_pipe(t_token *token)
 		return (1);
 	}
 	return (0);
+}
+
+char	*heredoc_var_replace(char *input)
+{
+	char	*tmp;
+	int		n;
+	int		m;
+
+	tmp = (char *)malloc(sizeof(char) * ft_strlen(input) + 1000);
+	n = 0;
+	m = 0;
+	while (input[n])
+		ft_no_quotes(&n, &m, input, &tmp);
+	tmp[m] = '\0';
+	free(input);
+	return (tmp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 20:58:11 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/28 21:01:36 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:06:22 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	ft_heredoc_close_exit(void)
 	rl_clear_history();
 	free(g_data.pid);
 	ft_free_matrix_int(g_data.fd, g_data.token_list_size - 1);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 }
 
 void	ft_free_child_process(void)

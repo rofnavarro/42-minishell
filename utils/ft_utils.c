@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_input_output.c                                  :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 16:12:56 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/12 00:47:40 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	**ft_check_args_after_redirection(t_token *token)
 		i++;
 	}
 	new_cmd[j] = NULL;
+	ft_free_matrix(token->cmd);
 	return (new_cmd);
 }
 
@@ -49,7 +50,6 @@ char	**ft_get_tmp(t_token *token, int *j, int i)
 		(*j)++;
 	}
 	tmp[(*j)] = NULL;
-	ft_free_matrix(token->cmd);
 	new_cmd = (char **)malloc(sizeof(char *) * (*j + i));
 	*j = 0;
 	while (tmp[(*j)])
