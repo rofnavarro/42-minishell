@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 23:34:08 by rferrero          #+#    #+#             */
-/*   Updated: 2023/04/11 18:20:56 by coder            ###   ########.fr       */
+/*   Updated: 2023/05/11 14:53:59 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ static int	is_delim(char c, const char *delim)
 					(g_data.cmd_type == 3 && c == '>'))
 				g_data.cmd_type++;
 			else
-			{
-				perror(NULL);
 				return (FALSE);
-			}
 			return (TRUE);
 		}
 		i++;
