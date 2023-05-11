@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:35:38 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/04 23:29:24 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:06:01 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	ft_check_empty_token(t_token *token, int *i)
 
 static int	ft_break_chars(char c)
 {
-	if (c == '\'' || c > 96 || c == ' ' || c == '}' || c == '\0')
+	if (c == '\'' || c == ' ' || c == '}' || c == '\0')
+		return (TRUE);
+	else if (ft_isalnum(c) == 0)
 		return (TRUE);
 	return (FALSE);
 }

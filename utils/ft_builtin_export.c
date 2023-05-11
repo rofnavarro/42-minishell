@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:10:56 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/10 18:55:22 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:19:43 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_export_validation(char *str)
 	}
 	while (str[i] != '\0' && str[i] != '=')
 	{
-		if (ft_isalpha(str[i]) == 0)
+		if (ft_isdigit(str[0]) != 0 || ft_isalnum(str[i]) == 0)
 		{
 			printf("minishell: export: '%s': not a valid identifier\n", str);
 			g_data.exit_code = 1;
