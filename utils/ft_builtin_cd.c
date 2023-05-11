@@ -6,7 +6,7 @@
 /*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:12:43 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/04 20:49:50 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:56:03 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_cd(char **cmd)
 	char	*buff;
 	char	*old_path;
 
-	if (cmd[2])
+	if (ft_env_size(cmd) > 2)
 		return (ft_error(1, "cd: too many arguments"));
 	buff = NULL;
 	old_path = getcwd(buff, 0);
