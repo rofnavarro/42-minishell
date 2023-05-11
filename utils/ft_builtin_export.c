@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:10:56 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/10 23:08:59 by coder            ###   ########.fr       */
+/*   Updated: 2023/05/10 18:55:22 by rferrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_export(char **cmd)
 
 	if (g_data.export[0] == NULL)
 		get_export(g_data.env);
-	if (!cmd[1])
+	if (!cmd[1] || cmd[1][0] == '\0')
 		ft_print_export();
 	else
 	{
