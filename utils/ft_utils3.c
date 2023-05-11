@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_input_output.c                                  :+:      :+:    :+:   */
+/*   ft_utils3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/01 16:12:56 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:52:21 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	ft_greater(t_token *token)
 				O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (g_data.outfile == -1)
 		perror(NULL);
+	else
+	{
+		dup2(g_data.outfile, STDOUT_FILENO);
+		close(g_data.outfile);
+	}
 	return (1);
 }
 

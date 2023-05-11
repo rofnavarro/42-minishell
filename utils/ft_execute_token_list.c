@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:36:09 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/11 18:31:36 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:49:23 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	handle_redirections(t_token *token)
 				return (code);
 		}
 		else if (aux->type == LESS_LESS)
-			ft_execute_heredoc(token);
+			ft_execute_heredoc(aux);
 		else if (aux->type == GREATER || aux->type == GREATER_GREATER)
 		{
 			code = handle_output(token, aux);
@@ -111,7 +111,8 @@ void	ft_execute(t_token *token)
 	char	*cmd_path;
 
 	cmd_path = NULL;
-	if ((!token->cmd[0] && (token->type == 6 || token->type == 8)) || ft_token_type_exec(token))
+	if ((!token->cmd[0] && (token->type == 6 || token->type == 8))
+		|| ft_token_type_exec(token))
 		return (ft_close_check_std(token));
 	if (ft_is_executable(token) && !ft_echo_n(token) && (!is_builtin(token->cmd)
 			|| ft_is_export_wo_arg(token)))
