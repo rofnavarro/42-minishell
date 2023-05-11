@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rferrero <rferrero@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:24:24 by rferrero          #+#    #+#             */
-/*   Updated: 2023/05/09 16:23:57 by rferrero         ###   ########.fr       */
+/*   Updated: 2023/05/12 01:09:25 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,5 +293,6 @@ void		ft_free_restore_std(void);
 int			ft_greater(t_token *token);
 int			ft_less(t_token *token);
 int			ft_prev_pipe(t_token *token);
+char		*ft_heredoc_var_replace(char *input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rinacio <rinacio@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 04:14:15 by rinacio           #+#    #+#             */
-/*   Updated: 2023/05/12 00:50:31 by rinacio          ###   ########.fr       */
+/*   Updated: 2023/05/12 01:09:06 by rinacio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_prev_pipe(t_token *token)
 	return (0);
 }
 
-char	*heredoc_var_replace(char *input)
+char	*ft_heredoc_var_replace(char *input)
 {
 	char	*tmp;
 	int		n;
